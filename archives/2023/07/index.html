@@ -152,6 +152,9 @@
                        title="RSS 订阅"></a>
                 
                 
+                    <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索">
+                    </a>
+                
             </nav>
             <div id="search-form-wrap">
                 <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sherry14love.github.io"></form>
@@ -192,7 +195,7 @@
     <div class="archive-article-title-wrap">
         
             
-                <a class="archive-article-title" href="/2023/07/14/hello-world/">Hello World</a>
+                <a class="archive-article-title" href="/2023/07/14/hello-world/">拾词-One</a>
             
         
     </div>
@@ -319,10 +322,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    76
+                    1.1k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    00:01
+                    00:03
                 </div>
             
             
@@ -439,6 +442,29 @@
 
 
 
+    
+<script src="https://unpkg.com/valine@1.5.1/dist/Valine.min.js"></script>
+
+    <script>
+        var GUEST_INFO = ['nick', 'mail', 'link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function (item) {
+            return GUEST_INFO.indexOf(item) > -1
+        });
+        var recordIP = JSON.parse('true');
+        var highlight = JSON.parse('true');
+
+        new Valine({
+            el: '.vcomment',
+            appId: "r1NWxt3wO7jwzIEJSTAFjHmi-gzGzoHsz",
+            appKey: "9UnudjtBsevfbCsoLHDyaHjc",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: 'zh-cn',
+            recordIP: recordIP,
+            highlight: highlight
+        });
+    </script>
 
 
 
@@ -448,6 +474,35 @@
 
 
 
+
+
+    
+<script src="https://unpkg.com/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"></script>
+
+    
+<script src="https://unpkg.com/instantsearch.js@4.56.1/dist/instantsearch.production.min.js"></script>
+
+    
+<script src="/js/search.js"></script>
+
+    <script>
+        var CONFIG = {
+            root: '/',
+            algolia: {
+                applicationID: "1QV32NILYD",
+                apiKey: "cee75daa9afbed899319c497c79beac8",
+                indexName: "One",
+                hits: {
+                    "per_page": parseInt("10")
+                },
+                labels: {
+                    "input_placeholder": "搜索.....",
+                    "hits_empty": "未发现与 「${query}」相关内容",
+                    "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+                }
+            }
+        };
+    </script>
 
 
     </div>

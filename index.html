@@ -151,6 +151,9 @@
                        title="RSS 订阅"></a>
                 
                 
+                    <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索">
+                    </a>
+                
             </nav>
             <div id="search-form-wrap">
                 <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://sherry14love.github.io"></form>
@@ -172,7 +175,7 @@
             
                 
                 
-                    <img data-src="https://d-sketon.top/img/backimg/bg1.jpg" data-sizes="auto" alt="Hello World" class="lazyload">
+                    <img data-src="/covers/EA141EDCBED74EFB8344540EF62BDEDA.jpg" data-sizes="auto" alt="拾词-One" class="lazyload">
                 
             
 
@@ -181,20 +184,22 @@
             <div class="post-meta">
                 <a><span class="icon-calendar"></span>2023-07-14</a>
                 
-                    <a><span class="icon-pencil"></span>76 字</a>
+                    <a><span class="icon-pencil"></span>1.1k 字</a>
                 
                 
-                    <a><span class="icon-clock"></span>1 分钟</a>
+                    <a><span class="icon-clock"></span>3 分钟</a>
                 
             </div>
-            <h2 class="post-title">Hello World</h2>
+            <h2 class="post-title">拾词-One</h2>
             <article class="post-article">
                 
-                    Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-hello hexoQuick StartCreate a new post1$ hexo new &amp;quot;My New Post&amp;quot;
-
-More info: Writing
-Run server1
+                    序这是 Sherry的博客的第一篇文章，仅仅是想到什么写什么，如有观感不佳，十分抱歉（小声）（bushi）
+桃花坞城市里的车水马龙，街道上的过往行人，不过是穿越时空的匆匆过客，无论多少次回眸，都只是一张张陌生的人脸，没有眷念与感情，最终化为梦的虚无，什么也没有。（前几天跑图书馆看哲学书看懵了，便随手拿了一本书，接着书中意象，得了这有些许意思的一句，倒是像文青）
+往日之词1轻云闭月醉星尘，流风回雪除旧痕。2023.1.12
+1碎布踏月梦留香，倾城一笑是姑娘。2023.5.11
+1细语低吟且为君，一阕轻言莫敢云。2023.5.11
+1夜语思梦至浮生，灯落三更入赤诚。2023.6.24
+123古人道
                 
             </article>
         </div>
@@ -316,10 +321,10 @@ Run server1
             
                 <div>
                     <span class="icon-brush"></span>
-                    76
+                    1.1k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    00:01
+                    00:03
                 </div>
             
             
@@ -436,6 +441,29 @@ Run server1
 
 
 
+    
+<script src="https://unpkg.com/valine@1.5.1/dist/Valine.min.js"></script>
+
+    <script>
+        var GUEST_INFO = ['nick', 'mail', 'link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function (item) {
+            return GUEST_INFO.indexOf(item) > -1
+        });
+        var recordIP = JSON.parse('true');
+        var highlight = JSON.parse('true');
+
+        new Valine({
+            el: '.vcomment',
+            appId: "r1NWxt3wO7jwzIEJSTAFjHmi-gzGzoHsz",
+            appKey: "9UnudjtBsevfbCsoLHDyaHjc",
+            placeholder: "Just go go",
+            pageSize: '10',
+            avatar: 'mp',
+            lang: 'zh-cn',
+            recordIP: recordIP,
+            highlight: highlight
+        });
+    </script>
 
 
 
@@ -445,6 +473,35 @@ Run server1
 
 
 
+
+
+    
+<script src="https://unpkg.com/algoliasearch@4.17.1/dist/algoliasearch-lite.umd.js"></script>
+
+    
+<script src="https://unpkg.com/instantsearch.js@4.56.1/dist/instantsearch.production.min.js"></script>
+
+    
+<script src="/js/search.js"></script>
+
+    <script>
+        var CONFIG = {
+            root: '/',
+            algolia: {
+                applicationID: "1QV32NILYD",
+                apiKey: "cee75daa9afbed899319c497c79beac8",
+                indexName: "One",
+                hits: {
+                    "per_page": parseInt("10")
+                },
+                labels: {
+                    "input_placeholder": "搜索.....",
+                    "hits_empty": "未发现与 「${query}」相关内容",
+                    "hits_stats": "找到${hits}条结果（用时 ${time} ms）"
+                }
+            }
+        };
+    </script>
 
 
     </div>

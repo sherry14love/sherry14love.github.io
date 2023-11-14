@@ -2,7 +2,8 @@
     <!DOCTYPE html>
     <html lang="zh-CN"
             
-          
+          data-theme="dark"
+            
     >
     <head>
     <meta charset="utf-8">
@@ -34,7 +35,7 @@
         <link rel="alternate" href="/atom.xml" title="Sherry-拉姆的小树屋" type="application/atom+xml">
     
     
-        <link rel="shortcut icon" href="/images/favicon.ico">
+        <link rel="shortcut icon" href="https://www.听闻.cn:5244/d/本地/阿里云盘资料备份共享/图片/图床/2023/11/14/655378942656c.ico">
     
     
         
@@ -50,6 +51,10 @@
 
     
     
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
+
     
     
     
@@ -104,7 +109,7 @@
         <div id="wrap">
             <header id="header">
     
-        <img data-src="/images/banner.jpg" data-sizes="auto" alt="" class="lazyload">
+        <img data-src="https://www.听闻.cn:5244/d/本地/阿里云盘资料备份共享/图片/图床/2023/11/14/655358e57287d.jpg" data-sizes="auto" alt="" class="lazyload">
     
     <div id="header-outer" class="outer">
         <div id="header-title" class="inner">
@@ -548,31 +553,28 @@
 
 
 
+
+
     
 <script src="https://unpkg.com/valine@1.5.1/dist/Valine.min.js"></script>
 
-    <script>
-        var GUEST_INFO = ['nick', 'mail', 'link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function (item) {
-            return GUEST_INFO.indexOf(item) > -1
-        });
-        var recordIP = JSON.parse('true');
-        var highlight = JSON.parse('true');
+    <script type="module">
+        import { init } from "https://unpkg.com/@waline/client@v2/dist/waline.mjs";
 
-        new Valine({
-            el: '.vcomment',
-            appId: "r1NWxt3wO7jwzIEJSTAFjHmi-gzGzoHsz",
-            appKey: "9UnudjtBsevfbCsoLHDyaHjc",
-            placeholder: "Just go go",
-            pageSize: '10',
-            avatar: 'mp',
-            lang: 'zh-cn',
-            recordIP: recordIP,
-            highlight: highlight
+        init({
+          el: '.wcomment',
+          serverURL: 'waline-server-pearl.vercel.app',
+          lang: 'zh-CN',
+          locale: {},
+          emoji: ["https://unpkg.com/@waline/emojis@1.0.1/weibo","https://unpkg.com/@waline/emojis@1.0.1/alus","https://unpkg.com/@waline/emojis@1.0.1/bilibili","https://unpkg.com/@waline/emojis@1.0.1/qq","https://unpkg.com/@waline/emojis@1.0.1/tieba","https://unpkg.com/@waline/emojis@1.0.1/tw-emoji"],
+          meta: ["nick","mail","link"],
+          requiredMeta: ["nick","mail"],
+          wordLimit: JSON.parse('0'),
+          comment: true,
+          pageSize: JSON.parse('10'),
+          dark: 'html[data-theme="dark"]'
         });
     </script>
-
-
 
 
 

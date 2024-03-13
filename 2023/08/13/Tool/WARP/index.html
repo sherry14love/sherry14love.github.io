@@ -60,10 +60,6 @@
     
     
     
-        
-<link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css">
-
-    
     
     
 <script src="https://unpkg.com/pace-js@1.2.4/pace.min.js"></script>
@@ -214,16 +210,30 @@
             
         </div>
         <footer class="article-footer">
-            <a data-url="https://sherry14love.github.io/2023/08/13/Tool/WARP/" data-id="cltpp6wup000cg8tx91048h3w" data-title="无限流量"
+            <a data-url="https://sherry14love.github.io/2023/08/13/Tool/WARP/" data-id="cltpvtf1w000c6ktx28fq0l7v" data-title="无限流量"
                class="article-share-link">分享</a>
             
             
+            
                 <a href="/2023/08/13/Tool/WARP/#comments" class="article-comment-link">
-                    <span class="post-comments-count waline-comment-count" data-path="/2023/08/13/Tool/WARP/"
+                    <span class="post-comments-count twikoo-comment-count" data-path="/2023/08/13/Tool/WARP/"
                           itemprop="commentCount"></span>
                     留言
                 </a>
-            
+                <script>
+                    twikoo.getCommentsCount({
+                          envId: 'https://6677677.xyz/',
+                          region: '',
+                          urls: [
+                            '/2023/08/13/Tool/WARP/'
+                          ],
+                          includeReply: false
+                      }).then(function (res) {
+                          document.querySelector('.twikoo-comment-count').innerText = res[0].count;
+                      }).catch(function (err) {
+                          console.error(err);
+                      });
+                </script>
             
             
     <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AD%94%E6%B3%95/" rel="tag">魔法</a></li></ul>
@@ -273,9 +283,9 @@
 
 
 
-     <div id="comments" class="wcomment"></div>
 
 
+     <div id="comments" class="tcomment"></div>
 
 
 
@@ -526,30 +536,20 @@
 
 
 
+
+
+
+
     
-<script src="https://unpkg.com/valine@1.5.1/dist/Valine.min.js"></script>
+<script src="https://unpkg.com/twikoo@1.6.16/dist/twikoo.all.min.js"></script>
 
-    <script type="module">
-        import { init } from "https://unpkg.com/@waline/client@v2/dist/waline.mjs";
-
-        init({
-          el: '.wcomment',
-          serverURL: 'waline-server-pearl.vercel.app',
-          lang: 'zh-CN',
-          locale: {},
-          emoji: ["https://unpkg.com/@waline/emojis@1.0.1/weibo","https://unpkg.com/@waline/emojis@1.0.1/alus","https://unpkg.com/@waline/emojis@1.0.1/bilibili","https://unpkg.com/@waline/emojis@1.0.1/qq","https://unpkg.com/@waline/emojis@1.0.1/tieba","https://unpkg.com/@waline/emojis@1.0.1/tw-emoji"],
-          meta: ["nick","mail","link"],
-          requiredMeta: ["nick","mail"],
-          wordLimit: JSON.parse('0'),
-          comment: true,
-          pageSize: JSON.parse('10'),
-          dark: 'html[data-theme="dark"]'
-        });
+    <script>
+        twikoo.init({
+            envId: 'https://6677677.xyz/',
+            el: '.tcomment',
+            region: '',
+        })
     </script>
-
-
-
-
 
 
 

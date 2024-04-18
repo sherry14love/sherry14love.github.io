@@ -3455,9 +3455,9 @@ pre .javascript .function {
   height: 100%;
 }
 .icon-github,
-.icon-google,
-.icon-facebook,
-.icon-twitter {
+.icon-email,
+.icon-qq,
+.icon-wechat {
   margin: 0 10px;
   position: relative;
   font-size: 25px;
@@ -3469,23 +3469,23 @@ pre .javascript .function {
 .icon-github:before {
   content: "\f09b";
 }
-.icon-google {
-  color: #4285f4;
+.icon-email {
+  color: #191717;
 }
-.icon-google:before {
-  content: "\f0d5";
+.icon-email:before {
+  content: "\f0e0";
 }
-.icon-facebook {
-  color: #1877f2;
+.icon-qq {
+  color: #191717;
 }
-.icon-facebook:before {
-  content: "\f09a";
+.icon-qq:before {
+  content: "\f1d6";
 }
-.icon-twitter {
-  color: #00aff0;
+.icon-wechat {
+  color: #008000;
 }
-.icon-twitter:before {
-  content: "\f099";
+.icon-wechat:before {
+  content: "\f1d7";
 }
 .sidebar-menu-icon,
 .sidebar-menu-link {

@@ -6,7 +6,7 @@
   <link href="https://sherry14love.github.io/atom.xml" rel="self"/>
   
   <link href="https://sherry14love.github.io/"/>
-  <updated>2024-03-31T15:29:43.347Z</updated>
+  <updated>2024-05-27T06:57:28.360Z</updated>
   <id>https://sherry14love.github.io/</id>
   
   <author>
@@ -15,6 +15,107 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GPT-4o免费分享</title>
+    <link href="https://sherry14love.github.io/2024/05/23/Tool/GPT4o/"/>
+    <id>https://sherry14love.github.io/2024/05/23/Tool/GPT4o/</id>
+    <published>2024-05-22T16:00:00.000Z</published>
+    <updated>2024-05-27T06:57:28.360Z</updated>
+    
+    <content type="html"><![CDATA[<p>  注意喔，红色字体可以直接转跳。如果想要免费的ChatGPT4，可以和拉姆联系，拉姆很乐意和小伙伴们进行讨论喔~</p><h2 id="国内可访问的mychandler"><a href="#国内可访问的mychandler" class="headerlink" title="国内可访问的mychandler"></a>国内可访问的mychandler</h2><p>  <a href="https://mychandler.bet/">mychandler</a>每月免费用户有40次，就是进入的时候很慢很慢，使用魔法也不快（他的CDN肯定有问题）</p><p>  <img src="https://www.qiuxs.cn/sharing-tools/img/read/ce0e2643bf94e02164fbba6c147cba4b" alt="mychandler"></p><h2 id="插件merlin（国内可用）"><a href="#插件merlin（国内可用）" class="headerlink" title="插件merlin（国内可用）"></a>插件merlin（国内可用）</h2><p>  <a href="https://www.getmerlin.in/zh-CN/chat">merlin</a>可以在edge中访问，也可以在chrome中，每日102电力，下面是详细价格表：</p><p>  <img src="https://www.qiuxs.cn/sharing-tools/img/read/bb2ff479dba6482d4066b238688fcbc3" alt="merlin"></p><h2 id="Coze"><a href="#Coze" class="headerlink" title="Coze"></a>Coze</h2><p>  <a href="https://www.coze.com/">Coze</a>简直是我们的神，每次都是免费的！无论是GPT4还是4o，而且到目前为止，拉姆都不知道他的限制次数或者tokens到底是多少，太伟大了</p><p>  <img src="https://www.qiuxs.cn/sharing-tools/img/read/10b01ddb99f4d6bdbd76fa8d0e35dbeb" alt="Coze"></p><h2 id="YOU"><a href="#YOU" class="headerlink" title="YOU"></a>YOU</h2><p>  <a href="https://you.com/">YOU</a>每日五次访问，使用体验是比较可以的。</p><p>  <img src="https://www.qiuxs.cn/sharing-tools/img/read/7482489d99d68c7a0aee66978735748d" alt="YOU"></p><h2 id="Poe"><a href="#Poe" class="headerlink" title="Poe"></a>Poe</h2><p>  拉姆想了想，貌似每次都是这几家可以免费使用，像是<a href="https://arena.lmsys.org/">lmsys.org</a>,<a href="https://poe.com/">poe</a>等，虽然有所限制，但是对于轻度用户还是比较友好的，OpenAI官网其实这次的4o模型也是免费的，但是，这需要等待。</p><blockquote><p>poe如果只用GPT4o可以每日免费10次哦</p></blockquote>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;  注意喔，红色字体可以直接转跳。如果想要免费的ChatGPT4，可以和拉姆联系，拉姆很乐意和小伙伴们进行讨论喔~&lt;/p&gt;
+&lt;h2 id=&quot;国内可访问的mychandler&quot;&gt;&lt;a href=&quot;#国内可访问的mychandler&quot; class=&quot;headerlink&quot; ti</summary>
+      
+    
+    
+    
+    <category term="Tool" scheme="https://sherry14love.github.io/categories/Tool/"/>
+    
+    
+    <category term="GPT" scheme="https://sherry14love.github.io/tags/GPT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>随机森林与决策树</title>
+    <link href="https://sherry14love.github.io/2024/05/20/learn/data2/"/>
+    <id>https://sherry14love.github.io/2024/05/20/learn/data2/</id>
+    <published>2024-05-19T16:00:00.000Z</published>
+    <updated>2024-05-27T06:57:39.088Z</updated>
+    
+    
+    
+    
+    <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
+    
+    
+    <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据分析与数据挖掘浅谈</title>
+    <link href="https://sherry14love.github.io/2024/05/19/learn/data1/"/>
+    <id>https://sherry14love.github.io/2024/05/19/learn/data1/</id>
+    <published>2024-05-18T16:00:00.000Z</published>
+    <updated>2024-05-27T06:55:30.336Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="技术栈和工具分析"><a href="#技术栈和工具分析" class="headerlink" title="技术栈和工具分析"></a>技术栈和工具分析</h2><p>  对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。</p><p>  虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。</p><p>  数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit-learn、TensorFlow、Keras等。</p><p>  其中拉姆目前所接触的只有python、r、spss、Scikit-learn、TensorFlow、Keras</p><p>  比较熟悉的只有python的一些库，Pandas、NumPy就不用说了，Scikit-learn、TensorFlow、Keras则是在机器学习和深度学习里的一点东西（其实也是python的库），大学里开设了相关的专业课与实验课。</p><p>  R语言则是最近学习了解的。</p><p>  SPSS、SAS、Weka是经典的数据挖掘和统计分析工具，使用起来并不是说很困难，可以尝试进行学习。</p><p>  其实除了上面的之外，还有<a href="https://www.spsspro.com/">spsspro</a>、<a href="https://www.finebi.com/">FineBI</a>等，都是要比那种纯粹的工具更好用的。</p><h2 id="数据分析与数据挖掘的联系"><a href="#数据分析与数据挖掘的联系" class="headerlink" title="数据分析与数据挖掘的联系"></a>数据分析与数据挖掘的联系</h2><p>  数据分析主要是指使用统计学、数学和计算机科学的方法来处理和分析数据，以提取有用的信息和洞察，帮助做出决策。</p><p>  数据分析可以包括描述性分析（如计算平均值、中位数、标准差等）、诊断性分析（分析数据变化的原因）、预测性分析（使用历史数据预测未来趋势）和规范性分析（基于预测结果提出行动建议）。</p><p>  数据分析通常侧重于已知模式的识别和验证，以及对数据的解释和报告。</p><p>  数据挖掘则是一种更深层次的数据分析方法，它侧重于从大量数据中发现未知的、潜在有用的模式和关系。</p><p>  数据挖掘通常涉及复杂的算法和技术，如聚类分析、关联规则学习、分类、回归和异常检测等。</p><p>  数据挖掘的目的是发现数据中的隐藏模式，这些模式可能对业务决策、市场分析、风险管理等领域有重要价值。</p><p>  两者都需要对数据进行预处理，比如清理缺失值、检查异常值、去除噪声什么的。</p><h2 id="比较常见的代码示例"><a href="#比较常见的代码示例" class="headerlink" title="比较常见的代码示例"></a>比较常见的代码示例</h2><p>  1.因为版本等各种因故，导致一些代码在运行的时候会有各种各样的警告，我们可以使用下面的代码进行<strong>忽略警告</strong>：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure><br>  2.绘图的时候因为字体因故加载不出来中文字体，可以用下面代码：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"><span class="comment"># 设置中文字体</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = <span class="string">&#x27;SimHei&#x27;</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = False</span><br></pre></td></tr></table></figure><br>  3.读取数据：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd <span class="comment">#数据导入 </span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure><br>  4.数据探索：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(data.head()) <span class="comment"># 查看数据前几行</span></span><br><span class="line"><span class="built_in">print</span>(data.describe())<span class="comment"># 查看数据统计摘要</span></span><br><span class="line"><span class="built_in">print</span>(data.columns)<span class="comment"># 查看数据列名</span></span><br></pre></td></tr></table></figure><br>  5.数据处理的时候难免会遇到缺失值，这个时候我们可以进行之间删除，或者用均值进行填充：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理缺失值</span></span><br><span class="line">data = data.dropna()  <span class="comment"># 删除含有缺失值的行</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">data = data.fillna(data.mean())  <span class="comment"># 用特定值（这里是均值）填充缺失值</span></span><br></pre></td></tr></table></figure><br>  6.在数据分析之中，绘图matplotlib是最为常见的一个库，可以绘画各种图像进行数据可视化帮助我们理解：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">data[<span class="string">&#x27;column_name&#x27;</span>].hist()  </span><br><span class="line">plt.show() <span class="comment"># 绘制直方图   </span></span><br><span class="line">plt.scatter(data[<span class="string">&#x27;column_name1&#x27;</span>], data[<span class="string">&#x27;column_name2&#x27;</span>])</span><br><span class="line">plt.show()<span class="comment"># 绘制散点图</span></span><br></pre></td></tr></table></figure><br>  7.我们在处理一些数据的时候需要进行<strong>标准化</strong>，为什么呢，因为可以帮助不同的特征具有相似的尺度，提高模型的收敛速度，使特征更符合标准的正态分布，提高模型的准确性和可解释性：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line">scaler = StandardScaler()  </span><br><span class="line">scaled_data = scaler.fit_transform(data)<span class="comment"># 数据标准化</span></span><br><span class="line"><span class="comment"># 将标准化后的数据转换为DataFrame</span></span><br><span class="line">scaled_data = pd.DataFrame(scaled_data, columns=data.columns)</span><br></pre></td></tr></table></figure><br>  8.进行<strong>特征选择</strong>在数据挖掘和机器学习中是非常必要的，它有助于去除无关或冗余的特征，提升模型性能，并减少计算成本，而且过多的特征可能导致维度灾难，增加模型复杂度，引发过拟合，并增加时间成本：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_selection import SelectKBest</span><br><span class="line">from sklearn.feature_selection import chi2</span><br><span class="line"><span class="comment"># 使用卡方检验选择特征选择排名前 10 的特征</span></span><br><span class="line">selector = SelectKBest(score_func=chi2, k=10)</span><br><span class="line">selected_features = selector.fit_transform(data, target)</span><br></pre></td></tr></table></figure><br>  9.<strong>建模</strong>更不用说了，是数据挖掘之中必不可少的组成部分：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"><span class="comment"># 线性回归模型</span></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line">predictions = model.predict(X_test)</span><br></pre></td></tr></table></figure><br>  10.建模之后，还需要对模型进行<strong>评估</strong>，这样可以帮助我们优化模型参数，提高模型性能，选择最佳模型等：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.metrics import mean_squared_error</span><br><span class="line"><span class="comment"># 计算均方误差</span></span><br><span class="line">mse = mean_squared_error(y_test, predictions)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE:&quot;</span>, mse))</span><br></pre></td></tr></table></figure><br>  11.<strong>聚类分析</strong>是一种无监督学习方法，通过聚类，我们可以发现数据中相似的群组或簇，更好地理解数据之间的关系，还可以检测出异常值、噪声、离群点等：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cluster import KMeans</span><br><span class="line"><span class="comment"># KMeans聚类</span></span><br><span class="line">kmeans = KMeans(n_clusters=3)</span><br><span class="line">kmeans.fit(data)</span><br><span class="line">labels = kmeans.labels_</span><br></pre></td></tr></table></figure><br>  12.分类任务常见的有<strong>随机森林</strong>、<strong>决策树</strong>、<strong>逻辑回归</strong>、<strong>朴素贝叶斯</strong>、<strong>支持向量机</strong>等，我们来简单介绍一下最常见的<strong>SVM</strong>，SVM适用于线性和非线性分类问题，还可以高效处理高维数据集，在多类别分类时具有独特的优势：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.svm import SVC</span><br><span class="line"><span class="comment"># 支持向量机分类</span></span><br><span class="line">svm = SVC()</span><br><span class="line">svm.fit(X_train, y_train)</span><br><span class="line">predictions = svm.predict(X_test)</span><br></pre></td></tr></table></figure><br>  这篇博文先写这些，后面有机会再拓展聊一下，下次见~</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;技术栈和工具分析&quot;&gt;&lt;a href=&quot;#技术栈和工具分析&quot; class=&quot;headerlink&quot; title=&quot;技术栈和工具分析&quot;&gt;&lt;/a&gt;技术栈和工具分析&lt;/h2&gt;&lt;p&gt;  对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。&lt;/p&gt;
+&lt;p&gt; </summary>
+      
+    
+    
+    
+    <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
+    
+    
+    <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker食用指南</title>
+    <link href="https://sherry14love.github.io/2024/05/18/learn/docker/"/>
+    <id>https://sherry14love.github.io/2024/05/18/learn/docker/</id>
+    <published>2024-05-17T16:00:00.000Z</published>
+    <updated>2024-05-23T03:20:20.365Z</updated>
+    
+    
+    
+    
+    <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
+    
+    
+    <category term="docker" scheme="https://sherry14love.github.io/tags/docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>linux食用指南</title>
+    <link href="https://sherry14love.github.io/2024/05/15/learn/linuxone/"/>
+    <id>https://sherry14love.github.io/2024/05/15/learn/linuxone/</id>
+    <published>2024-05-14T16:00:00.000Z</published>
+    <updated>2024-05-23T03:20:27.889Z</updated>
+    
+    
+    
+    
+    <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
+    
+    
+    <category term="linux" scheme="https://sherry14love.github.io/tags/linux/"/>
+    
+  </entry>
   
   <entry>
     <title>GPT4与实用AI分享</title>
@@ -97,7 +198,7 @@
     <link href="https://sherry14love.github.io/2023/12/22/Tool/GPT4.0/"/>
     <id>https://sherry14love.github.io/2023/12/22/Tool/GPT4.0/</id>
     <published>2023-12-21T16:00:00.000Z</published>
-    <updated>2023-12-26T13:20:50.082Z</updated>
+    <updated>2024-05-23T04:23:11.248Z</updated>
     
     <content type="html"><![CDATA[<h2 id="进入Coze"><a href="#进入Coze" class="headerlink" title="进入Coze"></a>进入Coze</h2><p>  我们需要进入官网，点击<a href="https://www.coze.com/">Coze官网接口</a>，进入注册页面。</p><p>  <img src="https://static.st.qiuxs.cn/image-bed/0/2023/12/22/03_01_09_da0c3f98bcded3d281867daf3adcbb15.jpg" alt="Coze1.jpg"></p><p>  这个时候有两种注册方法，一个是Google账号，还有一个是手机号，这个随便选择一个都可以的。</p><p>  <img src="https://static.st.qiuxs.cn/image-bed/0/2023/12/22/03_01_13_6a65a773ff9dc481ce00451580757148.jpg" alt="Coze2.jpg"></p><p>  进入之后的页面如下图所示：</p><p>  <img src="https://static.st.qiuxs.cn/image-bed/0/2023/12/22/03_01_17_1bd6c31ed3ff7cccfae1c6dc2fb44a84.jpg" alt="Coze3.jpg"></p><p>  点击Bots，进入之后Create Bots</p><p>  <img src="https://static.st.qiuxs.cn/image-bed/0/2023/12/22/03_01_21_9210b88bd19981b07521b1e2130b45a3.jpg" alt="Coze4.jpg"></p><p>  这里面可以选择GPT-4(8k)和GPT-3.5(16k)，以及调节设置，这个时候就可以使用GPT4.0了，不过如果习惯使用openAI官网的chatGPT，那么可能这个界面的操作不会那么舒服。</p><p>  <img src="https://static.st.qiuxs.cn/image-bed/0/2023/12/22/03_01_25_fa82f3ba0ee592d6a1266c0800808527.jpg" alt="Coze5.jpg"></p><p>  以上就是GPT-4的免费使用过程了，需要注意的是，应该是需要科学上网的，其他方面应该不会有问题，那么祝各位体验愉快。</p>]]></content>
     

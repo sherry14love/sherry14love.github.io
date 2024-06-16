@@ -23,12 +23,12 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="技术栈和工具分析  对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。   虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。   数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit">
+    <meta name="description" content="技术栈和工具分析 对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。 虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。 数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit-lea">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据分析与数据挖掘浅谈">
 <meta property="og:url" content="https://sherry14love.github.io/2024/05/19/learn/data1/index.html">
 <meta property="og:site_name" content="拉姆的小树屋">
-<meta property="og:description" content="技术栈和工具分析  对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。   虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。   数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit">
+<meta property="og:description" content="技术栈和工具分析 对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。 虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。 数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit-lea">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-18T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-31T07:36:07.162Z">
@@ -54,6 +54,10 @@
 <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
     
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/katex@0.16.7/dist/katex.min.css">
+
     
     
     
@@ -193,27 +197,54 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                <h2 id="技术栈和工具分析"><a href="#技术栈和工具分析" class="headerlink" title="技术栈和工具分析"></a>技术栈和工具分析</h2><p>  对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。</p>
-<p>  虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。</p>
-<p>  数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit-learn、TensorFlow、Keras等。</p>
-<p>  其中拉姆目前所接触的只有python、r、spss、Scikit-learn、TensorFlow、Keras</p>
-<p>  比较熟悉的只有python的一些库，Pandas、NumPy就不用说了，Scikit-learn、TensorFlow、Keras则是在机器学习和深度学习里的一点东西（其实也是python的库），大学里开设了相关的专业课与实验课。</p>
-<p>  R语言则是最近学习了解的。</p>
-<p>  SPSS、SAS、Weka是经典的数据挖掘和统计分析工具，使用起来并不是说很困难，可以尝试进行学习。</p>
-<p>  其实除了上面的之外，还有<a target="_blank" rel="noopener" href="https://www.spsspro.com/">spsspro</a>、<a target="_blank" rel="noopener" href="https://www.finebi.com/">FineBI</a>等，都是要比那种纯粹的工具更好用的。</p>
-<h2 id="数据分析与数据挖掘的联系"><a href="#数据分析与数据挖掘的联系" class="headerlink" title="数据分析与数据挖掘的联系"></a>数据分析与数据挖掘的联系</h2><p>  数据分析主要是指使用统计学、数学和计算机科学的方法来处理和分析数据，以提取有用的信息和洞察，帮助做出决策。</p>
-<p>  数据分析可以包括描述性分析（如计算平均值、中位数、标准差等）、诊断性分析（分析数据变化的原因）、预测性分析（使用历史数据预测未来趋势）和规范性分析（基于预测结果提出行动建议）。</p>
-<p>  数据分析通常侧重于已知模式的识别和验证，以及对数据的解释和报告。</p>
-<p>  数据挖掘则是一种更深层次的数据分析方法，它侧重于从大量数据中发现未知的、潜在有用的模式和关系。</p>
-<p>  数据挖掘通常涉及复杂的算法和技术，如聚类分析、关联规则学习、分类、回归和异常检测等。</p>
-<p>  数据挖掘的目的是发现数据中的隐藏模式，这些模式可能对业务决策、市场分析、风险管理等领域有重要价值。</p>
-<p>  两者都需要对数据进行预处理，比如清理缺失值、检查异常值、去除噪声什么的。</p>
-<h2 id="食用指南1"><a href="#食用指南1" class="headerlink" title="食用指南1"></a>食用指南1</h2><p>  1.因为版本等各种因故，导致一些代码在运行的时候会有各种各样的警告，我们可以使用下面的代码进行<strong>忽略警告</strong>：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure><br>  2.绘图的时候因为字体因故加载不出来中文字体，可以用下面代码：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"><span class="comment"># 设置中文字体</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = <span class="string">&#x27;SimHei&#x27;</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = False</span><br></pre></td></tr></table></figure><br>  3.读取数据：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd <span class="comment">#数据导入 </span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure><br>  4.数据探索：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(data.head()) <span class="comment"># 查看数据前几行</span></span><br><span class="line"><span class="built_in">print</span>(data.describe())<span class="comment"># 查看数据统计摘要</span></span><br><span class="line"><span class="built_in">print</span>(data.columns)<span class="comment"># 查看数据列名</span></span><br></pre></td></tr></table></figure><br>  5.数据处理的时候难免会遇到缺失值，这个时候我们可以进行之间删除，或者用均值进行填充：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理缺失值</span></span><br><span class="line">data = data.dropna()  <span class="comment"># 删除含有缺失值的行</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">data = data.fillna(data.mean())  <span class="comment"># 用特定值（这里是均值）填充缺失值</span></span><br></pre></td></tr></table></figure><br>  6.在数据分析之中，绘图matplotlib是最为常见的一个库，可以绘画各种图像进行数据可视化帮助我们理解：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">data[<span class="string">&#x27;column_name&#x27;</span>].hist()  </span><br><span class="line">plt.show() <span class="comment"># 绘制直方图   </span></span><br><span class="line">plt.scatter(data[<span class="string">&#x27;column_name1&#x27;</span>], data[<span class="string">&#x27;column_name2&#x27;</span>])</span><br><span class="line">plt.show()<span class="comment"># 绘制散点图</span></span><br></pre></td></tr></table></figure><br>  7.我们在处理一些数据的时候需要进行<strong>标准化</strong>，为什么呢，因为可以帮助不同的特征具有相似的尺度，提高模型的收敛速度，使特征更符合标准的正态分布，提高模型的准确性和可解释性：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line">scaler = StandardScaler()  </span><br><span class="line">scaled_data = scaler.fit_transform(data)<span class="comment"># 数据标准化</span></span><br><span class="line"><span class="comment"># 将标准化后的数据转换为DataFrame</span></span><br><span class="line">scaled_data = pd.DataFrame(scaled_data, columns=data.columns)</span><br></pre></td></tr></table></figure><br>  8.进行<strong>特征选择</strong>在数据挖掘和机器学习中是非常必要的，它有助于去除无关或冗余的特征，提升模型性能，并减少计算成本，而且过多的特征可能导致维度灾难，增加模型复杂度，引发过拟合，并增加时间成本：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_selection import SelectKBest</span><br><span class="line">from sklearn.feature_selection import chi2</span><br><span class="line"><span class="comment"># 使用卡方检验选择特征选择排名前 10 的特征</span></span><br><span class="line">selector = SelectKBest(score_func=chi2, k=10)</span><br><span class="line">selected_features = selector.fit_transform(data, target)</span><br></pre></td></tr></table></figure><br>  9.<strong>建模</strong>更不用说了，是数据挖掘之中必不可少的组成部分：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"><span class="comment"># 线性回归模型</span></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line">predictions = model.predict(X_test)</span><br></pre></td></tr></table></figure><br>  10.建模之后，还需要对模型进行<strong>评估</strong>，这样可以帮助我们优化模型参数，提高模型性能，选择最佳模型等：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.metrics import mean_squared_error</span><br><span class="line"><span class="comment"># 计算均方误差</span></span><br><span class="line">mse = mean_squared_error(y_test, predictions)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE:&quot;</span>, mse))</span><br></pre></td></tr></table></figure><br>  11.<strong>聚类分析</strong>是一种无监督学习方法，通过聚类，我们可以发现数据中相似的群组或簇，更好地理解数据之间的关系，还可以检测出异常值、噪声、离群点等：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cluster import KMeans</span><br><span class="line"><span class="comment"># KMeans聚类</span></span><br><span class="line">kmeans = KMeans(n_clusters=3)</span><br><span class="line">kmeans.fit(data)</span><br><span class="line">labels = kmeans.labels_</span><br></pre></td></tr></table></figure><br>  12.分类任务常见的有<strong>随机森林</strong>、<strong>决策树</strong>、<strong>逻辑回归</strong>、<strong>朴素贝叶斯</strong>、<strong>支持向量机</strong>等，我们来简单介绍一下最常见的<strong>SVM</strong>，SVM适用于线性和非线性分类问题，还可以高效处理高维数据集，在多类别分类时具有独特的优势：<br>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.svm import SVC</span><br><span class="line"><span class="comment"># 支持向量机分类</span></span><br><span class="line">svm = SVC()</span><br><span class="line">svm.fit(X_train, y_train)</span><br><span class="line">predictions = svm.predict(X_test)</span><br></pre></td></tr></table></figure><br>  这篇博文先写这些，后面有机会再拓展聊一下，下次见~</p>
+                <h2 id="技术栈和工具分析"><a class="markdownIt-Anchor" href="#技术栈和工具分析"></a> 技术栈和工具分析</h2>
+<p>对于python技术栈的我们来说，走数据分析与数据挖掘是一条不错的路。</p>
+<p>虽然也可以走前后端，但是目前的市场份额，Java和PHP仍然是主流，对于大厂而言，正在从Java到Golang过渡，所以python做前后端是有点尴尬的。</p>
+<p>数据分析与数据挖掘常见的技术栈除了python之外，还有R、SQL、Hadoop、Spark、Hive、SPSS、SAS、Weka、Scikit-learn、TensorFlow、Keras等。</p>
+<p>其中拉姆目前所接触的只有python、r、spss、Scikit-learn、TensorFlow、Keras</p>
+<p>比较熟悉的只有python的一些库，Pandas、NumPy就不用说了，Scikit-learn、TensorFlow、Keras则是在机器学习和深度学习里的一点东西（其实也是python的库），大学里开设了相关的专业课与实验课。</p>
+<p>R语言则是最近学习了解的。</p>
+<p>SPSS、SAS、Weka是经典的数据挖掘和统计分析工具，使用起来并不是说很困难，可以尝试进行学习。</p>
+<p>其实除了上面的之外，还有<a target="_blank" rel="noopener" href="https://www.spsspro.com/">spsspro</a>、<a target="_blank" rel="noopener" href="https://www.finebi.com/">FineBI</a>等，都是要比那种纯粹的工具更好用的。</p>
+<h2 id="数据分析与数据挖掘的联系"><a class="markdownIt-Anchor" href="#数据分析与数据挖掘的联系"></a> 数据分析与数据挖掘的联系</h2>
+<p>数据分析主要是指使用统计学、数学和计算机科学的方法来处理和分析数据，以提取有用的信息和洞察，帮助做出决策。</p>
+<p>数据分析可以包括描述性分析（如计算平均值、中位数、标准差等）、诊断性分析（分析数据变化的原因）、预测性分析（使用历史数据预测未来趋势）和规范性分析（基于预测结果提出行动建议）。</p>
+<p>数据分析通常侧重于已知模式的识别和验证，以及对数据的解释和报告。</p>
+<p>数据挖掘则是一种更深层次的数据分析方法，它侧重于从大量数据中发现未知的、潜在有用的模式和关系。</p>
+<p>数据挖掘通常涉及复杂的算法和技术，如聚类分析、关联规则学习、分类、回归和异常检测等。</p>
+<p>数据挖掘的目的是发现数据中的隐藏模式，这些模式可能对业务决策、市场分析、风险管理等领域有重要价值。</p>
+<p>两者都需要对数据进行预处理，比如清理缺失值、检查异常值、去除噪声什么的。</p>
+<h2 id="食用指南1"><a class="markdownIt-Anchor" href="#食用指南1"></a> 食用指南1</h2>
+<p>1.因为版本等各种因故，导致一些代码在运行的时候会有各种各样的警告，我们可以使用下面的代码进行<strong>忽略警告</strong>：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">&#x27;ignore&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>2.绘图的时候因为字体因故加载不出来中文字体，可以用下面代码：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line"><span class="comment"># 设置中文字体</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;font.sans-serif&#x27;</span>] = <span class="string">&#x27;SimHei&#x27;</span></span><br><span class="line">plt.rcParams[<span class="string">&#x27;axes.unicode_minus&#x27;</span>] = False</span><br></pre></td></tr></table></figure>
+<p>3.读取数据：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import pandas as pd <span class="comment">#数据导入 </span></span><br><span class="line">data = pd.read_csv(<span class="string">&#x27;data.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>4.数据探索：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(data.head()) <span class="comment"># 查看数据前几行</span></span><br><span class="line"><span class="built_in">print</span>(data.describe())<span class="comment"># 查看数据统计摘要</span></span><br><span class="line"><span class="built_in">print</span>(data.columns)<span class="comment"># 查看数据列名</span></span><br></pre></td></tr></table></figure>
+<p>5.数据处理的时候难免会遇到缺失值，这个时候我们可以进行之间删除，或者用均值进行填充：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 处理缺失值</span></span><br><span class="line">data = data.dropna()  <span class="comment"># 删除含有缺失值的行</span></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">data = data.fillna(data.mean())  <span class="comment"># 用特定值（这里是均值）填充缺失值</span></span><br></pre></td></tr></table></figure>
+<p>6.在数据分析之中，绘图matplotlib是最为常见的一个库，可以绘画各种图像进行数据可视化帮助我们理解：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import matplotlib.pyplot as plt</span><br><span class="line">data[<span class="string">&#x27;column_name&#x27;</span>].hist()  </span><br><span class="line">plt.show() <span class="comment"># 绘制直方图   </span></span><br><span class="line">plt.scatter(data[<span class="string">&#x27;column_name1&#x27;</span>], data[<span class="string">&#x27;column_name2&#x27;</span>])</span><br><span class="line">plt.show()<span class="comment"># 绘制散点图</span></span><br></pre></td></tr></table></figure>
+<p>7.我们在处理一些数据的时候需要进行<strong>标准化</strong>，为什么呢，因为可以帮助不同的特征具有相似的尺度，提高模型的收敛速度，使特征更符合标准的正态分布，提高模型的准确性和可解释性：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.preprocessing import StandardScaler</span><br><span class="line">scaler = StandardScaler()  </span><br><span class="line">scaled_data = scaler.fit_transform(data)<span class="comment"># 数据标准化</span></span><br><span class="line"><span class="comment"># 将标准化后的数据转换为DataFrame</span></span><br><span class="line">scaled_data = pd.DataFrame(scaled_data, columns=data.columns)</span><br></pre></td></tr></table></figure>
+<p>8.进行<strong>特征选择</strong>在数据挖掘和机器学习中是非常必要的，它有助于去除无关或冗余的特征，提升模型性能，并减少计算成本，而且过多的特征可能导致维度灾难，增加模型复杂度，引发过拟合，并增加时间成本：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.feature_selection import SelectKBest</span><br><span class="line">from sklearn.feature_selection import chi2</span><br><span class="line"><span class="comment"># 使用卡方检验选择特征选择排名前 10 的特征</span></span><br><span class="line">selector = SelectKBest(score_func=chi2, k=10)</span><br><span class="line">selected_features = selector.fit_transform(data, target)</span><br></pre></td></tr></table></figure>
+<p>9.<strong>建模</strong>更不用说了，是数据挖掘之中必不可少的组成部分：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.linear_model import LinearRegression</span><br><span class="line"><span class="comment"># 线性回归模型</span></span><br><span class="line">model = LinearRegression()</span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line">predictions = model.predict(X_test)</span><br></pre></td></tr></table></figure>
+<p>10.建模之后，还需要对模型进行<strong>评估</strong>，这样可以帮助我们优化模型参数，提高模型性能，选择最佳模型等：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.metrics import mean_squared_error</span><br><span class="line"><span class="comment"># 计算均方误差</span></span><br><span class="line">mse = mean_squared_error(y_test, predictions)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;MSE:&quot;</span>, mse))</span><br></pre></td></tr></table></figure>
+<p>11.<strong>聚类分析</strong>是一种无监督学习方法，通过聚类，我们可以发现数据中相似的群组或簇，更好地理解数据之间的关系，还可以检测出异常值、噪声、离群点等：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.cluster import KMeans</span><br><span class="line"><span class="comment"># KMeans聚类</span></span><br><span class="line">kmeans = KMeans(n_clusters=3)</span><br><span class="line">kmeans.fit(data)</span><br><span class="line">labels = kmeans.labels_</span><br></pre></td></tr></table></figure>
+<p>12.分类任务常见的有<strong>随机森林</strong>、<strong>决策树</strong>、<strong>逻辑回归</strong>、<strong>朴素贝叶斯</strong>、<strong>支持向量机</strong>等，我们来简单介绍一下最常见的<strong>SVM</strong>，SVM适用于线性和非线性分类问题，还可以高效处理高维数据集，在多类别分类时具有独特的优势：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.svm import SVC</span><br><span class="line"><span class="comment"># 支持向量机分类</span></span><br><span class="line">svm = SVC()</span><br><span class="line">svm.fit(X_train, y_train)</span><br><span class="line">predictions = svm.predict(X_test)</span><br></pre></td></tr></table></figure>
+<p>这篇博文先写这些，后面有机会再拓展聊一下，下次见~</p>
 
             
         </div>
         <footer class="article-footer">
-            <a data-url="https://sherry14love.github.io/2024/05/19/learn/data1/" data-id="clxdchlc5000trotxbn6c9zwq" data-title="数据分析与数据挖掘浅谈"
+            <a data-url="https://sherry14love.github.io/2024/05/19/learn/data1/" data-id="clxhlv4w5000wzotx0up5560j" data-title="数据分析与数据挖掘浅谈"
                class="article-share-link">分享</a>
             
             
@@ -307,7 +338,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">15</div>
+                <div class="sidebar-state-number">16</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -380,7 +411,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/GPT/" style="font-size: 20px;">GPT</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/%E6%8B%BE%E8%AF%8D/" style="font-size: 16.67px;">拾词</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 13.33px;">数据分析</a> <a href="/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 13.33px;">日记</a> <a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 13.33px;">魔法</a>
+            <a href="/tags/GPT/" style="font-size: 20px;">GPT</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/%E6%8B%BE%E8%AF%8D/" style="font-size: 16.67px;">拾词</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 16.67px;">数据分析</a> <a href="/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 13.33px;">日记</a> <a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 13.33px;">魔法</a>
         </div>
     </div>
 
@@ -420,10 +451,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    13.8k
+                    15.7k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    00:46
+                    00:53
                 </div>
             
             
@@ -455,7 +486,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">15</div>
+                <div class="sidebar-state-number">16</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -536,6 +567,15 @@
 
 
 
+
+    
+<script src="https://unpkg.com/mermaid@9.4.3/dist/mermaid.min.js"></script>
+
+    <script>
+        if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+        }
+    </script>
 
 
 

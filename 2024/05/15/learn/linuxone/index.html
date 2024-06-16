@@ -23,12 +23,12 @@
     
 <link rel="stylesheet" href="/css/loader.css">
 
-    <meta name="description" content="Linux 基本概念1. 什么是LinuxLinux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。 2. 文件系统结构Linux使用一种树状的文件系统结构，所有内容都从根目录（&#x2F;）开始。常见的目录有：  &#x2F;bin：基本命令二进制文件 &#x2F;etc">
+    <meta name="description" content="Linux 基本概念  1. 什么是Linux Linux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。  2. 文件系统结构 Linux使用一种树状的文件系统结构，所有内容都从根目录（&#x2F;）开始。常见的目录有：  &#x2F;bin：基本命令二进制文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux食用指南">
 <meta property="og:url" content="https://sherry14love.github.io/2024/05/15/learn/linuxone/index.html">
 <meta property="og:site_name" content="拉姆的小树屋">
-<meta property="og:description" content="Linux 基本概念1. 什么是LinuxLinux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。 2. 文件系统结构Linux使用一种树状的文件系统结构，所有内容都从根目录（&#x2F;）开始。常见的目录有：  &#x2F;bin：基本命令二进制文件 &#x2F;etc">
+<meta property="og:description" content="Linux 基本概念  1. 什么是Linux Linux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。  2. 文件系统结构 Linux使用一种树状的文件系统结构，所有内容都从根目录（&#x2F;）开始。常见的目录有：  &#x2F;bin：基本命令二进制文">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-14T16:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-31T08:29:02.252Z">
@@ -54,6 +54,10 @@
 <link rel="stylesheet" href="https://unpkg.com/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 
     
+    
+        
+<link rel="stylesheet" href="https://unpkg.com/katex@0.16.7/dist/katex.min.css">
+
     
     
     
@@ -193,8 +197,11 @@
 
         <div class="e-content article-entry" itemprop="articleBody">
             
-                <h2 id="Linux-基本概念"><a href="#Linux-基本概念" class="headerlink" title="Linux 基本概念"></a>Linux 基本概念</h2><h3 id="1-什么是Linux"><a href="#1-什么是Linux" class="headerlink" title="1. 什么是Linux"></a>1. 什么是Linux</h3><p>Linux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。</p>
-<h3 id="2-文件系统结构"><a href="#2-文件系统结构" class="headerlink" title="2. 文件系统结构"></a>2. 文件系统结构</h3><p>Linux使用一种树状的文件系统结构，所有内容都从根目录（<code>/</code>）开始。常见的目录有：</p>
+                <h2 id="linux-基本概念"><a class="markdownIt-Anchor" href="#linux-基本概念"></a> Linux 基本概念</h2>
+<h3 id="1-什么是linux"><a class="markdownIt-Anchor" href="#1-什么是linux"></a> 1. 什么是Linux</h3>
+<p>Linux是一个开源的、类Unix操作系统，由Linus Torvalds于1991年首次发布。它有许多不同的发行版（例如Ubuntu、Red Hat、Fedora、Debian等），用于桌面、服务器和嵌入式系统。</p>
+<h3 id="2-文件系统结构"><a class="markdownIt-Anchor" href="#2-文件系统结构"></a> 2. 文件系统结构</h3>
+<p>Linux使用一种树状的文件系统结构，所有内容都从根目录（<code>/</code>）开始。常见的目录有：</p>
 <ul>
 <li><code>/bin</code>：基本命令二进制文件</li>
 <li><code>/etc</code>：配置文件</li>
@@ -202,107 +209,128 @@
 <li><code>/var</code>：可变文件，如日志</li>
 <li><code>/usr</code>：用户程序和数据</li>
 </ul>
-<h3 id="3-权限和所有权"><a href="#3-权限和所有权" class="headerlink" title="3. 权限和所有权"></a>3. 权限和所有权</h3><p>每个文件和目录都有权限和所有权。权限分为三类：所有者、所属组和其他用户。每类权限分为读（r）、写（w）和执行（x）。</p>
-<h3 id="4-包管理"><a href="#4-包管理" class="headerlink" title="4. 包管理"></a>4. 包管理</h3><p>Ubuntu使用APT（Advanced Package Tool）来管理软件包。</p>
-<h2 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h2><h3 id="1-显示当前路径"><a href="#1-显示当前路径" class="headerlink" title="1. 显示当前路径"></a>1. 显示当前路径</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-权限和所有权"><a class="markdownIt-Anchor" href="#3-权限和所有权"></a> 3. 权限和所有权</h3>
+<p>每个文件和目录都有权限和所有权。权限分为三类：所有者、所属组和其他用户。每类权限分为读（r）、写（w）和执行（x）。</p>
+<h3 id="4-包管理"><a class="markdownIt-Anchor" href="#4-包管理"></a> 4. 包管理</h3>
+<p>Ubuntu使用APT（Advanced Package Tool）来管理软件包。</p>
+<h2 id="基本命令"><a class="markdownIt-Anchor" href="#基本命令"></a> 基本命令</h2>
+<h3 id="1-显示当前路径"><a class="markdownIt-Anchor" href="#1-显示当前路径"></a> 1. 显示当前路径</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
 <p>显示当前工作目录的路径。</p>
-<h3 id="2-列出目录内容"><a href="#2-列出目录内容" class="headerlink" title="2. 列出目录内容"></a>2. 列出目录内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-列出目录内容"><a class="markdownIt-Anchor" href="#2-列出目录内容"></a> 2. 列出目录内容</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br></pre></td></tr></table></figure>
 <p>常用选项：</p>
 <ul>
 <li><code>ls -l</code>：详细列表格式</li>
 <li><code>ls -a</code>：包括隐藏文件</li>
 </ul>
-<h3 id="3-更改目录"><a href="#3-更改目录" class="headerlink" title="3. 更改目录"></a>3. 更改目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/directory</span><br></pre></td></tr></table></figure>
+<h3 id="3-更改目录"><a class="markdownIt-Anchor" href="#3-更改目录"></a> 3. 更改目录</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /path/to/directory</span><br></pre></td></tr></table></figure>
 <p>进入指定目录。</p>
-<h3 id="4-创建目录"><a href="#4-创建目录" class="headerlink" title="4. 创建目录"></a>4. 创建目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> new_directory</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-删除文件或目录"><a href="#5-删除文件或目录" class="headerlink" title="5. 删除文件或目录"></a>5. 删除文件或目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> file_name</span><br><span class="line"><span class="built_in">rm</span> -r directory_name</span><br></pre></td></tr></table></figure>
+<h3 id="4-创建目录"><a class="markdownIt-Anchor" href="#4-创建目录"></a> 4. 创建目录</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> new_directory</span><br></pre></td></tr></table></figure>
+<h3 id="5-删除文件或目录"><a class="markdownIt-Anchor" href="#5-删除文件或目录"></a> 5. 删除文件或目录</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> file_name</span><br><span class="line"><span class="built_in">rm</span> -r directory_name</span><br></pre></td></tr></table></figure>
 <p><code>-r</code> 递归删除目录及其内容。</p>
-<h3 id="6-复制文件或目录"><a href="#6-复制文件或目录" class="headerlink" title="6. 复制文件或目录"></a>6. 复制文件或目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> source_file target_file</span><br><span class="line"><span class="built_in">cp</span> -r source_directory target_directory</span><br></pre></td></tr></table></figure>
-
-<h3 id="7-移动文件或重命名"><a href="#7-移动文件或重命名" class="headerlink" title="7. 移动文件或重命名"></a>7. 移动文件或重命名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> old_name new_name</span><br><span class="line"><span class="built_in">mv</span> file_name /path/to/new_directory</span><br></pre></td></tr></table></figure>
-
-<h3 id="8-查看文件内容"><a href="#8-查看文件内容" class="headerlink" title="8. 查看文件内容"></a>8. 查看文件内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> file_name</span><br><span class="line">less file_name</span><br></pre></td></tr></table></figure>
+<h3 id="6-复制文件或目录"><a class="markdownIt-Anchor" href="#6-复制文件或目录"></a> 6. 复制文件或目录</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> source_file target_file</span><br><span class="line"><span class="built_in">cp</span> -r source_directory target_directory</span><br></pre></td></tr></table></figure>
+<h3 id="7-移动文件或重命名"><a class="markdownIt-Anchor" href="#7-移动文件或重命名"></a> 7. 移动文件或重命名</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> old_name new_name</span><br><span class="line"><span class="built_in">mv</span> file_name /path/to/new_directory</span><br></pre></td></tr></table></figure>
+<h3 id="8-查看文件内容"><a class="markdownIt-Anchor" href="#8-查看文件内容"></a> 8. 查看文件内容</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> file_name</span><br><span class="line">less file_name</span><br></pre></td></tr></table></figure>
 <p><code>less</code> 分页查看长文件。</p>
-<h3 id="9-编辑文件"><a href="#9-编辑文件" class="headerlink" title="9. 编辑文件"></a>9. 编辑文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano file_name</span><br><span class="line">vim file_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="10-查找文件"><a href="#10-查找文件" class="headerlink" title="10. 查找文件"></a>10. 查找文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/search -name <span class="string">&quot;file_name&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="11-搜索文件内容"><a href="#11-搜索文件内容" class="headerlink" title="11. 搜索文件内容"></a>11. 搜索文件内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;search_term&quot;</span> file_name</span><br></pre></td></tr></table></figure>
-
-<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h3 id="1-添加用户"><a href="#1-添加用户" class="headerlink" title="1. 添加用户"></a>1. 添加用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser new_user</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-删除用户"><a href="#2-删除用户" class="headerlink" title="2. 删除用户"></a>2. 删除用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo deluser user_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-修改用户密码"><a href="#3-修改用户密码" class="headerlink" title="3. 修改用户密码"></a>3. 修改用户密码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd user_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-切换用户"><a href="#4-切换用户" class="headerlink" title="4. 切换用户"></a>4. 切换用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - user_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-查看当前用户"><a href="#5-查看当前用户" class="headerlink" title="5. 查看当前用户"></a>5. 查看当前用户</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="软件管理"><a href="#软件管理" class="headerlink" title="软件管理"></a>软件管理</h2><h3 id="1-更新软件包列表"><a href="#1-更新软件包列表" class="headerlink" title="1. 更新软件包列表"></a>1. 更新软件包列表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-升级已安装的软件包"><a href="#2-升级已安装的软件包" class="headerlink" title="2. 升级已安装的软件包"></a>2. 升级已安装的软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-安装新软件包"><a href="#3-安装新软件包" class="headerlink" title="3. 安装新软件包"></a>3. 安装新软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install package_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-删除软件包"><a href="#4-删除软件包" class="headerlink" title="4. 删除软件包"></a>4. 删除软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove package_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-清理不再需要的软件包"><a href="#5-清理不再需要的软件包" class="headerlink" title="5. 清理不再需要的软件包"></a>5. 清理不再需要的软件包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt autoremove</span><br></pre></td></tr></table></figure>
-
-<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><h3 id="1-查看网络接口信息"><a href="#1-查看网络接口信息" class="headerlink" title="1. 查看网络接口信息"></a>1. 查看网络接口信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-查看网络连接状态"><a href="#2-查看网络连接状态" class="headerlink" title="2. 查看网络连接状态"></a>2. 查看网络连接状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tuln</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-配置静态IP地址"><a href="#3-配置静态IP地址" class="headerlink" title="3. 配置静态IP地址"></a>3. 配置静态IP地址</h3><p>编辑 <code>/etc/netplan/*.yaml</code> 文件：</p>
+<h3 id="9-编辑文件"><a class="markdownIt-Anchor" href="#9-编辑文件"></a> 9. 编辑文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nano file_name</span><br><span class="line">vim file_name</span><br></pre></td></tr></table></figure>
+<h3 id="10-查找文件"><a class="markdownIt-Anchor" href="#10-查找文件"></a> 10. 查找文件</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /path/to/search -name <span class="string">&quot;file_name&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="11-搜索文件内容"><a class="markdownIt-Anchor" href="#11-搜索文件内容"></a> 11. 搜索文件内容</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;search_term&quot;</span> file_name</span><br></pre></td></tr></table></figure>
+<h2 id="用户管理"><a class="markdownIt-Anchor" href="#用户管理"></a> 用户管理</h2>
+<h3 id="1-添加用户"><a class="markdownIt-Anchor" href="#1-添加用户"></a> 1. 添加用户</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo adduser new_user</span><br></pre></td></tr></table></figure>
+<h3 id="2-删除用户"><a class="markdownIt-Anchor" href="#2-删除用户"></a> 2. 删除用户</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo deluser user_name</span><br></pre></td></tr></table></figure>
+<h3 id="3-修改用户密码"><a class="markdownIt-Anchor" href="#3-修改用户密码"></a> 3. 修改用户密码</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo passwd user_name</span><br></pre></td></tr></table></figure>
+<h3 id="4-切换用户"><a class="markdownIt-Anchor" href="#4-切换用户"></a> 4. 切换用户</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su - user_name</span><br></pre></td></tr></table></figure>
+<h3 id="5-查看当前用户"><a class="markdownIt-Anchor" href="#5-查看当前用户"></a> 5. 查看当前用户</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+<h2 id="软件管理"><a class="markdownIt-Anchor" href="#软件管理"></a> 软件管理</h2>
+<h3 id="1-更新软件包列表"><a class="markdownIt-Anchor" href="#1-更新软件包列表"></a> 1. 更新软件包列表</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br></pre></td></tr></table></figure>
+<h3 id="2-升级已安装的软件包"><a class="markdownIt-Anchor" href="#2-升级已安装的软件包"></a> 2. 升级已安装的软件包</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt upgrade</span><br></pre></td></tr></table></figure>
+<h3 id="3-安装新软件包"><a class="markdownIt-Anchor" href="#3-安装新软件包"></a> 3. 安装新软件包</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install package_name</span><br></pre></td></tr></table></figure>
+<h3 id="4-删除软件包"><a class="markdownIt-Anchor" href="#4-删除软件包"></a> 4. 删除软件包</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt remove package_name</span><br></pre></td></tr></table></figure>
+<h3 id="5-清理不再需要的软件包"><a class="markdownIt-Anchor" href="#5-清理不再需要的软件包"></a> 5. 清理不再需要的软件包</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt autoremove</span><br></pre></td></tr></table></figure>
+<h2 id="网络配置"><a class="markdownIt-Anchor" href="#网络配置"></a> 网络配置</h2>
+<h3 id="1-查看网络接口信息"><a class="markdownIt-Anchor" href="#1-查看网络接口信息"></a> 1. 查看网络接口信息</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看网络连接状态"><a class="markdownIt-Anchor" href="#2-查看网络连接状态"></a> 2. 查看网络连接状态</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tuln</span><br></pre></td></tr></table></figure>
+<h3 id="3-配置静态ip地址"><a class="markdownIt-Anchor" href="#3-配置静态ip地址"></a> 3. 配置静态IP地址</h3>
+<p>编辑 <code>/etc/netplan/*.yaml</code> 文件：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">addresses:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">/24</span></span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> [<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>, <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>]</span><br></pre></td></tr></table></figure>
 <p>然后应用配置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br></pre></td></tr></table></figure>
-
-<h2 id="系统管理"><a href="#系统管理" class="headerlink" title="系统管理"></a>系统管理</h2><h3 id="1-查看系统信息"><a href="#1-查看系统信息" class="headerlink" title="1. 查看系统信息"></a>1. 查看系统信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-查看磁盘使用情况"><a href="#2-查看磁盘使用情况" class="headerlink" title="2. 查看磁盘使用情况"></a>2. 查看磁盘使用情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-查看内存使用情况"><a href="#3-查看内存使用情况" class="headerlink" title="3. 查看内存使用情况"></a>3. 查看内存使用情况</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -h</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-查看系统日志"><a href="#4-查看系统日志" class="headerlink" title="4. 查看系统日志"></a>4. 查看系统日志</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo journalctl -xe</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-管理服务"><a href="#5-管理服务" class="headerlink" title="5. 管理服务"></a>5. 管理服务</h3><ul>
-<li>启动服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start service_name</span><br></pre></td></tr></table></figure></li>
-<li>停止服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop service_name</span><br></pre></td></tr></table></figure></li>
-<li>重启服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart service_name</span><br></pre></td></tr></table></figure></li>
-<li>查看服务状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status service_name</span><br></pre></td></tr></table></figure></li>
+<h2 id="系统管理"><a class="markdownIt-Anchor" href="#系统管理"></a> 系统管理</h2>
+<h3 id="1-查看系统信息"><a class="markdownIt-Anchor" href="#1-查看系统信息"></a> 1. 查看系统信息</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -a</span><br></pre></td></tr></table></figure>
+<h3 id="2-查看磁盘使用情况"><a class="markdownIt-Anchor" href="#2-查看磁盘使用情况"></a> 2. 查看磁盘使用情况</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h</span><br></pre></td></tr></table></figure>
+<h3 id="3-查看内存使用情况"><a class="markdownIt-Anchor" href="#3-查看内存使用情况"></a> 3. 查看内存使用情况</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -h</span><br></pre></td></tr></table></figure>
+<h3 id="4-查看系统日志"><a class="markdownIt-Anchor" href="#4-查看系统日志"></a> 4. 查看系统日志</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo journalctl -xe</span><br></pre></td></tr></table></figure>
+<h3 id="5-管理服务"><a class="markdownIt-Anchor" href="#5-管理服务"></a> 5. 管理服务</h3>
+<ul>
+<li>启动服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start service_name</span><br></pre></td></tr></table></figure>
+</li>
+<li>停止服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl stop service_name</span><br></pre></td></tr></table></figure>
+</li>
+<li>重启服务：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart service_name</span><br></pre></td></tr></table></figure>
+</li>
+<li>查看服务状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status service_name</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h2 id="进阶操作"><a href="#进阶操作" class="headerlink" title="进阶操作"></a>进阶操作</h2><h3 id="1-使用SSH连接远程服务器"><a href="#1-使用SSH连接远程服务器" class="headerlink" title="1. 使用SSH连接远程服务器"></a>1. 使用SSH连接远程服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@remote_server</span><br></pre></td></tr></table></figure>
+<h2 id="进阶操作"><a class="markdownIt-Anchor" href="#进阶操作"></a> 进阶操作</h2>
+<h3 id="1-使用ssh连接远程服务器"><a class="markdownIt-Anchor" href="#1-使用ssh连接远程服务器"></a> 1. 使用SSH连接远程服务器</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user@remote_server</span><br></pre></td></tr></table></figure>
 <p>通过SSH安全地连接远程服务器。</p>
-<h3 id="2-设置防火墙"><a href="#2-设置防火墙" class="headerlink" title="2. 设置防火墙"></a>2. 设置防火墙</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line">sudo ufw allow 80/tcp</span><br><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure>
+<h3 id="2-设置防火墙"><a class="markdownIt-Anchor" href="#2-设置防火墙"></a> 2. 设置防火墙</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line">sudo ufw allow 80/tcp</span><br><span class="line">sudo ufw status</span><br></pre></td></tr></table></figure>
 <p><code>ufw</code>（Uncomplicated Firewall）是一个简化的防火墙管理工具。</p>
-<h3 id="3-配置自动更新"><a href="#3-配置自动更新" class="headerlink" title="3. 配置自动更新"></a>3. 配置自动更新</h3><p>编辑 <code>/etc/apt/apt.conf.d/50unattended-upgrades</code> 文件，启用自动更新。</p>
-<h3 id="4-设置定时任务（Cron-Jobs）"><a href="#4-设置定时任务（Cron-Jobs）" class="headerlink" title="4. 设置定时任务（Cron Jobs）"></a>4. 设置定时任务（Cron Jobs）</h3><p>编辑用户的crontab：</p>
+<h3 id="3-配置自动更新"><a class="markdownIt-Anchor" href="#3-配置自动更新"></a> 3. 配置自动更新</h3>
+<p>编辑 <code>/etc/apt/apt.conf.d/50unattended-upgrades</code> 文件，启用自动更新。</p>
+<h3 id="4-设置定时任务cron-jobs"><a class="markdownIt-Anchor" href="#4-设置定时任务cron-jobs"></a> 4. 设置定时任务（Cron Jobs）</h3>
+<p>编辑用户的crontab：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
 <p>添加定时任务。例如，每天凌晨2点备份：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2 * * * /path/to/backup_script.sh</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-安装和使用Docker"><a href="#5-安装和使用Docker" class="headerlink" title="5. 安装和使用Docker"></a>5. 安装和使用Docker</h3><p>安装Docker：</p>
+<h3 id="5-安装和使用docker"><a class="markdownIt-Anchor" href="#5-安装和使用docker"></a> 5. 安装和使用Docker</h3>
+<p>安装Docker：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install docker.io</span><br></pre></td></tr></table></figure>
 <p>启动Docker服务：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start docker</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br></pre></td></tr></table></figure>
 <p>运行一个Docker容器：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
-
-<h3 id="6-使用Git进行版本控制"><a href="#6-使用Git进行版本控制" class="headerlink" title="6. 使用Git进行版本控制"></a>6. 使用Git进行版本控制</h3><p>安装Git：</p>
+<h3 id="6-使用git进行版本控制"><a class="markdownIt-Anchor" href="#6-使用git进行版本控制"></a> 6. 使用Git进行版本控制</h3>
+<p>安装Git：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git</span><br></pre></td></tr></table></figure>
 <p>配置Git：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;Your Name&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;your_email@example.com&quot;</span></span><br></pre></td></tr></table></figure>
 <p>克隆一个Git仓库：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/example/repo.git</span><br></pre></td></tr></table></figure>
-
 <p>以上内容涵盖了从基本概念到常用命令和进阶操作，希望能帮助初学者全面了解和使用Ubuntu Linux操作系统。</p>
 
             
         </div>
         <footer class="article-footer">
-            <a data-url="https://sherry14love.github.io/2024/05/15/learn/linuxone/" data-id="clxdchlc70011rotxchg3dkfs" data-title="linux食用指南"
+            <a data-url="https://sherry14love.github.io/2024/05/15/learn/linuxone/" data-id="clxhlv4w9001azotxcyu3h82o" data-title="linux食用指南"
                class="article-share-link">分享</a>
             
             
@@ -396,7 +424,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">15</div>
+                <div class="sidebar-state-number">16</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -469,7 +497,7 @@
     <div class="widget-wrap wow fadeInRight">
         <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
-            <a href="/tags/GPT/" style="font-size: 20px;">GPT</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/%E6%8B%BE%E8%AF%8D/" style="font-size: 16.67px;">拾词</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 13.33px;">数据分析</a> <a href="/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 13.33px;">日记</a> <a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 13.33px;">魔法</a>
+            <a href="/tags/GPT/" style="font-size: 20px;">GPT</a> <a href="/tags/docker/" style="font-size: 10px;">docker</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/%E6%8B%BE%E8%AF%8D/" style="font-size: 16.67px;">拾词</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" style="font-size: 16.67px;">数据分析</a> <a href="/tags/%E6%97%A5%E8%AE%B0/" style="font-size: 13.33px;">日记</a> <a href="/tags/%E9%AD%94%E6%B3%95/" style="font-size: 13.33px;">魔法</a>
         </div>
     </div>
 
@@ -509,10 +537,10 @@
             
                 <div>
                     <span class="icon-brush"></span>
-                    13.8k
+                    15.7k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    00:46
+                    00:53
                 </div>
             
             
@@ -544,7 +572,7 @@
         <div class="sidebar-state">
             <div class="sidebar-state-article">
                 <div>文章</div>
-                <div class="sidebar-state-number">15</div>
+                <div class="sidebar-state-number">16</div>
             </div>
             <div class="sidebar-state-category">
                 <div>分类</div>
@@ -625,6 +653,15 @@
 
 
 
+
+    
+<script src="https://unpkg.com/mermaid@9.4.3/dist/mermaid.min.js"></script>
+
+    <script>
+        if (window.mermaid) {
+            mermaid.initialize({theme: 'forest'});
+        }
+    </script>
 
 
 

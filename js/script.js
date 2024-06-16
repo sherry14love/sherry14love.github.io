@@ -1,121 +1,206 @@
-(function () {
-  // A Simple EventListener
-  [Element, Document, Window].forEach((target) => {
-    target.prototype._addEventListener = target.prototype.addEventListener;
-    target.prototype._removeEventListener =
-      target.prototype.removeEventListener;
-    target.prototype.addEventListener = target.prototype.on = function (
-      name,
-      listener,
-      options
-    ) {
-      if (!this.__listeners__) {
-        this.__listeners__ = {};
-      }
-      if (!this.__listeners__[name]) {
-        this.__listeners__[name] = [];
-      }
-      // Check if the listener is already added
-      for (let [l, o] of this.__listeners__[name]) {
-        if (l === listener && JSON.stringify(o) === JSON.stringify(options)) {
-          return this; // Listener is already added, do nothing
-        }
-      }
-      this.__listeners__[name].push([listener, options]);
-      this._addEventListener(name, listener, options);
-      return this;
-    };
-    target.prototype.removeEventListener = target.prototype.off = function (
-      name,
-      listener,
-      options
-    ) {
-      if (!this.__listeners__ || !this.__listeners__[name]) {
-        return this;
-      }
-      if (!listener) {
-        // remove all event listeners
-        this.__listeners__[name].forEach(([listener, options]) => {
-          this.removeEventListener(name, listener, options);
-        });
-        delete this.__listeners__[name];
-        return this;
-      }
-      this._removeEventListener(name, listener, options);
-      this.__listeners__[name] = this.__listeners__[name].filter(
-        ([l, o]) =>
-          l !== listener || JSON.stringify(o) !== JSON.stringify(options)
-      );
-      if (this.__listeners__[name].length === 0) {
-        delete this.__listeners__[name];
-      }
-      return this;
-    };
-  });
-  // Simple Selector
-  window._$ = (selector) => {
-    if (selector.startsWith("#") && !selector.includes(' ')) {
-      return document.getElementById(selector.slice(1));
-    }
-    return document.querySelector(selector);
-  };
-  window._$$ = (selector) => document.querySelectorAll(selector);
-
-  // dark_mode
-  let mode = window.localStorage.getItem("dark_mode");
-  const setDarkMode = (isDark) => {
-    if (isDark) {
-      document.documentElement.setAttribute("data-theme", "dark");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
-    const iconHtml = `<a id="nav-${
-      isDark ? "sun" : "moon"
-    }-btn" class="nav-icon dark-mode-btn"></a>`;
-    document
-      .getElementById("sub-nav")
-      .insertAdjacentHTML("beforeend", iconHtml);
-    document.body.dispatchEvent(
-      new CustomEvent(isDark ? "dark-theme-set" : "light-theme-set")
-    );
-  };
-  if (mode === null) {
-    const domMode = document.documentElement.getAttribute("data-theme");
-    mode = domMode === "dark" ? "true" : "false";
-    window.localStorage.setItem("dark_mode", mode);
+// https://github.com/tangyuxian/hexo-theme-tangyuxian
+const getRealPath = (pathname, desc = false) => {
+  if (!pathname) {
+    pathname = window.location.pathname;
   }
-  setDarkMode(mode === "true");
-
-  document
-    .querySelector(".dark-mode-btn")
-    .addEventListener("click", function () {
-      const id = this.id;
-      if (id == "nav-sun-btn") {
-        window.localStorage.setItem("dark_mode", "false");
-        document.body.dispatchEvent(new CustomEvent("light-theme-set"));
-        document.documentElement.removeAttribute("data-theme");
-        this.id = "nav-moon-btn";
-      } else {
-        window.localStorage.setItem("dark_mode", "true");
-        document.body.dispatchEvent(new CustomEvent("dark-theme-set"));
-        document.documentElement.setAttribute("data-theme", "dark");
-        this.id = "nav-sun-btn";
+  let names = pathname.split("/");
+  if (desc === false) {
+    for (let i = names.length - 1; i >= 0; --i) {
+      let name = names[i].trim();
+      if (name.length > 0 && name !== "/" && name !== "index.html") {
+        return name;
       }
+    }
+  } else {
+    for (let i = 0; i < names.length; ++i) {
+      let name = names[i].trim();
+      if (name.length > 0 && name !== "/" && name !== "index.html") {
+        return name;
+      }
+    }
+  }
+  return "/";
+};
+
+(function ($) {
+  // dark_mode
+  let mode = window.localStorage.getItem('dark_mode')
+  if (mode == null) {
+    const domMode = document.documentElement.getAttribute('data-theme')
+    if (domMode == null) {
+      window.localStorage.setItem('dark_mode', 'false')
+    } else {
+      window.localStorage.setItem('dark_mode', 'true')
+    }
+  } else {
+    if(mode == 'true') {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    } else if (mode == 'false') {
+      document.documentElement.removeAttribute('data-theme')
+    }
+  }
+  mode = window.localStorage.getItem('dark_mode')
+  if(mode == 'true') {
+    $('#sub-nav').append('<a id="nav-sun-btn" class="nav-icon dark-mode-btn"></a>')
+  } else if (mode == 'false') {
+    $('#sub-nav').append('<a id="nav-moon-btn" class="nav-icon dark-mode-btn"></a>')
+  }
+  $('.dark-mode-btn').on('click', function () {
+    const id = $(this).attr('id')
+    if(id == 'nav-sun-btn') { 
+      window.localStorage.setItem('dark_mode', 'false')
+      document.documentElement.removeAttribute('data-theme')
+      $(this).attr("id","nav-moon-btn")
+    } else {
+      window.localStorage.setItem('dark_mode', 'true')
+      document.documentElement.setAttribute('data-theme', 'dark')
+      $(this).attr("id","nav-sun-btn")
+    }
+  })
+  // lazysizes
+  const imgs = $('.article-entry img');
+  imgs.each(function() {
+    const src = $(this).attr('src');
+    $(this).addClass('lazyload');
+    $(this).removeAttr('src');
+    $(this).attr('data-src', src);
+    $(this).attr('data-sizes','auto');
+  })
+  // Share
+  $('body').on('click', function () {
+    $('.article-share-box.on').removeClass('on');
+  }).on('click', '.article-share-link', function (e) {
+    e.stopPropagation();
+
+    const $this = $(this),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      id = 'article-share-box-' + $this.attr('data-id'),
+      title = $this.attr('data-title'),
+      offset = $this.offset();
+
+    if ($('#' + id).length) {
+      var box = $('#' + id);
+
+      if (box.hasClass('on')) {
+        box.removeClass('on');
+        return;
+      }
+    } else {
+      const html = [
+        '<div id="' + id + '" class="article-share-box">',
+        '<input class="article-share-input" value="' + url + '">',
+        '<div class="article-share-links">',
+        '<a href="https://twitter.com/intent/tweet?text=' + encodeURIComponent(title) + '&url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+        '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+        '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
+        '<a href="https://www.linkedin.com/shareArticle?mini=true&url=' + encodedUrl + '" class="article-share-linkedin" target="_blank" title="LinkedIn"></a>',
+        '</div>',
+        '</div>'
+      ].join('');
+
+      var box = $(html);
+
+      $('body').append(box);
+    }
+
+    $('.article-share-box.on').hide();
+
+    box.css({
+      top: offset.top + 25,
+      left: offset.left
+    }).addClass('on');
+  }).on('click', '.article-share-box', function (e) {
+    e.stopPropagation();
+  }).on('click', '.article-share-box-input', function () {
+    $(this).select();
+  }).on('click', '.article-share-box-link', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+  });
+
+  // Caption
+  $('.article-entry').each(function (i) {
+    $(this).find('img').each(function () {
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().is('a')) return;
+
+      // ignore friendsLink
+      if ($(this).parent().hasClass('friend-icon')) return;
+
+      const alt = this.alt;
+
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+
+      $(this).wrap('<a href="' + this.src + '" data-fancybox=\"gallery\" data-caption="' + alt + '"></a>')
     });
 
-  let oldScrollTop = 0;
-  window.addEventListener("scroll", () => {
-    let scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const diffY = scrollTop - oldScrollTop;
-    window.diffY = diffY;
-    oldScrollTop = scrollTop;
-    if (diffY < 0) {
-      document
-        .getElementById("header-nav")
-        .classList.remove("header-nav-hidden");
-    } else {
-      document.getElementById("header-nav").classList.add("header-nav-hidden");
-    }
+    $(this).find('.fancybox').each(function () {
+      $(this).attr('rel', 'article' + i);
+    });
   });
-})();
+
+  if ($.fancybox) {
+    $('.fancybox').fancybox();
+  }
+
+  // Mobile nav
+  const $container = $('#container');
+  let isMobileNavAnim = false;
+  let mobileNavAnimDuration = 200;
+
+  const startMobileNavAnim = function () {
+    isMobileNavAnim = true;
+  };
+
+  const stopMobileNavAnim = function () {
+    setTimeout(function () {
+      isMobileNavAnim = false;
+    }, mobileNavAnimDuration);
+  }
+
+  $('#main-nav-toggle').on('click', function () {
+    if (isMobileNavAnim) return;
+
+    startMobileNavAnim();
+    $container.toggleClass('mobile-nav-on');
+    stopMobileNavAnim();
+  });
+
+  $('#wrap').on('click', function () {
+    if (isMobileNavAnim || !$container.hasClass('mobile-nav-on')) return;
+
+    $container.removeClass('mobile-nav-on');
+  });
+
+
+  const rootRealPath = getRealPath(window.location.pathname, true);
+  for (let link of $('.sidebar-menu-link-wrap')) {
+    let linkPath = $(link).find("a")[0].getAttribute("href");
+    if (linkPath && getRealPath(linkPath, true) === rootRealPath) {
+      link.className = "sidebar-menu-link-wrap link-active";
+    }
+  }
+  firework({
+  excludeElements: ["a"],
+  particles: [
+    {
+      shape: "circle",
+      move: "emit",
+      easing: "easeOutExpo",
+      colors: [
+        "rgba(255,182,185,.9)",
+        "rgba(250,227,217,.9)",
+        "rgba(187,222,214,.9)",
+        "rgba(138,198,209,.9)",
+      ],
+      number: 30,
+      duration: [1200, 1800],
+      shapeOptions: {
+        radius: [16, 32],
+      },
+    },
+  ]
+});
+})(jQuery);

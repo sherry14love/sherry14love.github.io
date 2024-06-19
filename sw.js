@@ -1,13 +1,13 @@
 const swPath = "/sw.js";
 const preCache = [
   "/images/taichi.png",
-  "https://www.qiuxs.cn/sharing-tools/img/160/read",
+  "https://www.qiuxs.cn/sharing-tools/img/read/3dc325d2c209bdfefac678799e19d8a1",
   "/images/taichi-fill.png",
   "/css/loader.css",
   "/css/style.css",
   "/js/script.js",
 ];
-const VERSION = "1718802125373";
+const VERSION = "1718803089384";
 const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",

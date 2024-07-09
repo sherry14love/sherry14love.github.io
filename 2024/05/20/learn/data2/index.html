@@ -1,8 +1,721 @@
-<!DOCTYPE html><html lang=zh-CN><head><meta charset=utf-8><script>window.icon_font="4552607_09mhdxci6yrk",window.clipboard_tips={success:"复制成功(*^▽^*)",fail:"复制失败 (ﾟ⊿ﾟ)ﾂ"}</script><title>随机森林与决策树 | 拉姆的小树屋</title><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><link rel=preconnect href=https://fonts.gstatic.com/ crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media=print onload=this.media&#x3D;&#39;all&#39;><link rel=preload href=//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.woff2 as=font type=font/woff2 crossorigin=anonymous><link rel=stylesheet href=/css/loader.css><meta name=description content="定义与基本概念  决策树: 树形结构的分类或回归模型，通过特征分割进行分类 随机森林: 集成学习算法，由多个决策树组成   决策树（Decision Tree） 决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。   特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。   决策树生"><meta property=og:type content=article><meta property=og:title content=随机森林与决策树><meta property=og:url content=https://sherry14love.github.io/2024/05/20/learn/data2/index.html><meta property=og:site_name content=拉姆的小树屋><meta property=og:description content="定义与基本概念  决策树: 树形结构的分类或回归模型，通过特征分割进行分类 随机森林: 集成学习算法，由多个决策树组成   决策树（Decision Tree） 决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。   特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。   决策树生"><meta property=og:locale content=zh_CN><meta property=article:published_time content=2024-05-19T16:00:00.000Z><meta property=article:modified_time content=2024-06-23T15:09:10.156Z><meta property=article:author content=戴诺斯·拉姆><meta property=article:tag content=数据分析><meta name=twitter:card content=summary><link rel=alternate href=/atom.xml title=拉姆的小树屋 type=application/atom+xml><link rel="shortcut icon" href=https://www.qiuxs.cn/sharing-tools/img/read/0a1f41f52ba880b1308bda7f148d2639><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css><link rel=stylesheet href=https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css><script src=https://npm.webcache.cn/pace-js@1.2.4/pace.min.js></script><link rel=stylesheet href=https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css><script src=https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js></script><script>new WOW({offset:0,mobile:!0,live:!1}).init()</script><script src=/sw.js></script><meta name=generator content="Hexo 6.3.0"></head><body><div id=loader><div class="loading-left-bg loading-bg"></div><div class="loading-right-bg loading-bg"></div><div class=spinner-box><div class=loading-taichi><svg width=150 height=150 viewBox="0 0 1024 1024" class=icon version=1.1 xmlns=https://www.w3.org/2000/svg shape-rendering=geometricPrecision><path d="M303.5 432A80 80 0 0 1 291.5 592 80 80 0 0 1 303.5 432z" fill=#ff6e6b /><path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95 417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill=#fd0d00 /><path d="M512 95A417 417 0 0 1 929 512 208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432 80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512 208.5 208.5 0 0 0 303.5 303.5 208.5 208.5 0 0 0 95 512 417 417 0 0 1 512 95" fill=#fd0d00 /></svg></div><div class=loading-word>少女祈祷中...</div></div></div><script>var time=null,startLoading=()=>{time=Date.now(),document.getElementById("loader").classList.remove("loading")},endLoading=()=>{time?Date.now()-time>500?(time=null,document.body.style.overflow="auto",document.getElementById("loader").classList.add("loading")):(setTimeout(endLoading,500-(Date.now()-time)),time=null):(document.body.style.overflow="auto",document.getElementById("loader").classList.add("loading"))};window.addEventListener("DOMContentLoaded",endLoading),document.getElementById("loader").addEventListener("click",endLoading)</script><div id=copy-tooltip style="pointer-events:none;opacity:0;transition:all .2s ease;position:fixed;top:50%;left:50%;z-index:999;transform:translate(-50%,-50%);color:#fff;background:rgba(0,0,0,.5);padding:10px 15px;border-radius:10px"></div><div id=container><div id=wrap><div id=header-nav><nav id=main-nav><span class=main-nav-link-wrap><span class=main-nav-icon></span> <a class=main-nav-link href=/ >首页</a></span><span class=main-nav-link-wrap><span class=main-nav-icon></span> <a class=main-nav-link href=/archives>归档</a></span><span class=main-nav-link-wrap><span class=main-nav-icon></span> <a class=main-nav-link href=/about>关于</a></span><span class=main-nav-link-wrap><span class=main-nav-icon></span> <a class=main-nav-link href=/friend>友链</a></span><a id=main-nav-toggle class=nav-icon></a></nav><nav id=sub-nav><a id=nav-rss-link class=nav-icon href=/atom.xml title="RSS 订阅"></a><a id=nav-search-btn class="nav-icon popup-trigger" title=搜索></a></nav></div><header id=header><img fetchpriority=high src=https://www.qiuxs.cn/sharing-tools/img/read/8860be1850aa0bbd2ae2a2570ba32802 alt=随机森林与决策树><div id=header-outer class=outer><div id=header-title class=inner><div id=logo-wrap><a href=/ id=logo><h1>随机森林与决策树</h1></a></div><h2 id=subtitle-wrap></h2></div></div></header><div id=content class=outer><section id=main><article id=post-learn/data2 class="h-entry article article-type-post" itemprop=blogPost itemscope itemtype=https://schema.org/BlogPosting><div class=article-inner><div class=article-meta><div class="article-date wow slideInLeft"><a href=/2024/05/20/learn/data2/ class=article-date-link><time datetime=2024-05-19T16:00:00.000Z itemprop=datePublished>2024-05-20</time></a></div><div class="article-category wow slideInLeft"><a class=article-category-link href=/categories/learn/ >learn</a></div></div><div class=hr-line></div><div class="e-content article-entry" itemprop=articleBody><h2 id=定义与基本概念><a class=markdownIt-Anchor href=#定义与基本概念></a> 定义与基本概念</h2><ul><li>决策树: 树形结构的分类或回归模型，通过特征分割进行分类</li><li>随机森林: 集成学习算法，由多个决策树组成</li></ul><h2 id=决策树decision-tree><a class=markdownIt-Anchor href=#决策树decision-tree></a> 决策树（Decision Tree）</h2><p>决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。</p><ol><li><p>特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。</p></li><li><p>决策树生成：决策树从根节点开始，每个节点都是基于某个特征的分割条件，最终形成一棵树形结构。</p></li><li><p>剪枝：为了防止过拟合，通常会对生成的树进行剪枝，通过移除预测性能不佳的分支来简化模型。</p></li></ol><figure class="highlight python"><table><tr><td class=gutter><pre><span class=line>1</span><br><span class=line>2</span><br><span class=line>3</span><br><span class=line>4</span><br><span class=line>5</span><br><span class=line>6</span><br><span class=line>7</span><br><span class=line>8</span><br><span class=line>9</span><br><span class=line>10</span><br><span class=line>11</span><br><span class=line>12</span><br><span class=line>13</span><br><span class=line>14</span><br><span class=line>15</span><br><span class=line>16</span><br><span class=line>17</span><br><span class=line>18</span><br><span class=line>19</span><br><span class=line>20</span><br><span class=line>21</span><br><span class=line>22</span><br><span class=line>23</span><br><span class=line>24</span><br><span class=line>25</span><br><span class=line>26</span><br><span class=line>27</span><br><span class=line>28</span><br><span class=line>29</span><br></pre></td><td class=code><pre><span class=line><span class=keyword>from</span> sklearn.tree <span class=keyword>import</span> DecisionTreeClassifier</span><br><span class=line><span class=keyword>from</span> sklearn.datasets <span class=keyword>import</span> load_iris</span><br><span class=line><span class=keyword>from</span> sklearn.model_selection <span class=keyword>import</span> train_test_split</span><br><span class=line><span class=keyword>from</span> sklearn.metrics <span class=keyword>import</span> accuracy_score, classification_report</span><br><span class=line></span><br><span class=line><span class=comment># 加载数据</span></span><br><span class=line>iris = load_iris()</span><br><span class=line>X = iris.data</span><br><span class=line>y = iris.target</span><br><span class=line></span><br><span class=line><span class=comment># 分割数据集为训练集和测试集</span></span><br><span class=line>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class=number>0.2</span>, random_state=<span class=number>42</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 创建决策树分类器</span></span><br><span class=line>model = DecisionTreeClassifier(random_state=<span class=number>42</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 训练模型</span></span><br><span class=line>model.fit(X_train, y_train)</span><br><span class=line></span><br><span class=line><span class=comment># 使用模型进行预测</span></span><br><span class=line>y_pred = model.predict(X_test)</span><br><span class=line></span><br><span class=line><span class=comment># 计算准确率</span></span><br><span class=line>accuracy = accuracy_score(y_test, y_pred)</span><br><span class=line><span class=built_in>print</span>(<span class=string>f&quot;准确率: <span class=subst>&#123;accuracy * <span class=number>100</span>&#125;</span>%&quot;</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 打印分类报告</span></span><br><span class=line><span class=built_in>print</span>(<span class=string>&quot;分类报告:&quot;</span>)</span><br><span class=line><span class=built_in>print</span>(classification_report(y_test, y_pred))</span><br></pre></td></tr></table></figure><h2 id=随机森林random-forest><a class=markdownIt-Anchor href=#随机森林random-forest></a> 随机森林（Random Forest）</h2><p>随机森林是一种基于决策树的集成学习算法，由多个决策树构成。其核心思想是“集体智慧”，即多个决策树的平均预测结果通常比单个模型更准确。</p><p>随机森林是一种基于 Bagging 策略的集成学习模型，它能够有效地处理非线性问题，并且擅长处理大量样本和特征。此外，随机森林还注重降低方差。Bagging 方法在训练过程中，各基学习器之间无依赖，可实现并行训练。通过集成多个模型，它可以有效地处理过拟合问题，提高模型的预测准确性和泛化能力。随机森林可用于分类、回归和异常检测任务。</p><figure class="highlight python"><table><tr><td class=gutter><pre><span class=line>1</span><br><span class=line>2</span><br><span class=line>3</span><br><span class=line>4</span><br><span class=line>5</span><br><span class=line>6</span><br><span class=line>7</span><br><span class=line>8</span><br><span class=line>9</span><br><span class=line>10</span><br><span class=line>11</span><br><span class=line>12</span><br><span class=line>13</span><br><span class=line>14</span><br><span class=line>15</span><br><span class=line>16</span><br><span class=line>17</span><br><span class=line>18</span><br><span class=line>19</span><br><span class=line>20</span><br><span class=line>21</span><br><span class=line>22</span><br><span class=line>23</span><br><span class=line>24</span><br><span class=line>25</span><br><span class=line>26</span><br><span class=line>27</span><br><span class=line>28</span><br><span class=line>29</span><br><span class=line>30</span><br><span class=line>31</span><br><span class=line>32</span><br><span class=line>33</span><br><span class=line>34</span><br><span class=line>35</span><br><span class=line>36</span><br><span class=line>37</span><br></pre></td><td class=code><pre><span class=line><span class=keyword>from</span> sklearn.ensemble <span class=keyword>import</span> RandomForestClassifier</span><br><span class=line><span class=keyword>from</span> sklearn.datasets <span class=keyword>import</span> load_iris</span><br><span class=line><span class=keyword>from</span> sklearn.model_selection <span class=keyword>import</span> train_test_split</span><br><span class=line></span><br><span class=line><span class=comment># 加载数据</span></span><br><span class=line>iris = load_iris()</span><br><span class=line>X = iris.data <span class=comment># 特征数据</span></span><br><span class=line>y = iris.target <span class=comment># 目标标签</span></span><br><span class=line></span><br><span class=line><span class=comment># 分割数据集为训练集和测试集</span></span><br><span class=line>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class=number>0.2</span>, random_state=<span class=number>42</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 创建随机森林模型</span></span><br><span class=line>model = RandomForestClassifier(n_estimators=<span class=number>100</span>, random_state=<span class=number>42</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 训练模型</span></span><br><span class=line>model.fit(X_train, y_train)</span><br><span class=line></span><br><span class=line><span class=comment># 获取特征重要性</span></span><br><span class=line>importances = model.feature_importances_</span><br><span class=line></span><br><span class=line><span class=comment># 打印特征重要性</span></span><br><span class=line><span class=keyword>for</span> feature_name, importance <span class=keyword>in</span> <span class=built_in>zip</span>(iris.feature_names, importances):</span><br><span class=line>    <span class=built_in>print</span>(<span class=string>f&quot;<span class=subst>&#123;feature_name&#125;</span>: <span class=subst>&#123;importance&#125;</span>&quot;</span>)</span><br><span class=line></span><br><span class=line><span class=comment># 使用模型进行预测</span></span><br><span class=line>predictions = model.predict(X_test)</span><br><span class=line></span><br><span class=line><span class=comment># 打印预测结果</span></span><br><span class=line><span class=built_in>print</span>(<span class=string>&quot;预测结果:&quot;</span>, predictions)</span><br><span class=line></span><br><span class=line><span class=comment># 打印真实结果</span></span><br><span class=line><span class=built_in>print</span>(<span class=string>&quot;真实结果:&quot;</span>, y_test)</span><br><span class=line></span><br><span class=line><span class=comment># 计算准确率</span></span><br><span class=line>accuracy = model.score(X_test, y_test)</span><br><span class=line><span class=built_in>print</span>(<span class=string>f&quot;准确率: <span class=subst>&#123;accuracy * <span class=number>100</span>&#125;</span>%&quot;</span>)</span><br></pre></td></tr></table></figure><h2 id=bootstrap-sampling><a class=markdownIt-Anchor href=#bootstrap-sampling></a> Bootstrap Sampling</h2><p>Bagging（Bootstrap Aggregating）是一种集成学习方法，用于提高机器学习算法的稳定性和准确性。Bagging的核心思想是通过构建多个模型，然后将这些模型的预测结果进行组合，以达到比单个模型更好的预测效果。（这就是随机森林的思想，对不对）</p><p>Bagging的步骤通常为：</p><ol><li><p>自助采样（Bootstrap Sampling）：从原始数据集中随机抽取多个样本，每个样本的大小与原始数据集相同，但允许重复抽取。这意味着每次抽样都会有一些数据点被多次选中，而另一些则可能不被选中。</p></li><li><p>训练模型：使用每个自助采样得到的数据集来训练一个单独的模型。这些模型可以是相同的算法，也可以是不同的算法。</p></li><li><p>预测：对新的数据点进行预测时，每个模型都会给出自己的预测结果。</p></li><li><p>组合预测：将所有模型的预测结果进行组合。对于分类问题，通常采用投票的方式来决定最终的分类结果；对于回归问题，则通常取所有模型预测结果的平均值作为最终的预测值。</p></li></ol><p>Bagging的主要优点是能够减少模型的方差，提高模型的泛化能力。它特别适用于那些高方差的模型（如决策树）</p><p>所以比较著名的一个Bagging算法就是随机森林。</p><h2 id=决策树与随机森林的区别><a class=markdownIt-Anchor href=#决策树与随机森林的区别></a> 决策树与随机森林的区别</h2><p>随机森林（Random Forest）和决策树（Decision Tree）都是流行的机器学习算法，它们在数据分析和预测建模中广泛使用。尽管它们都基于决策树的概念，但它们在结构和应用上有所不同。下面我们来看看随机森林和决策树之间的一些主要区别：</p><ol><li><strong>模型结构</strong>：<ul><li><strong>决策树</strong>：是一个单一的树结构，它通过一系列的决策节点（内部节点）和终端节点（叶子节点）来对数据进行分类或回归。</li><li><strong>随机森林</strong>：是一个集成学习方法，它由多个决策树组成。随机森林通过构建多个树并将它们的预测结果进行组合来提高模型的性能。</li></ul></li><li><strong>预测方式</strong>：<ul><li><strong>决策树</strong>：对新数据进行预测时，从根节点开始，根据特征值沿着树的路径向下移动，直到到达叶子节点，该节点的值即为预测结果。</li><li><strong>随机森林</strong>：对新数据进行预测时，每个决策树都会给出自己的预测结果，然后通过投票（分类问题）或平均（回归问题）的方式来确定最终的预测结果。</li></ul></li><li><strong>过拟合问题</strong>：<ul><li><strong>决策树</strong>：容易过拟合，特别是在树很深的情况下，因为它可以完美地拟合训练数据。</li><li><strong>随机森林</strong>：通过集成多个树，随机森林能够减少过拟合的风险，因为即使单个树可能过拟合，但多个树的组合通常会更加稳定。</li></ul></li><li><strong>特征选择</strong>：<ul><li><strong>决策树</strong>：在每个节点上，决策树会考虑所有可用的特征来选择最佳的分割方式。</li><li><strong>随机森林</strong>：在构建每棵树时，随机森林会在每个节点上随机选择一部分特征来考虑最佳的分割方式，这增加了模型的多样性。</li></ul></li><li><strong>训练时间</strong>：<ul><li><strong>决策树</strong>：通常训练时间较短，因为只需要训练一个模型。</li><li><strong>随机森林</strong>：训练时间较长，因为需要训练多个决策树。</li></ul></li><li><strong>特征重要性</strong>：<ul><li><strong>决策树</strong>：可以提供特征重要性的度量，但通常不如随机森林准确。</li><li><strong>随机森林</strong>：能够提供更准确的特征重要性度量，因为它基于多个树的平均结果。</li></ul></li></ol><p>总的来说，随机森林通过集成多个决策树来提高模型的准确性和鲁棒性，而决策树则是一个更简单、更快速的单模型方法。随机森林通常在处理复杂数据集时表现更好，而决策树则适用于快速原型设计和简单数据集。</p></div><footer class=article-footer><a href=/2024/05/20/learn/data2/#comments class=article-comment-link><span class="post-comments-count twikoo-comment-count" data-path=/2024/05/20/learn/data2/ itemprop=commentCount></span> 留言</a><script>twikoo.getCommentsCount({envId:"https://blog.6677677.xyz/",region:"",urls:["/2024/05/20/learn/data2/"],includeReply:!1}).then((o=>{_$(".twikoo-comment-count").innerText=o[0].count})).catch((o=>{console.error(o)}))</script><ul class=article-tag-list itemprop=keywords><li class=article-tag-list-item><a class=article-tag-list-link href=/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/ rel=tag>数据分析</a></li></ul></footer></div><nav id=article-nav class="wow fadeInUp"><div class="article-nav-link-wrap article-nav-link-left"><img data-src=https://www.qiuxs.cn/sharing-tools/img/read/fbdfad20d9884ccbe9443f73a7dfb9cc data-sizes=auto alt=GPT-4o免费分享 class=lazyload><a href=/2024/05/23/Tool/GPT4o/ ></a><div class=article-nav-caption>前一篇</div><h3 class=article-nav-title>GPT-4o免费分享</h3></div><div class="article-nav-link-wrap article-nav-link-right"><img data-src=https://www.qiuxs.cn/sharing-tools/img/read/448630153024d82f191bcad05d3d8c0a data-sizes=auto alt=数据分析与数据挖掘浅谈 class=lazyload><a href=/2024/05/19/learn/data1/ ></a><div class=article-nav-caption>后一篇</div><h3 class=article-nav-title>数据分析与数据挖掘浅谈</h3></div></nav></article><div id=comments class=tcomment></div></section><aside id=sidebar><div class="sidebar-wrap wow fadeInRight wrap-sticky"><div class=sidebar-toc-sidebar><div class=sidebar-toc><h3 class=toc-title>文章目录</h3><div class="sidebar-toc-wrapper toc-div-class"><ol class=toc><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5><span class=toc-number>1.</span> <span class=toc-text>定义与基本概念</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%86%B3%E7%AD%96%E6%A0%91decision-tree><span class=toc-number>2.</span> <span class=toc-text>决策树（Decision Tree）</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97random-forest><span class=toc-number>3.</span> <span class=toc-text>随机森林（Random Forest）</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#bootstrap-sampling><span class=toc-number>4.</span> <span class=toc-text>Bootstrap Sampling</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%9A%84%E5%8C%BA%E5%88%AB><span class=toc-number>5.</span> <span class=toc-text>决策树与随机森林的区别</span></a></li></ol></div></div></div><div class="sidebar-common-sidebar hidden"><div class=sidebar-author><img data-src=/avatar/avatar.jpg data-sizes=auto alt=戴诺斯·拉姆 class=lazyload><div class=sidebar-author-name>戴诺斯·拉姆</div><div class=sidebar-description></div></div><div class=sidebar-state><div class=sidebar-state-article><div>文章</div><div class=sidebar-state-number>19</div></div><div class=sidebar-state-category><div>分类</div><div class=sidebar-state-number>4</div></div><div class=sidebar-state-tag><div>标签</div><div class=sidebar-state-number>7</div></div></div><div class=sidebar-social><div class="icon-email sidebar-social-icon"><a href=mailto:sherry.4376@gmail.com itemprop=url target=_blank aria-label=email></a></div><div class="icon-github sidebar-social-icon"><a href=https://github.com/sherry14love/ itemprop=url target=_blank aria-label=github></a></div></div><div class=sidebar-menu><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/ aria-label=首页></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>首页</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/archives aria-label=归档></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>归档</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/about aria-label=关于></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>关于</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/friend aria-label=友链></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>友链</div></div></div></div><div class=sidebar-btn-wrapper style=position:static><div class="sidebar-toc-btn current"></div><div class=sidebar-common-btn></div></div></div></aside></div><footer id=footer class="wow fadeInUp"><div style=width:100%;overflow:hidden><div class=footer-line></div></div><div class=outer><div id=footer-info class=inner><div><span class=icon-copyright></span> 2020-2024<span class=footer-info-sep></span> 戴诺斯·拉姆</div><div>基于&nbsp;<a href=https://hexo.io/ target=_blank>Hexo</a>&nbsp; Theme.<a href=https://github.com/D-Sketon/hexo-theme-reimu target=_blank>Reimu</a></div><div><span class=icon-brush></span> 24.2k &nbsp;|&nbsp;<span class=icon-coffee></span> 01:22</div><div><span class=icon-eye></span> <span id=busuanzi_container_site_pv>总访问量&nbsp;<span id=busuanzi_value_site_pv></span></span> &nbsp;|&nbsp;<span class=icon-user></span> <span id=busuanzi_container_site_uv>总访客量&nbsp;<span id=busuanzi_value_site_uv></span></span></div></div><div class=beian-info><img src=https://www.qiuxs.cn/sharing-tools/img/read/31890cf408183fdbdabef9cf0d3a4e97> <a href=https://beian.miit.gov.cn/#/Integrated/index target=_blank>豫ICP备2024052277号-1</a></div></div></footer><div class=sidebar-top><img src=/images/taichi.png height=50 width=50 alt=backtop><div class=arrow-up></div></div><div id=mask></div></div><nav id=mobile-nav><div class=sidebar-wrap><div class=sidebar-toc-sidebar><div class=sidebar-toc><h3 class=toc-title>文章目录</h3><div class="sidebar-toc-wrapper toc-div-class"><ol class=toc><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5><span class=toc-number>1.</span> <span class=toc-text>定义与基本概念</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%86%B3%E7%AD%96%E6%A0%91decision-tree><span class=toc-number>2.</span> <span class=toc-text>决策树（Decision Tree）</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97random-forest><span class=toc-number>3.</span> <span class=toc-text>随机森林（Random Forest）</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#bootstrap-sampling><span class=toc-number>4.</span> <span class=toc-text>Bootstrap Sampling</span></a></li><li class="toc-item toc-level-2"><a class=toc-link href=#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%9A%84%E5%8C%BA%E5%88%AB><span class=toc-number>5.</span> <span class=toc-text>决策树与随机森林的区别</span></a></li></ol></div></div></div><div class="sidebar-common-sidebar hidden"><div class=sidebar-author><img data-src=/avatar/avatar.jpg data-sizes=auto alt=戴诺斯·拉姆 class=lazyload><div class=sidebar-author-name>戴诺斯·拉姆</div><div class=sidebar-description></div></div><div class=sidebar-state><div class=sidebar-state-article><div>文章</div><div class=sidebar-state-number>19</div></div><div class=sidebar-state-category><div>分类</div><div class=sidebar-state-number>4</div></div><div class=sidebar-state-tag><div>标签</div><div class=sidebar-state-number>7</div></div></div><div class=sidebar-social><div class="icon-email sidebar-social-icon"><a href=mailto:sherry.4376@gmail.com itemprop=url target=_blank aria-label=email></a></div><div class="icon-github sidebar-social-icon"><a href=https://github.com/sherry14love/ itemprop=url target=_blank aria-label=github></a></div></div><div class=sidebar-menu><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/ aria-label=首页></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>首页</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/archives aria-label=归档></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>归档</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/about aria-label=关于></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>关于</div></div><div class=sidebar-menu-link-wrap><a class=sidebar-menu-link-dummy href=/friend aria-label=友链></a><span class=sidebar-menu-icon></span><div class=sidebar-menu-link>友链</div></div></div></div></div><div class=sidebar-btn-wrapper><div class="sidebar-toc-btn current"></div><div class=sidebar-common-btn></div></div></nav></div><div class=site-search><div class="reimu-popup popup"><div class=reimu-search><span class=reimu-search-input-icon></span><div class=reimu-search-input id=reimu-search-input></div></div><div class=reimu-results><div id=reimu-stats></div><div id=reimu-hits></div><div id=reimu-pagination class=reimu-pagination></div></div><span class=popup-btn-close></span></div></div><script src=https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js></script><script src=https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js></script><script src=/js/script.js></script><script src=/js/pjax_script.js data-pjax></script><script type=module data-pjax>import PhotoSwipeLightbox from"https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js";const pswp=()=>{_$$(".article-entry a.article-gallery-item").length>0&&new PhotoSwipeLightbox({gallery:".article-entry",children:"a.article-gallery-item",pswpModule:()=>import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")}).init(),_$$(".article-gallery a.article-gallery-item").length>0&&new PhotoSwipeLightbox({gallery:".article-gallery",children:"a.article-gallery-item",pswpModule:()=>import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")}).init(),window.lightboxStatus="done",window.removeEventListener("lightbox:ready",pswp)};"ready"===window.lightboxStatus?pswp():window.addEventListener("lightbox:ready",pswp)</script><script src=https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js data-pjax></script><script data-pjax>twikoo.init({envId:"https://blog.6677677.xyz/",el:".tcomment",region:""})</script><script src=/js/generator_search.js></script><script src=https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js></script><script>firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))</script><div id=lazy-script><div></div></div><script>console.log(String.raw`%c 
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>window.icon_font = '4552607_09mhdxci6yrk';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ"};</script>
+  
+  
+  <title>
+    随机森林与决策树 |
+    
+    拉姆的小树屋
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+<link rel="stylesheet" href="/css/loader.css">
+
+  <meta name="description" content="定义与基本概念  决策树: 树形结构的分类或回归模型，通过特征分割进行分类 随机森林: 集成学习算法，由多个决策树组成   决策树（Decision Tree） 决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。   特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。   决策树生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机森林与决策树">
+<meta property="og:url" content="https://sherry14love.github.io/2024/05/20/learn/data2/index.html">
+<meta property="og:site_name" content="拉姆的小树屋">
+<meta property="og:description" content="定义与基本概念  决策树: 树形结构的分类或回归模型，通过特征分割进行分类 随机森林: 集成学习算法，由多个决策树组成   决策树（Decision Tree） 决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。   特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。   决策树生">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-23T15:09:10.156Z">
+<meta property="article:author" content="戴诺斯·拉姆">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="拉姆的小树屋" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://www.qiuxs.cn/sharing-tools/img/read/0a1f41f52ba880b1308bda7f148d2639">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css">
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
+
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+</div>
+<header id="header">
+  
+  
+    <img fetchpriority="high" src="https://www.qiuxs.cn/sharing-tools/img/read/8860be1850aa0bbd2ae2a2570ba32802" alt="随机森林与决策树">
+  
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <div id="logo-wrap">
+        
+          
+          
+            <a href="/" id="logo">
+              <h1>随机森林与决策树</h1>
+            </a>
+          
+        
+      </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-learn/data2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2024/05/20/learn/data2/" class="article-date-link">
+    <time datetime="2024-05-19T16:00:00.000Z" itemprop="datePublished">2024-05-20</time>
+  </a>
+</div>
+
+      
+  <div class="article-category wow slideInLeft">
+    <a class="article-category-link" href="/categories/learn/">learn</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="定义与基本概念"><a class="markdownIt-Anchor" href="#定义与基本概念"></a> 定义与基本概念</h2>
+<ul>
+<li>决策树: 树形结构的分类或回归模型，通过特征分割进行分类</li>
+<li>随机森林: 集成学习算法，由多个决策树组成</li>
+</ul>
+<h2 id="决策树decision-tree"><a class="markdownIt-Anchor" href="#决策树decision-tree"></a> 决策树（Decision Tree）</h2>
+<p>决策树是一种用于分类和回归问题的基本算法，可以对数据进行分类和预测，主要步骤包括特征选择，决策树生成，剪枝。</p>
+<ol>
+<li>
+<p>特征选择：决策树通过递归地选择最优特征，并根据该特征对训练数据进行分割，使得对各个子数据集有一个最好的分类。</p>
+</li>
+<li>
+<p>决策树生成：决策树从根节点开始，每个节点都是基于某个特征的分割条件，最终形成一棵树形结构。</p>
+</li>
+<li>
+<p>剪枝：为了防止过拟合，通常会对生成的树进行剪枝，通过移除预测性能不佳的分支来简化模型。</p>
+</li>
+</ol>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, classification_report</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data</span><br><span class="line">y = iris.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 分割数据集为训练集和测试集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建决策树分类器</span></span><br><span class="line">model = DecisionTreeClassifier(random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用模型进行预测</span></span><br><span class="line">y_pred = model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算准确率</span></span><br><span class="line">accuracy = accuracy_score(y_test, y_pred)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;准确率: <span class="subst">&#123;accuracy * <span class="number">100</span>&#125;</span>%&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印分类报告</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;分类报告:&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(classification_report(y_test, y_pred))</span><br></pre></td></tr></table></figure>
+<h2 id="随机森林random-forest"><a class="markdownIt-Anchor" href="#随机森林random-forest"></a> 随机森林（Random Forest）</h2>
+<p>随机森林是一种基于决策树的集成学习算法，由多个决策树构成。其核心思想是“集体智慧”，即多个决策树的平均预测结果通常比单个模型更准确。</p>
+<p>随机森林是一种基于 Bagging 策略的集成学习模型，它能够有效地处理非线性问题，并且擅长处理大量样本和特征。此外，随机森林还注重降低方差。Bagging 方法在训练过程中，各基学习器之间无依赖，可实现并行训练。通过集成多个模型，它可以有效地处理过拟合问题，提高模型的预测准确性和泛化能力。随机森林可用于分类、回归和异常检测任务。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载数据</span></span><br><span class="line">iris = load_iris()</span><br><span class="line">X = iris.data <span class="comment"># 特征数据</span></span><br><span class="line">y = iris.target <span class="comment"># 目标标签</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分割数据集为训练集和测试集</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建随机森林模型</span></span><br><span class="line">model = RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 训练模型</span></span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取特征重要性</span></span><br><span class="line">importances = model.feature_importances_</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印特征重要性</span></span><br><span class="line"><span class="keyword">for</span> feature_name, importance <span class="keyword">in</span> <span class="built_in">zip</span>(iris.feature_names, importances):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;feature_name&#125;</span>: <span class="subst">&#123;importance&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用模型进行预测</span></span><br><span class="line">predictions = model.predict(X_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印预测结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;预测结果:&quot;</span>, predictions)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印真实结果</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;真实结果:&quot;</span>, y_test)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算准确率</span></span><br><span class="line">accuracy = model.score(X_test, y_test)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;准确率: <span class="subst">&#123;accuracy * <span class="number">100</span>&#125;</span>%&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="bootstrap-sampling"><a class="markdownIt-Anchor" href="#bootstrap-sampling"></a> Bootstrap Sampling</h2>
+<p>Bagging（Bootstrap Aggregating）是一种集成学习方法，用于提高机器学习算法的稳定性和准确性。Bagging的核心思想是通过构建多个模型，然后将这些模型的预测结果进行组合，以达到比单个模型更好的预测效果。（这就是随机森林的思想，对不对）</p>
+<p>Bagging的步骤通常为：</p>
+<ol>
+<li>
+<p>自助采样（Bootstrap Sampling）：从原始数据集中随机抽取多个样本，每个样本的大小与原始数据集相同，但允许重复抽取。这意味着每次抽样都会有一些数据点被多次选中，而另一些则可能不被选中。</p>
+</li>
+<li>
+<p>训练模型：使用每个自助采样得到的数据集来训练一个单独的模型。这些模型可以是相同的算法，也可以是不同的算法。</p>
+</li>
+<li>
+<p>预测：对新的数据点进行预测时，每个模型都会给出自己的预测结果。</p>
+</li>
+<li>
+<p>组合预测：将所有模型的预测结果进行组合。对于分类问题，通常采用投票的方式来决定最终的分类结果；对于回归问题，则通常取所有模型预测结果的平均值作为最终的预测值。</p>
+</li>
+</ol>
+<p>Bagging的主要优点是能够减少模型的方差，提高模型的泛化能力。它特别适用于那些高方差的模型（如决策树）</p>
+<p>所以比较著名的一个Bagging算法就是随机森林。</p>
+<h2 id="决策树与随机森林的区别"><a class="markdownIt-Anchor" href="#决策树与随机森林的区别"></a> 决策树与随机森林的区别</h2>
+<p>随机森林（Random Forest）和决策树（Decision Tree）都是流行的机器学习算法，它们在数据分析和预测建模中广泛使用。尽管它们都基于决策树的概念，但它们在结构和应用上有所不同。下面我们来看看随机森林和决策树之间的一些主要区别：</p>
+<ol>
+<li><strong>模型结构</strong>：
+<ul>
+<li><strong>决策树</strong>：是一个单一的树结构，它通过一系列的决策节点（内部节点）和终端节点（叶子节点）来对数据进行分类或回归。</li>
+<li><strong>随机森林</strong>：是一个集成学习方法，它由多个决策树组成。随机森林通过构建多个树并将它们的预测结果进行组合来提高模型的性能。</li>
+</ul>
+</li>
+<li><strong>预测方式</strong>：
+<ul>
+<li><strong>决策树</strong>：对新数据进行预测时，从根节点开始，根据特征值沿着树的路径向下移动，直到到达叶子节点，该节点的值即为预测结果。</li>
+<li><strong>随机森林</strong>：对新数据进行预测时，每个决策树都会给出自己的预测结果，然后通过投票（分类问题）或平均（回归问题）的方式来确定最终的预测结果。</li>
+</ul>
+</li>
+<li><strong>过拟合问题</strong>：
+<ul>
+<li><strong>决策树</strong>：容易过拟合，特别是在树很深的情况下，因为它可以完美地拟合训练数据。</li>
+<li><strong>随机森林</strong>：通过集成多个树，随机森林能够减少过拟合的风险，因为即使单个树可能过拟合，但多个树的组合通常会更加稳定。</li>
+</ul>
+</li>
+<li><strong>特征选择</strong>：
+<ul>
+<li><strong>决策树</strong>：在每个节点上，决策树会考虑所有可用的特征来选择最佳的分割方式。</li>
+<li><strong>随机森林</strong>：在构建每棵树时，随机森林会在每个节点上随机选择一部分特征来考虑最佳的分割方式，这增加了模型的多样性。</li>
+</ul>
+</li>
+<li><strong>训练时间</strong>：
+<ul>
+<li><strong>决策树</strong>：通常训练时间较短，因为只需要训练一个模型。</li>
+<li><strong>随机森林</strong>：训练时间较长，因为需要训练多个决策树。</li>
+</ul>
+</li>
+<li><strong>特征重要性</strong>：
+<ul>
+<li><strong>决策树</strong>：可以提供特征重要性的度量，但通常不如随机森林准确。</li>
+<li><strong>随机森林</strong>：能够提供更准确的特征重要性度量，因为它基于多个树的平均结果。</li>
+</ul>
+</li>
+</ol>
+<p>总的来说，随机森林通过集成多个决策树来提高模型的准确性和鲁棒性，而决策树则是一个更简单、更快速的单模型方法。随机森林通常在处理复杂数据集时表现更好，而决策树则适用于快速原型设计和简单数据集。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+        <a href="/2024/05/20/learn/data2/#comments" class="article-comment-link">
+          <span class="post-comments-count twikoo-comment-count" data-path="/2024/05/20/learn/data2/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <script>
+          twikoo.getCommentsCount({
+            envId: 'https://blog.6677677.xyz/',
+            region: '',
+            urls: [
+              '/2024/05/20/learn/data2/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            _$('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        </script>
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">数据分析</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+  <nav id="article-nav" class="wow fadeInUp">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/fbdfad20d9884ccbe9443f73a7dfb9cc" data-sizes="auto" alt="GPT-4o免费分享" class="lazyload">
+        
+        <a href="/2024/05/23/Tool/GPT4o/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            GPT-4o免费分享
+          
+        </h3>
+      </div>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/448630153024d82f191bcad05d3d8c0a" data-sizes="auto" alt="数据分析与数据挖掘浅谈" class="lazyload">
+      
+      <a href="/2024/05/19/learn/data1/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          数据分析与数据挖掘浅谈
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+  <div id="comments" class="tcomment"></div>
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> 定义与基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91decision-tree"><span class="toc-number">2.</span> <span class="toc-text"> 决策树（Decision Tree）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97random-forest"><span class="toc-number">3.</span> <span class="toc-text"> 随机森林（Random Forest）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bootstrap-sampling"><span class="toc-number">4.</span> <span class="toc-text"> Bootstrap Sampling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text"> 决策树与随机森林的区别</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">19</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                2020-2024
+                <span class="footer-info-sep"></span>
+                戴诺斯·拉姆
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    24.2k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    01:22
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+		<div class="beian-info">
+            <img src="https://www.qiuxs.cn/sharing-tools/img/read/31890cf408183fdbdabef9cf0d3a4e97">
+            <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">豫ICP备2024052277号-1</a>
+        </div>
+		
+    </div>
+</footer>
+
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" alt="backtop" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%8E%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> 定义与基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91decision-tree"><span class="toc-number">2.</span> <span class="toc-text"> 决策树（Decision Tree）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97random-forest"><span class="toc-number">3.</span> <span class="toc-text"> 随机森林（Random Forest）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bootstrap-sampling"><span class="toc-number">4.</span> <span class="toc-text"> Bootstrap Sampling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text"> 决策树与随机森林的区别</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">19</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+<script type="module" data-pjax>
+  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js";
+  
+  const pswp = () => {
+    if (_$$('.article-entry a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-entry',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+      }).init();
+    }
+    if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-gallery',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+      }).init();
+    }
+    window.lightboxStatus = 'done';
+    window.removeEventListener('lightbox:ready', pswp);
+  }
+  if(window.lightboxStatus === 'ready') {
+    pswp()
+  } else {
+    window.addEventListener('lightbox:ready', pswp);
+  }
+</script>
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js" data-pjax></script>
+
+  <script data-pjax>
+    twikoo.init({
+      envId: 'https://blog.6677677.xyz/',
+      el: '.tcomment',
+      region: '',
+    })
+  </script>
+
+
+
+
+
+  
+<script src="/js/generator_search.js"></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
  ______     ______     __     __    __     __  __    
 /\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
 \ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
  \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
   \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
                                                   
-`,"color: #ff5252;"),console.log("%c Theme.Reimu v0.2.0 %c https://github.com/D-Sketon/hexo-theme-reimu ","color: white; background: #ff5252; padding:5px 0;","padding:4px;border:1px solid #ff5252;")</script><script src=https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js async></script><script src=/js/insert_highlight.js data-pjax></script></body></html>
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.2.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+

@@ -1,0 +1,855 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>window.icon_font = '4552607_09mhdxci6yrk';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ"};</script>
+  
+  
+  <title>
+    数据分析之Tableau食用指南 |
+    
+    拉姆的小树屋
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+<link rel="stylesheet" href="/css/loader.css">
+
+  <meta name="description" content="Tableau：最易上手且功能强大的可视化操作BI工具 Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用户界面和强大的数据可视化功能而闻名。无论是数据分析师、业务用户还是IT专业人员，都能快速上手并利用Tableau进行高效的数据分析和可视化展示。 相对于Excel，Tableau可以处理以亿为级别的数据，展现出其卓越的数据处理能力。而Excel在处理几十万条数据的时候，往往会出现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据分析之Tableau食用指南">
+<meta property="og:url" content="https://sherry14love.github.io/2024/07/12/learn/tableau/index.html">
+<meta property="og:site_name" content="拉姆的小树屋">
+<meta property="og:description" content="Tableau：最易上手且功能强大的可视化操作BI工具 Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用户界面和强大的数据可视化功能而闻名。无论是数据分析师、业务用户还是IT专业人员，都能快速上手并利用Tableau进行高效的数据分析和可视化展示。 相对于Excel，Tableau可以处理以亿为级别的数据，展现出其卓越的数据处理能力。而Excel在处理几十万条数据的时候，往往会出现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.qiuxs.cn/sharing-tools/img/read/f294f36b1c59f4262381d6ecb16fd7d9">
+<meta property="article:published_time" content="2024-07-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-07-18T07:41:37.310Z">
+<meta property="article:author" content="戴诺斯·拉姆">
+<meta property="article:tag" content="数据分析">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.qiuxs.cn/sharing-tools/img/read/f294f36b1c59f4262381d6ecb16fd7d9">
+  
+    <link rel="alternate" href="/atom.xml" title="拉姆的小树屋" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://www.qiuxs.cn/sharing-tools/img/read/0a1f41f52ba880b1308bda7f148d2639">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<link rel="stylesheet" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css">
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/wowjs@1.1.3/css/libs/animate.css">
+
+    
+<script src="https://npm.webcache.cn/wowjs@1.1.3/dist/wow.min.js"></script>
+
+    <script>
+      new WOW({
+        offset: 0,
+        mobile: true,
+        live: false
+      }).init();
+    </script>
+  
+  
+    <script src="/sw.js"></script>
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff6e6b" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z" fill="#fd0d00" />
+          <path d="M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95" fill="#fd0d00" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <span class="main-nav-icon"></span>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+</div>
+<header id="header">
+  
+  
+    <img fetchpriority="high" src="https://www.qiuxs.cn/sharing-tools/img/read/f812e950f1c35ccbc4434436a5197b60" alt="数据分析之Tableau食用指南">
+  
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <div id="logo-wrap">
+        
+          
+          
+            <a href="/" id="logo">
+              <h1>数据分析之Tableau食用指南</h1>
+            </a>
+          
+        
+      </div>
+      
+        
+        <h2 id="subtitle-wrap">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+        <div id="content" class="outer">
+          
+          <section id="main"><article id="post-learn/tableau" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner">
+    <div class="article-meta">
+      <div class="article-date wow slideInLeft">
+  <a href="/2024/07/12/learn/tableau/" class="article-date-link">
+    <time datetime="2024-07-11T16:00:00.000Z" itemprop="datePublished">2024-07-12</time>
+  </a>
+</div>
+
+      
+  <div class="article-category wow slideInLeft">
+    <a class="article-category-link" href="/categories/learn/">learn</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Tableau：最易上手且功能强大的可视化操作BI工具</strong></p>
+<p>Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用户界面和强大的数据可视化功能而闻名。无论是数据分析师、业务用户还是IT专业人员，都能快速上手并利用Tableau进行高效的数据分析和可视化展示。</p>
+<p>相对于<strong>Excel</strong>，Tableau可以处理以亿为级别的数据，展现出其卓越的数据处理能力。而Excel在处理几十万条数据的时候，往往会出现卡顿现象，限制了其在大型数据集上的应用。</p>
+<p>相较于<strong>MySQL</strong>，Tableau不仅提供了强大的数据连接和处理功能，还以其可视化操作和丰富的图表选项著称。用户可以通过Tableau直观地展示数据，进行深入的数据探索和分析，而MySQL虽然在业务取数方面表现出色，但在可视化能力上相对有限，无法全面满足复杂的数据展示需求。</p>
+<p>相较于<strong>Python</strong>，Tableau的上手难度显著降低，用户无需深厚的编程基础，即可通过简单的操作实现复杂的数据分析和可视化。这种即学即用的特性，使得Tableau成为非专业人士进行数据分析的理想选择，而Python则需要用户投入较大的精力进行学习和实践。</p>
+<p>相较于其他<strong>BI工具</strong>，Tableau在多个方面展现出其独特的优势：</p>
+<ul>
+<li><strong>更直观的用户界面</strong>：Tableau的拖放式操作界面和直观的图表生成方式，使得数据分析变得更加简单和直观。</li>
+<li><strong>更灵活的数据连接</strong>：Tableau支持多种数据源的连接和混合分析，能够无缝集成各类数据，提供全面的数据洞察。</li>
+<li><strong>更强大的交互功能</strong>：Tableau的仪表板支持丰富的交互功能，用户可以通过点击、筛选等操作深入探索数据，提升分析的深度和广度。</li>
+<li><strong>更丰富的社区支持</strong>：Tableau拥有庞大的用户社区和丰富的在线资源，用户可以轻松获取帮助和学习资料，加速问题的解决和技能的提升。</li>
+</ul>
+<h2 id="数据连接"><a class="markdownIt-Anchor" href="#数据连接"></a> 数据连接</h2>
+<p>Tableau支持与多种数据源的连接，包括本地文件、数据库、云服务等。以下是一些常见的数据连接方式：</p>
+<ul>
+<li><strong>本地文件</strong>：Tableau可以直接打开多种类型的本地文件，包括：
+<ul>
+<li><strong>CSV文件</strong>：通常使用文本编辑器打开。</li>
+<li><strong>Excel文件（xlsx）</strong>：使用Microsoft Excel打开。</li>
+<li><strong>JSON文件</strong>：用于存储结构化数据的轻量级格式。</li>
+<li><strong>Microsoft Access文件（mdb, accdb）</strong>：用于存储关系型数据的桌面数据库文件。</li>
+<li><strong>PDF文件</strong>：虽然PDF主要用于文档展示，但Tableau可以通过插件或外部工具提取其中的数据。</li>
+<li><strong>空间文件（如Shapefile, GeoJSON）</strong>：用于地理空间数据的存储和分析。</li>
+<li><strong>统计文件（如SPSS, SAS）</strong>：用于存储统计分析数据的文件格式。</li>
+</ul>
+</li>
+<li><strong>数据库</strong>：Tableau支持与多种数据库的连接，如MySQL、Oracle、SQL Server等。用户只需提供数据库的连接信息，即可将数据库中的数据导入Tableau进行分析。</li>
+<li><strong>云服务</strong>：Tableau还支持与各种云服务的连接，如Amazon Redshift、Google BigQuery等。通过与云服务的集成，用户可以轻松访问和分析存储在云端的大量数据。</li>
+</ul>
+<hr />
+<p>在Tableau的数据连接世界中，实时连接与数据提取是两种核心的数据接入方式，它们各自拥有独特的优势和适用场景，共同构成了Tableau强大的数据处理能力。</p>
+<h3 id="实时连接"><a class="markdownIt-Anchor" href="#实时连接"></a> 实时连接</h3>
+<p>实时连接是Tableau的一项关键功能，它允许用户直接连接到数据源，实时获取和分析数据。这种方式的优势在于：</p>
+<ul>
+<li><strong>即时性</strong>：用户可以实时查看和分析最新的数据，无需等待数据提取和加载的过程，确保了分析结果的时效性和准确性。</li>
+<li><strong>动态性</strong>：实时连接支持数据的动态更新和变化，用户可以在Tableau中观察到数据随时间的变化趋势，适用于需要频繁更新数据的场景。</li>
+<li><strong>灵活性</strong>：用户可以根据需要灵活地调整查询条件和分析维度，实时获取所需的数据洞察，提高了数据分析的灵活性和响应速度。</li>
+</ul>
+<p>然而，实时连接也存在一定的局限性，例如在处理大规模数据集时可能会遇到性能瓶颈，以及对数据源的稳定性和响应速度有一定要求。</p>
+<h3 id="数据提取"><a class="markdownIt-Anchor" href="#数据提取"></a> 数据提取</h3>
+<p>数据提取是Tableau的另一种数据连接方式，它通过将数据从源系统提取到Tableau的本地存储中，实现数据的离线分析和处理。这种方式的优势在于：</p>
+<ul>
+<li><strong>性能优化</strong>：数据提取可以将大规模数据集加载到Tableau的本地存储中，通过优化数据结构和索引，提高数据查询和分析的性能，适用于处理复杂和大规模的数据集。</li>
+<li><strong>稳定性</strong>：数据提取不受源系统性能和稳定性的影响，用户可以在Tableau中稳定地进行数据分析和可视化，确保了分析过程的连续性和可靠性。</li>
+<li><strong>灵活性</strong>：用户可以根据需要定期更新数据提取，保持数据的最新状态，同时也可以对提取的数据进行预处理和清洗，提高数据分析的质量和效率。</li>
+</ul>
+<p>数据提取的局限性在于它需要定期更新以保持数据的最新状态，以及在处理实时数据变化时可能存在一定的延迟。</p>
+<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
+<ul>
+<li><strong>实时连接</strong>：适用于需要实时查看和分析最新数据的场景，如实时监控、实时报表、实时决策支持等。</li>
+<li><strong>数据提取</strong>：适用于需要处理大规模数据集、进行复杂数据分析和可视化的场景，如历史数据分析、趋势预测、数据挖掘等。</li>
+</ul>
+<p>通过灵活运用实时连接和数据提取两种方式，Tableau为用户提供了全面的数据接入和分析能力，无论是实时数据监控还是深度数据挖掘，Tableau都能提供强大的支持。</p>
+<h2 id="数据保存"><a class="markdownIt-Anchor" href="#数据保存"></a> 数据保存</h2>
+<p>数据保存确保了用户的工作成果得以安全存储，便于后续的访问、分享和进一步分析。Tableau提供了多种数据保存方式，以满足不同用户的需求和场景。</p>
+<h3 id="工作簿保存"><a class="markdownIt-Anchor" href="#工作簿保存"></a> 工作簿保存</h3>
+<p>Tableau工作簿是用户进行数据分析和可视化的主要成果，包含了所有的数据连接、图表、仪表板和分析逻辑。Tableau支持将工作簿保存为<code>.twb</code>或<code>.twbx</code>格式：</p>
+<ul>
+<li><strong>.twb格式</strong>：这种格式保存了工作簿的结构和设置，但不包含数据提取。用户在打开<code>.twb</code>文件时需要重新连接到原始数据源。</li>
+<li><strong>.twbx格式</strong>：这种格式是Tableau打包工作簿，包含了工作簿的所有内容，包括数据提取。用户在打开<code>.twbx</code>文件时无需重新连接数据源，可以直接进行分析。</li>
+</ul>
+<h3 id="数据提取保存"><a class="markdownIt-Anchor" href="#数据提取保存"></a> 数据提取保存</h3>
+<p>对于通过数据提取方式连接的数据，Tableau允许用户将提取的数据保存为<code>.tde</code>或<code>.hyper</code>格式：</p>
+<ul>
+<li><strong>.tde格式</strong>：这是Tableau Data Extract的旧格式，适用于Tableau 10.x及更早版本。它支持数据的压缩和优化，便于快速加载和分析。</li>
+<li><strong>.hyper格式</strong>：这是Tableau Data Extract的新格式，从Tableau 10.5开始引入。它提供了更高的性能和更灵活的数据模型，支持更复杂的数据类型和操作。</li>
+</ul>
+<h3 id="数据源保存"><a class="markdownIt-Anchor" href="#数据源保存"></a> 数据源保存</h3>
+<p>Tableau还支持将数据源保存为<code>.tds</code>或<code>.tdsx</code>格式：</p>
+<ul>
+<li><strong>.tds格式</strong>：这种格式保存了数据源的连接信息和设置，但不包含数据提取。用户在打开<code>.tds</code>文件时需要重新连接到原始数据源。</li>
+<li><strong>.tdsx格式</strong>：这种格式是Tableau打包数据源，包含了数据源的所有内容，包括数据提取。用户在打开<code>.tdsx</code>文件时无需重新连接数据源，可以直接使用。</li>
+</ul>
+<h3 id="云端保存"><a class="markdownIt-Anchor" href="#云端保存"></a> 云端保存</h3>
+<p>随着云计算的普及，Tableau也提供了云端保存的选项，支持将工作簿和数据提取保存到Tableau Online或Tableau Server：</p>
+<ul>
+<li><strong>Tableau Online</strong>：这是Tableau的云服务平台，用户可以将工作簿和数据提取上传到云端，实现跨设备的访问和协作。</li>
+<li><strong>Tableau Server</strong>：这是Tableau的企业级服务器解决方案，支持在企业内部部署，提供更强大的数据管理和安全控制。</li>
+</ul>
+<h3 id="数据备份与恢复"><a class="markdownIt-Anchor" href="#数据备份与恢复"></a> 数据备份与恢复</h3>
+<p>为了确保数据的安全性，Tableau还提供了数据备份和恢复的功能。用户可以定期备份工作簿、数据提取和数据源，以防止数据丢失或损坏。在需要时，用户可以通过备份文件快速恢复数据，确保分析工作的连续性和可靠性。</p>
+<h2 id="数据解释器"><a class="markdownIt-Anchor" href="#数据解释器"></a> 数据解释器</h2>
+<p>数据解释器清理是Tableau中的一项功能，主要用于处理和清理导入的数据，以便更有效地进行数据分析和可视化。以下是数据解释器清理的具体含义和作用：</p>
+<h3 id="含义"><a class="markdownIt-Anchor" href="#含义"></a> 含义</h3>
+<p>数据解释器清理是指在Tableau中导入数据时，自动识别和处理数据中的常见问题，如重复行、缺失值、格式不一致等。这一过程旨在提高数据的质量和一致性，确保后续的数据分析和可视化更加准确和可靠。</p>
+<h3 id="作用"><a class="markdownIt-Anchor" href="#作用"></a> 作用</h3>
+<ol>
+<li><strong>数据清洗</strong>：自动识别和删除重复的行，填充或删除缺失值，统一数据格式，从而提高数据的整体质量。</li>
+<li><strong>简化分析</strong>：通过清理数据，减少分析过程中的干扰因素，使分析师能够更专注于数据的实质内容和洞察。</li>
+<li><strong>提升可视化效果</strong>：高质量的数据是生成有效可视化图表的基础。数据解释器清理确保数据在可视化过程中能够准确反映实际情况，避免误导性的图表和结论。</li>
+<li><strong>节省时间</strong>：手动清理数据通常耗时且容易出错。数据解释器清理功能能够自动完成这些任务，节省分析师的时间和精力，使其能够更快地进行数据探索和分析。</li>
+</ol>
+<p>在Tableau中，数据解释器清理功能通常在数据源设置阶段启用。用户可以在导入数据时选择启用数据解释器，Tableau将自动进行数据清理。这一功能特别适用于处理来自不同来源和格式的数据，确保数据在导入后即可用于分析和可视化。</p>
+<h2 id="数据可视化"><a class="markdownIt-Anchor" href="#数据可视化"></a> 数据可视化</h2>
+<p>我们之所以需要数据可视化，是因为在缺乏专业训练的情况下，面对一堆数字，我们往往难以迅速识别出其中的最大值、最小值等关键信息。人类对数据的敏感度实际上是相对较低的。</p>
+<p>然而，一旦我们通过可视化操作，将这些数字转化为直观的图像，我们的数据敏感度便会显著提升。这是因为人类天生就是图像视觉动物，我们的大脑更擅长处理和理解视觉信息。通过图表、图形等视觉元素，我们能够更快速、更直观地捕捉到数据的核心特征和内在规律，从而更有效地进行数据分析和决策。</p>
+<p>其实对于tableau，我们要做的，熟能生巧就可以了，除此之外，要掌握做表格、做词云、做其他基础图表的能力。</p>
+<p>其实总结来说，就是：</p>
+<ul>
+<li>度量默认聚合</li>
+<li>度量值会形成图形标记，图形标记可以切换</li>
+<li>维度会对度量值进行区分，增加度量值的信息密度</li>
+<li>图表分为有轴图表和无轴图表(极坐标图表)</li>
+<li>离散形成标签，连续形成数轴</li>
+</ul>
+<h2 id="基础图表制作指南"><a class="markdownIt-Anchor" href="#基础图表制作指南"></a> 基础图表制作指南</h2>
+<h3 id="柱状图"><a class="markdownIt-Anchor" href="#柱状图"></a> 柱状图</h3>
+<p>在成功连接数据源后，创建一个新的工作表。将所需数据分别拖拽至<code>行</code>和<code>列</code>区域，即可轻松生成柱状图。</p>
+<h3 id="条形图"><a class="markdownIt-Anchor" href="#条形图"></a> 条形图</h3>
+<p>若需将柱状图转换为条形图，只需点击工具栏中的排序快捷图标左侧，选择<code>交换行和列</code>（快捷键：Ctrl+W）。此外，通过在维度数据上右键点击并选择<code>创建分层结构</code>，可实现数据的分层展示，这是一个非常便捷的功能。</p>
+<h4 id="筛选器"><a class="markdownIt-Anchor" href="#筛选器"></a> 筛选器</h4>
+<p>筛选器是基础且实用的功能之一。在点击<code>显示筛选器</code>后，右侧将出现筛选面板，可用于按数值、日期、门店等条件进行图像筛选。</p>
+<h3 id="热力图"><a class="markdownIt-Anchor" href="#热力图"></a> 热力图</h3>
+<p>首先创建一个表格，然后将度量值数据拖至<code>颜色</code>区域，并将标记类型更改为<code>方形</code>，即可完成热力图的制作。</p>
+<h3 id="气泡图和词云"><a class="markdownIt-Anchor" href="#气泡图和词云"></a> 气泡图和词云</h3>
+<p>将数值度量放置于<code>大小</code>区域，将名称等维度量放置于<code>标签</code>或<code>文本</code>区域，并将标记类型改为<code>圆</code>，即可生成气泡图或词云。</p>
+<h3 id="饼图"><a class="markdownIt-Anchor" href="#饼图"></a> 饼图</h3>
+<p>制作饼图的方法与气泡图类似。将标记类型更改为<code>饼图</code>，将数值度量放置于<code>角度</code>区域，将名称等维度量放置于<code>颜色</code>区域。若需显示百分比或标签，按住<code>Ctrl</code>键将相应内容拖至<code>标签</code>区域。对于百分比显示，右键点击数值度量（位于<code>标签</code>中），选择<code>快速表计算</code> -&gt; <code>合计百分比</code>，并在<code>设置格式</code> -&gt; <code>数字</code> -&gt; <code>百分比</code>中进行进一步设置。</p>
+<h3 id="树地图"><a class="markdownIt-Anchor" href="#树地图"></a> 树地图</h3>
+<p>树地图的制作与饼图相似。将维度量放置于<code>颜色</code>区域，将<code>角度</code>区域中的数据度量拖至<code>大小</code>区域，并将标记类型更改为<code>方形</code>。</p>
+<h3 id="堆积图"><a class="markdownIt-Anchor" href="#堆积图"></a> 堆积图</h3>
+<p>堆积图适用于对比分析。首先将一个维度量放置于<code>列</code>区域，将数据度量放置于<code>行</code>区域，然后将另一个维度量放置于<code>颜色</code>区域。</p>
+<h4 id="编辑表计算-数值"><a class="markdownIt-Anchor" href="#编辑表计算-数值"></a> 编辑表计算 - 数值</h4>
+<p>选择<code>标签</code>区域中的数据度量，右键点击并选择<code>编辑表计算</code>，然后选择<code>表向下</code>，即可查看每列不同维度量之间的百分比差异。</p>
+<h4 id="编辑表计算-数轴"><a class="markdownIt-Anchor" href="#编辑表计算-数轴"></a> 编辑表计算 - 数轴</h4>
+<p>选择<code>行</code>区域中的数据度量，右键点击并依次选择<code>快速表计算</code> -&gt; <code>合计百分比</code>，然后选择<code>编辑表计算</code>并点击<code>表向下</code>，以显示相对百分比，使占比变化更加明显。</p>
+<h3 id="折线图"><a class="markdownIt-Anchor" href="#折线图"></a> 折线图</h3>
+<p>选择相应的行列数据，并将标记类型设置为<code>线</code>。通过添加筛选器，可以在<code>分析</code>菜单中点击<code>预测</code>，以获得一定的可信度分析。日期数据通常放置于<code>列</code>区域，右键点击可选择离散或连续的年月周日数据，通常使用连续数据进行操作。此外，还可以在<code>分析</code>菜单中添加趋势线、盒须图等分析工具。</p>
+<h3 id="面积图"><a class="markdownIt-Anchor" href="#面积图"></a> 面积图</h3>
+<p>选择相应的行列数据，将标记类型设置为<code>区域</code>，并将具有区分性的维度量放置于<code>颜色</code>区域，即可生成面积图。</p>
+<h3 id="散点图"><a class="markdownIt-Anchor" href="#散点图"></a> 散点图</h3>
+<p>选择相应的行列数据，将标记类型设置为<code>自动</code>，并将具有区分性的维度量放置于<code>颜色</code>或<code>详细信息</code>区域。最后，添加<code>分析</code>菜单中的<code>趋势线</code>，以完善散点图。根据需求，还可以添加<code>群集</code>功能进行分类。</p>
+<h3 id="直方图"><a class="markdownIt-Anchor" href="#直方图"></a> 直方图</h3>
+<p>首先创建一个<code>数据桶</code>，然后将其拖至相应的行和列区域。可根据需要添加其他维度量进行区分。</p>
+<h3 id="地图"><a class="markdownIt-Anchor" href="#地图"></a> 地图</h3>
+<p>将城市、省份、国家等维度量右键点击并选择<code>地理角色</code>，更改为相应的角色。然后双击或使用智能推荐功能，即可生成相应的地理图。后续可加入行列数据和其他筛选条件进行进一步区分。</p>
+<blockquote>
+<p>在进行<code>距离</code>类型的维度量分析时，我们通常会通过右键选择<code>创建</code>-&gt;<code>组</code>的方式，将不同距离区间进行分组。以美化可视化效果并清晰区分各组与门店的距离,从而提升数据解读的直观性和效率。</p>
+</blockquote>
+<h4 id="主键"><a class="markdownIt-Anchor" href="#主键"></a> 主键</h4>
+<p>在处理大量数据时，为了便于区分和识别，我们通常会创建一个主键，以实现数据的唯一标识。在操作界面的左侧，我们可以看到<code>查看数据</code>和<code>查找字段</code>等功能选项，而右侧则提供了<code>创建计算字段</code>的选项。通过点击<code>创建计算字段</code>，我们可以选择合适的维度量来构建一个具有唯一标识的主键。这样，在后续的数据处理过程中，我们便能够更加准确地区分和识别每一条数据。</p>
+<h2 id="bi仪表盘"><a class="markdownIt-Anchor" href="#bi仪表盘"></a> BI仪表盘</h2>
+<p>在精心打造BI仪表盘的过程中，我们首先需要精准定位我们的目标观众，这包括但不限于业务人员、中层管理者、高级管理者以及用人单位等。</p>
+<p>每类观众因其职责和需求的不同，对仪表盘的功能和呈现方式有着各自独特的要求：</p>
+<ul>
+<li>对于业务人员而言，他们更关注与自身业务紧密相关的数据细节，因此仪表盘应提供直观、具体的数据展示，以便他们快速获取所需信息，辅助日常业务决策。</li>
+<li>中层管理者则需要一个全面而精炼的总结报告，涵盖各个关键维度的数据。这样的仪表盘应具备多维度分析能力，能够帮助他们从宏观层面把握业务动态，同时也能深入到具体细节，以便进行更为精准的管理和指导。</li>
+<li>高级管理者通常关注的是整体战略层面的总结报告。因此，他们的仪表盘应简洁明了，突出关键指标和趋势，以便他们迅速把握全局，做出高层次的决策。</li>
+<li>至于用人单位，他们往往需要一个明确的分析主题，且分析的维度越深入、图表越高级，越能满足他们的需求。这类仪表盘应具备强大的数据挖掘和可视化能力，能够提供深入的分析结果，帮助用人单位洞察数据背后的深层次信息。</li>
+</ul>
+<h3 id="如何明确主题"><a class="markdownIt-Anchor" href="#如何明确主题"></a> 如何明确主题</h3>
+<p>在明确目标观众后，我们需要进一步确定仪表盘的主题。这一步骤至关重要，因为它直接关系到仪表盘的内容和结构。我们可以通过以下几个步骤来明确主题：</p>
+<ol>
+<li><strong>需求调研</strong>：深入了解目标观众的具体需求和痛点，通过访谈、问卷等方式收集信息。这一阶段，我们需要关注观众对数据的具体需求，包括他们希望看到哪些数据、这些数据的重要程度是否相同，以及他们希望通过这些数据解决什么问题。</li>
+<li><strong>数据梳理与分类</strong>：根据调研结果，对涉及的数据进行梳理和分类。这一步骤中，我们需要识别出哪些数据是核心数据，哪些是辅助数据，以及它们之间的关联性。同时，我们还需要评估每类数据的重要程度，确保在后续的仪表盘设计中能够合理分配展示空间。</li>
+<li><strong>关键指标筛选</strong>：在数据梳理的基础上，筛选出与主题紧密相关的关键指标。这些指标应能够全面反映主题的核心内容，并且具有较高的重要程度。通过这一步骤，我们可以确保仪表盘的主题突出，避免信息过载。</li>
+<li><strong>数据整合与分析</strong>：对筛选出的关键指标进行数据整合和深入分析，挖掘数据背后的关联和趋势。这一阶段，我们需要运用各种数据分析工具和方法，对数据进行深入剖析，以便为可视化设计提供有力的支撑。</li>
+<li><strong>可视化设计</strong>：根据分析结果，设计直观、易懂的可视化图表，确保观众能够迅速理解数据含义。在设计过程中，我们需要充分考虑观众的认知习惯和视觉偏好，力求使图表既美观又实用。</li>
+<li><strong>反馈与迭代</strong>：在仪表盘初步完成后，邀请目标观众进行试用，并根据反馈进行迭代优化。这一步骤中，我们需要关注观众的实际使用体验，及时调整和优化仪表盘的设计，确保其能够真正满足观众的需求。</li>
+</ol>
+<h3 id="最适合数据的图表"><a class="markdownIt-Anchor" href="#最适合数据的图表"></a> 最适合数据的图表</h3>
+<ol>
+<li>对比：</li>
+</ol>
+<ul>
+<li>绝对值对比——条形图/柱状图</li>
+</ul>
+<ol start="2">
+<li>变化：</li>
+</ol>
+<ul>
+<li>没有累计关系——折线图+柱状图</li>
+<li>有累计关系——面积图/堆积图</li>
+</ul>
+<ol start="3">
+<li>构成：</li>
+</ol>
+<ul>
+<li>对象少于3个——环形图</li>
+<li>对象大于3个——树地图</li>
+</ul>
+<ol start="4">
+<li>分布：</li>
+</ol>
+<ul>
+<li>单变量分布——直方图</li>
+<li>多变量分布——散点图/气泡图</li>
+</ul>
+<h3 id="度量名称显示"><a class="markdownIt-Anchor" href="#度量名称显示"></a> 度量名称显示</h3>
+<p>首先先把一个数据度量放在<code>文本</code>里，再拖动一个数据度量放在画布里那个显示的数据上，拖到上面会发现有个<code>+</code>或者<code>智能显示</code>，这样，就可以发现<code>行</code>上面显示一个<code>度量名称</code>，下面我们把<code>度量名称</code>拖到<code>列</code>上，然后把其他所需要的度量值托到左侧的<code>度量值</code>里就可以了。</p>
+<blockquote>
+<p>其实我们在做仪表盘的时候，会在筛选器里通常加入日期一类的维度量，然后右键点击<code>应用于工作表</code>-&gt;<code>使用相关数据源的所有项</code>，再<code>显示筛选器</code>，操作筛选器之后，你会发现，所有的表图都会根据你对筛选器变动，而不是只变动一张图表的。</p>
+</blockquote>
+<h3 id="双轴"><a class="markdownIt-Anchor" href="#双轴"></a> 双轴</h3>
+<p>在Tableau中创建双轴（Dual Axis）可以帮助我们在一个图表中同时显示两个不同的度量，每个度量有自己的轴。这对于比较两个不同量级的数据或者展示两个相关但不同类型的数据非常有用。以下是如何在Tableau中创建双轴的步骤：</p>
+<ol>
+<li><strong>准备数据</strong>：确保你的数据源中有至少两个不同的度量（Metrics），这些度量将分别显示在两个轴上。</li>
+<li><strong>创建第一个视图</strong>：将第一个度量拖到<code>行</code>或<code>列</code>功能区。例如，将<code>销售额</code>拖到<code>行</code>功能区。</li>
+<li><strong>创建第二个视图</strong>：将第二个度量拖到与第一个度量相同的位置，例如，将<code>利润</code>拖到<code>行</code>功能区，并且放在<code>销售额</code>的旁边。</li>
+<li><strong>转换为双轴</strong>：右键点击第二个度量（例如<code>利润</code>），然后选择<code>双轴</code>（Dual Axis）。</li>
+<li><strong>调整轴和格式</strong>：你可以通过右键点击轴标签来调整每个轴的格式，比如设置轴的最小值、最大值、刻度间隔等。</li>
+</ol>
+<p>双轴的作用主要包括：</p>
+<ul>
+<li><strong>比较不同量级的数据</strong>：例如，销售额和利润，这两个数据可能量级不同，通过双轴可以更直观地比较。</li>
+<li><strong>展示相关但不同类型的数据</strong>：例如，温度和降雨量，这两个数据虽然相关，但类型不同，通过双轴可以同时展示。</li>
+<li><strong>增强可视化效果</strong>：双轴图表可以提供更丰富的信息，帮助用户更好地理解数据之间的关系。</li>
+</ul>
+<p>最后我们发现，这个双轴图并不美观，没关系，我们点击第一个视图，将其调整为条形图，并通过调整透明度和条形大小来增强视觉效果。具体操作如下：</p>
+<ol>
+<li><strong>选择条形图</strong>：在<code>标记</code>卡中，将图表类型从默认的折线图改为条形图。</li>
+<li><strong>调整透明度</strong>：在<code>标记</code>卡下找到<code>颜色</code>选项，调整透明度滑块，降低条形图的透明度，使其更加柔和，不至于过于突兀。</li>
+<li><strong>缩小条形大小</strong>：在<code>标记</code>卡中，找到<code>大小</code>选项，适当减小条形的大小，使其与后续的折线图更好地融合，保持图表的整体协调性。</li>
+<li><strong>保持折线图</strong>：对于第二个视图，继续使用折线图，以保持数据的连续性和趋势的清晰展示。</li>
+</ol>
+<p>咳，最后的最后，我们再加一个<code>分析</code>里的<code>趋势线</code>，完美收工。</p>
+<h3 id="环形图"><a class="markdownIt-Anchor" href="#环形图"></a> 环形图</h3>
+<p>先做一个饼形图，然后在<code>行</code>的上面双击输入<code>0</code>，重复两次，可以得到两个图表，然后右键<code>双轴</code>，在左侧的下面的<code>总和(0)</code>里进行以下操作，首先把所有标签删除，把<code>颜色</code>改为纯白，最后把<code>大小</code>拉小，就可以得到一个环形图了。</p>
+<p>不过这个时候会发现左右两侧会有轴线，我们右键轴线段，点击<code>显示标题</code>，就可以把轴线给隐藏掉。</p>
+<p>还有一个零值线，我们右键画布，点击<code>设置格式</code>，点击字段左边的图标，里面是设置工作表的各种线和刻度的，找到<code>零值线</code>，将其设置为<code>无</code>，这样我们就可以得到一个干净的环形图了。</p>
+<blockquote>
+<p>如果遇到标签的名字不符合我们所期望的，我们可以右键<code>编辑别名</code>进行设置。</p>
+</blockquote>
+<h3 id="仪表盘布局"><a class="markdownIt-Anchor" href="#仪表盘布局"></a> 仪表盘布局</h3>
+<p>常见的仪表盘布局有两种，一种是纵向的，另一种是横向的。</p>
+<h3 id="仪表盘制作"><a class="markdownIt-Anchor" href="#仪表盘制作"></a> 仪表盘制作</h3>
+<p>当你根据数据源做好各类图表的时候，直接在右下侧建立仪表盘，然后把图表拖拽到仪表盘中，进行布局调试和交互设计/记得加上边框哦，这样我们的仪表盘就制作成功了，如下图所示，这是拉姆自己用一个小项目进行的练手：<br />
+<img src="https://www.qiuxs.cn/sharing-tools/img/read/f294f36b1c59f4262381d6ecb16fd7d9" alt="图表1" /></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+        <a href="/2024/07/12/learn/tableau/#comments" class="article-comment-link">
+          <span class="post-comments-count twikoo-comment-count" data-path="/2024/07/12/learn/tableau/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <script>
+          twikoo.getCommentsCount({
+            envId: 'https://blog.6677677.xyz/',
+            region: '',
+            urls: [
+              '/2024/07/12/learn/tableau/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            _$('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        </script>
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">数据分析</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+  <nav id="article-nav" class="wow fadeInUp">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/3205b28e7822df8df658bbbaeda95a2e" data-sizes="auto" alt="数据分析之Excel食用指南" class="lazyload">
+      
+      <a href="/2024/07/02/learn/excel/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          数据分析之Excel食用指南
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+  <div id="comments" class="tcomment"></div>
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrap wow fadeInRight wrap-sticky">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text"> 数据连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.</span> <span class="toc-text"> 实时连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.</span> <span class="toc-text"> 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text"> 数据保存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%B0%BF%E4%BF%9D%E5%AD%98"><span class="toc-number">2.1.</span> <span class="toc-text"> 工作簿保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96%E4%BF%9D%E5%AD%98"><span class="toc-number">2.2.</span> <span class="toc-text"> 数据提取保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%BA%90%E4%BF%9D%E5%AD%98"><span class="toc-number">2.3.</span> <span class="toc-text"> 数据源保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E7%AB%AF%E4%BF%9D%E5%AD%98"><span class="toc-number">2.4.</span> <span class="toc-text"> 云端保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-number">2.5.</span> <span class="toc-text"> 数据备份与恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text"> 数据解释器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AB%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text"> 含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text"> 数据可视化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%9B%BE%E8%A1%A8%E5%88%B6%E4%BD%9C%E6%8C%87%E5%8D%97"><span class="toc-number">5.</span> <span class="toc-text"> 基础图表制作指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE"><span class="toc-number">5.1.</span> <span class="toc-text"> 柱状图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="toc-number">5.2.</span> <span class="toc-text"> 条形图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E5%99%A8"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 筛选器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E5%8A%9B%E5%9B%BE"><span class="toc-number">5.3.</span> <span class="toc-text"> 热力图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%94%E6%B3%A1%E5%9B%BE%E5%92%8C%E8%AF%8D%E4%BA%91"><span class="toc-number">5.4.</span> <span class="toc-text"> 气泡图和词云</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A5%BC%E5%9B%BE"><span class="toc-number">5.5.</span> <span class="toc-text"> 饼图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E5%9C%B0%E5%9B%BE"><span class="toc-number">5.6.</span> <span class="toc-text"> 树地图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E7%A7%AF%E5%9B%BE"><span class="toc-number">5.7.</span> <span class="toc-text"> 堆积图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%A1%A8%E8%AE%A1%E7%AE%97-%E6%95%B0%E5%80%BC"><span class="toc-number">5.7.1.</span> <span class="toc-text"> 编辑表计算 - 数值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%A1%A8%E8%AE%A1%E7%AE%97-%E6%95%B0%E8%BD%B4"><span class="toc-number">5.7.2.</span> <span class="toc-text"> 编辑表计算 - 数轴</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="toc-number">5.8.</span> <span class="toc-text"> 折线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E7%A7%AF%E5%9B%BE"><span class="toc-number">5.9.</span> <span class="toc-text"> 面积图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="toc-number">5.10.</span> <span class="toc-text"> 散点图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="toc-number">5.11.</span> <span class="toc-text"> 直方图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9B%BE"><span class="toc-number">5.12.</span> <span class="toc-text"> 地图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE"><span class="toc-number">5.12.1.</span> <span class="toc-text"> 主键</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bi%E4%BB%AA%E8%A1%A8%E7%9B%98"><span class="toc-number">6.</span> <span class="toc-text"> BI仪表盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%98%8E%E7%A1%AE%E4%B8%BB%E9%A2%98"><span class="toc-number">6.1.</span> <span class="toc-text"> 如何明确主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%80%82%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9B%BE%E8%A1%A8"><span class="toc-number">6.2.</span> <span class="toc-text"> 最适合数据的图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A6%E9%87%8F%E5%90%8D%E7%A7%B0%E6%98%BE%E7%A4%BA"><span class="toc-number">6.3.</span> <span class="toc-text"> 度量名称显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E8%BD%B4"><span class="toc-number">6.4.</span> <span class="toc-text"> 双轴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%BD%A2%E5%9B%BE"><span class="toc-number">6.5.</span> <span class="toc-text"> 环形图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98%E5%B8%83%E5%B1%80"><span class="toc-number">6.6.</span> <span class="toc-text"> 仪表盘布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98%E5%88%B6%E4%BD%9C"><span class="toc-number">6.7.</span> <span class="toc-text"> 仪表盘制作</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">20</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+    
+      <div class="sidebar-btn-wrapper" style="position:static">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                2020-2024
+                <span class="footer-info-sep"></span>
+                戴诺斯·拉姆
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    36.4k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    02:03
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+        </div>
+		<div class="beian-info">
+            <img src="https://www.qiuxs.cn/sharing-tools/img/read/31890cf408183fdbdabef9cf0d3a4e97">
+            <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">豫ICP备2024052277号-1</a>
+        </div>
+		
+    </div>
+</footer>
+
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" alt="backtop" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.</span> <span class="toc-text"> 数据连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%97%B6%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.</span> <span class="toc-text"> 实时连接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96"><span class="toc-number">1.2.</span> <span class="toc-text"> 数据提取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.3.</span> <span class="toc-text"> 适用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BF%9D%E5%AD%98"><span class="toc-number">2.</span> <span class="toc-text"> 数据保存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E7%B0%BF%E4%BF%9D%E5%AD%98"><span class="toc-number">2.1.</span> <span class="toc-text"> 工作簿保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8F%90%E5%8F%96%E4%BF%9D%E5%AD%98"><span class="toc-number">2.2.</span> <span class="toc-text"> 数据提取保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%BA%90%E4%BF%9D%E5%AD%98"><span class="toc-number">2.3.</span> <span class="toc-text"> 数据源保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E7%AB%AF%E4%BF%9D%E5%AD%98"><span class="toc-number">2.4.</span> <span class="toc-text"> 云端保存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="toc-number">2.5.</span> <span class="toc-text"> 数据备份与恢复</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E9%87%8A%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text"> 数据解释器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AB%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text"> 含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">3.2.</span> <span class="toc-text"> 作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="toc-number">4.</span> <span class="toc-text"> 数据可视化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E5%9B%BE%E8%A1%A8%E5%88%B6%E4%BD%9C%E6%8C%87%E5%8D%97"><span class="toc-number">5.</span> <span class="toc-text"> 基础图表制作指南</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE"><span class="toc-number">5.1.</span> <span class="toc-text"> 柱状图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="toc-number">5.2.</span> <span class="toc-text"> 条形图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%9B%E9%80%89%E5%99%A8"><span class="toc-number">5.2.1.</span> <span class="toc-text"> 筛选器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%83%AD%E5%8A%9B%E5%9B%BE"><span class="toc-number">5.3.</span> <span class="toc-text"> 热力图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B0%94%E6%B3%A1%E5%9B%BE%E5%92%8C%E8%AF%8D%E4%BA%91"><span class="toc-number">5.4.</span> <span class="toc-text"> 气泡图和词云</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A5%BC%E5%9B%BE"><span class="toc-number">5.5.</span> <span class="toc-text"> 饼图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%91%E5%9C%B0%E5%9B%BE"><span class="toc-number">5.6.</span> <span class="toc-text"> 树地图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E7%A7%AF%E5%9B%BE"><span class="toc-number">5.7.</span> <span class="toc-text"> 堆积图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%A1%A8%E8%AE%A1%E7%AE%97-%E6%95%B0%E5%80%BC"><span class="toc-number">5.7.1.</span> <span class="toc-text"> 编辑表计算 - 数值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E8%A1%A8%E8%AE%A1%E7%AE%97-%E6%95%B0%E8%BD%B4"><span class="toc-number">5.7.2.</span> <span class="toc-text"> 编辑表计算 - 数轴</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="toc-number">5.8.</span> <span class="toc-text"> 折线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E7%A7%AF%E5%9B%BE"><span class="toc-number">5.9.</span> <span class="toc-text"> 面积图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="toc-number">5.10.</span> <span class="toc-text"> 散点图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%96%B9%E5%9B%BE"><span class="toc-number">5.11.</span> <span class="toc-text"> 直方图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%B0%E5%9B%BE"><span class="toc-number">5.12.</span> <span class="toc-text"> 地图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E9%94%AE"><span class="toc-number">5.12.1.</span> <span class="toc-text"> 主键</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bi%E4%BB%AA%E8%A1%A8%E7%9B%98"><span class="toc-number">6.</span> <span class="toc-text"> BI仪表盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%98%8E%E7%A1%AE%E4%B8%BB%E9%A2%98"><span class="toc-number">6.1.</span> <span class="toc-text"> 如何明确主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E9%80%82%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9B%BE%E8%A1%A8"><span class="toc-number">6.2.</span> <span class="toc-text"> 最适合数据的图表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%A6%E9%87%8F%E5%90%8D%E7%A7%B0%E6%98%BE%E7%A4%BA"><span class="toc-number">6.3.</span> <span class="toc-text"> 度量名称显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8C%E8%BD%B4"><span class="toc-number">6.4.</span> <span class="toc-text"> 双轴</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%BD%A2%E5%9B%BE"><span class="toc-number">6.5.</span> <span class="toc-text"> 环形图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98%E5%B8%83%E5%B1%80"><span class="toc-number">6.6.</span> <span class="toc-text"> 仪表盘布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%AA%E8%A1%A8%E7%9B%98%E5%88%B6%E4%BD%9C"><span class="toc-number">6.7.</span> <span class="toc-text"> 仪表盘制作</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">20</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">7</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <span class="sidebar-menu-icon"></span>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    <div class="site-search">
+      <div class="reimu-popup popup">
+        <div class="reimu-search">
+          <span class="reimu-search-input-icon"></span>
+          <div class="reimu-search-input" id="reimu-search-input"></div>
+        </div>
+        <div class="reimu-results">
+          <div id="reimu-stats"></div>
+          <div id="reimu-hits"></div>
+          <div id="reimu-pagination" class="reimu-pagination"></div>
+        </div>
+        <span class="popup-btn-close"></span>
+      </div>
+    </div>
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+<script type="module" data-pjax>
+  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.js";
+  
+  const pswp = () => {
+    if (_$$('.article-entry a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-entry',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+      }).init();
+    }
+    if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-gallery',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.js")
+      }).init();
+    }
+    window.lightboxStatus = 'done';
+    window.removeEventListener('lightbox:ready', pswp);
+  }
+  if(window.lightboxStatus === 'ready') {
+    pswp()
+  } else {
+    window.addEventListener('lightbox:ready', pswp);
+  }
+</script>
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js" data-pjax></script>
+
+  <script data-pjax>
+    twikoo.init({
+      envId: 'https://blog.6677677.xyz/',
+      el: '.tcomment',
+      region: '',
+    })
+  </script>
+
+
+
+
+
+  
+<script src="/js/generator_search.js"></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.2.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+

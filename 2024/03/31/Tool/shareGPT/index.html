@@ -306,7 +306,14 @@ KimiAI支持最多五十个文档的上传与分析，这点和claude3差不多�
       
     </div>
     <footer class="article-footer">
-      
+      <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>戴诺斯·拉姆 @ 拉姆的小树屋</p>
+    <p><strong>本文链接：</strong><a href="https://sherry14love.github.io/2024/03/31/Tool/shareGPT/">https://sherry14love.github.io/2024/03/31/Tool/shareGPT/</a></p>
+    
+    
+    
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+  </blockquote>
       
       
       
@@ -487,7 +494,7 @@ KimiAI支持最多五十个文档的上传与分析，这点和claude3差不多�
             
                 <div>
                     <span class="icon-brush"></span>
-                    47.8k
+                    47.9k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
                     02:48
@@ -692,6 +699,71 @@ KimiAI支持最多五十个文档的上传与分析，这点和claude3差不多�
     firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
   </script>
 
+
+
+  
+<script src="https://npm.webcache.cn/theme-shokax-pjax@0.0.3/dist/index.umd.js"></script>
+
+  <script>
+    function loadScripts(scripts, index) {
+      if (index < scripts.length) {
+        const script = scripts[index];
+        const src = script.getAttribute('src');
+
+        if (src) {
+          fetch(src)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+              }
+              return response.text();
+            })
+            .then(scriptContent => {
+              const scriptElement = document.createElement('script');
+              scriptElement.text = scriptContent;
+              document.head.appendChild(scriptElement);
+              loadScripts(scripts, index + 1);
+            })
+            .catch(error => {
+              console.error('Failed to load script:', src, error);
+            });
+        } else {
+          // Inline script, directly evaluate
+          eval(script.textContent);
+          loadScripts(scripts, index + 1);
+        }
+      }
+    }
+    new Pjax({
+      selectors: [
+        "#header-title",
+        "#subtitle-wrap",
+        "#content",
+        '#mobile-nav',
+        '#lazy-script'
+      ],
+      switches: {
+        "#header-title": Pjax.switches.outerHTML,
+        "#subtitle-wrap": Pjax.switches.outerHTML,
+        "#content": function(oldEl, newEl, options) {
+          const scripts = [...newEl.querySelectorAll('script')];
+          loadScripts(scripts, 0);
+          oldEl.outerHTML = newEl.outerHTML
+          this.onSwitch()
+        },
+        "#mobile-nav": Pjax.switches.outerHTML,
+        '#lazy-script': function(oldEl, newEl, options) {
+          const scripts = [...newEl.querySelectorAll('script')];
+          loadScripts(scripts, 0);
+          oldEl.innerHTML = newEl.innerHTML
+          this.onSwitch()
+        },
+      },
+      cacheBust: false
+    })
+  </script>
+  
+<script src="/js/pjax.js"></script>
 
 
 

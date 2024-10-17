@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont";
-  src: url("//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.woff2") format('woff2'), url("//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.woff") format('woff'), url("//at.alicdn.com/t/c/font_4552607_09mhdxci6yrk.ttf") format('truetype');
+  src: url("//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2") format('woff2');
   font-display: swap;
 }
 .tag-wrap .archives-tag-list-link:before {
@@ -119,15 +119,6 @@
   font-family: "iconfont";
   content: "\e619";
 }
-.icon-email:before {
-  content: "\1F4E7";
-}
-.icon-qq:before {
-  content: "\1F4AC";
-}
-.icon-wechat:before {
-  content: "\1F4AD";
-}
 .icon-google:before {
   content: "\e611";
 }
@@ -197,6 +188,9 @@
 .icon-steam:before {
   content: "\e624";
 }
+.icon-email:before {
+  content: "\e63c";
+}
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
   font-family: "iconfont";
   content: "\e633";
@@ -220,4 +214,8 @@
 .icon-creative-commons:before {
   font-family: "iconfont";
   content: "\e63a";
+}
+.icon-taichi:before {
+  font-family: "iconfont";
+  content: "\e62b";
 }

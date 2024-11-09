@@ -248,11 +248,11 @@ DeepSeek（写报告不错，就是敏感词太严格）：https://chat.deepseek
   <div class="post-wrapper">
   <div class="post-wrap-right" data-aos="fade-up">
     
-    <a class="post-link" href="/2024/11/09/learn/yolov8/" aria-label="yolov8使用心得/包含标注ID转换脚本"></a>
+    <a class="post-link" href="/2024/11/09/learn/yolov8/" aria-label="yolov8使用心得/包含类别ID转换脚本"></a>
     
     <div class="post-cover-right">
       
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/162/read" data-sizes="auto" alt="yolov8使用心得/包含标注ID转换脚本" class="lazyload">
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/162/read" data-sizes="auto" alt="yolov8使用心得/包含类别ID转换脚本" class="lazyload">
       
     </div>
     <div class="post-info">
@@ -261,15 +261,18 @@ DeepSeek（写报告不错，就是敏感词太严格）：https://chat.deepseek
         <span><span class="icon-pencil"></span>2.2k 字</span>
         <span><span class="icon-clock"></span>10 分钟</span>
       </div>
-      <h2 class="post-title">yolov8使用心得/包含标注ID转换脚本</h2>
+      <h2 class="post-title">yolov8使用心得/包含类别ID转换脚本</h2>
       <article class="post-article">
         
           项目地址：yolov8一键部署运行与云服务器
  数据标注工具
 针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好
 仅针对于拉姆自己数据集的测试
+
+YOLO格式:类别ID和边界框坐标（中心x, 中心y, 宽度, 高度）
+
 对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，所以，可以用下面的脚本来创建一个字典映射进行更改：
-12345678910111213141516171819202122232425262728293031323334353637383940414
+123456789101112131415161718192021222
         
       </article>
     </div>
@@ -707,7 +710,7 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
         <ul>
           
             <li>
-              <a href="/2024/11/09/learn/yolov8/">yolov8使用心得/包含标注ID转换脚本</a>
+              <a href="/2024/11/09/learn/yolov8/">yolov8使用心得/包含类别ID转换脚本</a>
             </li>
           
             <li>
@@ -758,7 +761,7 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
             
                 <div>
                     <span class="icon-brush"></span>
-                    50.2k
+                    50.3k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
                     02:59

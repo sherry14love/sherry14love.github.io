@@ -1,0 +1,759 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":true,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.swPath = '/sw.js';</script>
+  
+  
+  <title>
+    yolov8使用心得/包含标注ID转换脚本 |
+    
+    拉姆的小树屋
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="项目地址：yolov8一键部署运行与云服务器  数据标注工具 针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好 仅针对于拉姆自己数据集的测试 对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yolov8使用心得&#x2F;包含标注ID转换脚本">
+<meta property="og:url" content="https://sherry14love.github.io/2024/11/09/learn/yolov8/index.html">
+<meta property="og:site_name" content="拉姆的小树屋">
+<meta property="og:description" content="项目地址：yolov8一键部署运行与云服务器  数据标注工具 针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好 仅针对于拉姆自己数据集的测试 对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-09T05:55:02.150Z">
+<meta property="article:author" content="戴诺斯·拉姆">
+<meta property="article:tag" content="卷">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="拉姆的小树屋" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://www.qiuxs.cn/sharing-tools/img/read/0a1f41f52ba880b1308bda7f148d2639">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+    
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+    
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.0.1/dist/aos.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff5252" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+         M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="#ff5252" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+  <div class="notification-wrapper">
+    <h1>发现新版本</h1>
+    <p>网站好像有新内容，是否更新(ﾟ⊿ﾟ)ﾂ？</p>
+    <div class="notification-btn">
+      <button id="notification-update-btn">更新</button>
+      <button id="notification-close-btn">取消</button>
+    </div>
+  </div>
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="https://www.qiuxs.cn/sharing-tools/img/162/read" alt="yolov8使用心得/包含标注ID转换脚本">
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">yolov8使用心得/包含标注ID转换脚本</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content">
+          
+          <section id="main"><article id="post-learn/yolov8" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2024/11/09/learn/yolov8/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2024-11-08T16:00:00.000Z" itemprop="datePublished">2024-11-09</time>
+    <time style="display: none;" id="post-update-time">2024-11-09</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/learn/" data-aos="zoom-in">learn</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <p>项目地址：<a target="_blank" rel="noopener" href="https://www.codewithgpu.com/i/ultralytics/ultralytics/yolov8">yolov8一键部署运行与云服务器</a></p>
+<h2 id="数据标注工具"><a class="markdownIt-Anchor" href="#数据标注工具"></a> 数据标注工具</h2>
+<p>针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好</p>
+<p><s>仅针对于拉姆自己数据集的测试</s></p>
+<p>对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，所以，可以用下面的脚本来创建一个字典映射进行更改：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义字符映射字典</span></span><br><span class="line">char_mapping = &#123;<span class="string">&#x27;0&#x27;</span>: <span class="string">&#x27;83&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;1&#x27;</span>: <span class="string">&#x27;84&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义输入和输出文件夹路径</span></span><br><span class="line">input_folder = <span class="string">r&#x27;F:\work\1&#x27;</span> <span class="comment"># 请改成自己的输入路径</span></span><br><span class="line">output_folder = <span class="string">r&#x27;F:\work\2&#x27;</span> <span class="comment"># 请改成自己的输出路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确保输出文件夹存在</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(output_folder):</span><br><span class="line">    os.makedirs(output_folder)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 遍历输入文件夹中的所有.txt文件</span></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(input_folder):</span><br><span class="line">    <span class="keyword">if</span> filename.endswith(<span class="string">&#x27;.txt&#x27;</span>):</span><br><span class="line">        input_file_path = os.path.join(input_folder, filename)</span><br><span class="line">        output_file_path = os.path.join(output_folder, filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 读取文件内容</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(input_file_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            lines = file.readlines()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 处理每一行从第一个字符到第一个空格结束的部分</span></span><br><span class="line">        modified_lines = []</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">            <span class="comment"># 查找第一个空格的位置</span></span><br><span class="line">            space_index = line.find(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">            <span class="keyword">if</span> space_index != -<span class="number">1</span>:</span><br><span class="line">                <span class="comment"># 获取从第一个字符到第一个空格的部分</span></span><br><span class="line">                first_part = line[:space_index]</span><br><span class="line">                <span class="comment"># 进行映射替换</span></span><br><span class="line">                modified_first_part = char_mapping.get(first_part, first_part)</span><br><span class="line">                <span class="comment"># 替换并添加到修改后的行列表中</span></span><br><span class="line">                modified_line = modified_first_part + line[space_index:]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="comment"># 如果没有空格，直接进行映射替换</span></span><br><span class="line">                modified_line = char_mapping.get(line.strip(), line.strip())</span><br><span class="line">            modified_lines.append(modified_line)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将修改后的内容写入输出文件</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(output_file_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">            file.writelines(modified_lines)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;处理完成，结果已保存到&quot;</span>, output_folder)</span><br></pre></td></tr></table></figure>
+<p><em>注意更改为自己的路径哦~</em></p>
+<p>当然你如果想用多边形标记工具labelme（这个只能保存为json格式）</p>
+<p>拉姆也有两个脚本，可以进行转正为yolo模型可以识别的相对路径txt格式：</p>
+<p>脚本一：将json转换成txt格式，因为labelme标签ID为自己输入的字母或者其他字符，所以还需要脚本二</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"></span><br><span class="line">img_folder_path = <span class="string">r&#x27;F:\work\1\images&#x27;</span>  <span class="comment"># 图片存放文件夹</span></span><br><span class="line">folder_path = <span class="string">r&quot;F:\work\1\label&quot;</span>  <span class="comment"># 标注数据的文件地址</span></span><br><span class="line">txt_folder_path = <span class="string">r&quot;F:\work\1\txt&quot;</span>  <span class="comment"># 转换后的txt标签文件存放的文件夹</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存为相对坐标形式 :label x_center y_center w h</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">relative_coordinate_txt</span>(<span class="params">img_name, json_d, img_path</span>):</span><br><span class="line">    src_img = cv2.imread(img_path)</span><br><span class="line">    <span class="keyword">if</span> src_img <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Failed to read image: <span class="subst">&#123;img_path&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    h, w = src_img.shape[:<span class="number">2</span>]</span><br><span class="line">    txt_name = img_name.split(<span class="string">&quot;.&quot;</span>)[<span class="number">0</span>] + <span class="string">&quot;.txt&quot;</span></span><br><span class="line">    txt_path = os.path.join(txt_folder_path, txt_name)</span><br><span class="line">    <span class="built_in">print</span>(txt_path)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(txt_path, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> json_d[<span class="string">&quot;shapes&quot;</span>]:</span><br><span class="line">            point = item[<span class="string">&#x27;points&#x27;</span>]</span><br><span class="line">            <span class="comment"># 确保 point[0] 和 point[1] 的坐标值正确</span></span><br><span class="line">            x1, y1 = point[<span class="number">0</span>]</span><br><span class="line">            x2, y2 = point[<span class="number">1</span>]</span><br><span class="line">            x_min = <span class="built_in">min</span>(x1, x2)</span><br><span class="line">            x_max = <span class="built_in">max</span>(x1, x2)</span><br><span class="line">            y_min = <span class="built_in">min</span>(y1, y2)</span><br><span class="line">            y_max = <span class="built_in">max</span>(y1, y2)</span><br><span class="line"></span><br><span class="line">            x_center = (x_min + x_max) / <span class="number">2</span></span><br><span class="line">            y_center = (y_min + y_max) / <span class="number">2</span></span><br><span class="line">            width = x_max - x_min</span><br><span class="line">            height = y_max - y_min</span><br><span class="line"></span><br><span class="line">            f.write(<span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(item[<span class="string">&#x27;label&#x27;</span>]))</span><br><span class="line">            f.write(<span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(x_center / w))</span><br><span class="line">            f.write(<span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(y_center / h))</span><br><span class="line">            f.write(<span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(width / w))</span><br><span class="line">            f.write(<span class="string">&quot;&#123;&#125; &quot;</span>.<span class="built_in">format</span>(height / h))</span><br><span class="line">            f.write(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> jsonfile <span class="keyword">in</span> os.listdir(folder_path):</span><br><span class="line">    temp_path = os.path.join(folder_path, jsonfile)</span><br><span class="line"></span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    <span class="comment"># if i &gt; 5:</span></span><br><span class="line">    <span class="comment">#     break</span></span><br><span class="line">    <span class="comment"># 如果是一个子目录就继续</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isdir(temp_path):</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;json_path:\t&quot;</span>, temp_path)</span><br><span class="line">    jsonfile_path = temp_path</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(jsonfile_path, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        json_d = json.load(f)</span><br><span class="line">        <span class="comment"># 保留原始扩展名，而不是强制转换为.jpeg，支持各类图片的格式</span></span><br><span class="line">        img_name = json_d[<span class="string">&#x27;imagePath&#x27;</span>].split(<span class="string">&quot;\\&quot;</span>)[-<span class="number">1</span>]</span><br><span class="line">        img_path = os.path.join(img_folder_path, img_name)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;img_path:\t&quot;</span>, img_path)</span><br><span class="line">        relative_coordinate_txt(img_name, json_d, img_path)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>脚本二：读取标签为字母的txt并改成ID</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> shutil</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">process_label_files</span>(<span class="params">input_dir, output_dir</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    处理标签文件，将特定标签名称转换为数字编号</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        input_dir: 输入文件夹路径</span></span><br><span class="line"><span class="string">        output_dir: 输出文件夹路径</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 创建标签映射字典</span></span><br><span class="line">    label_mapping = &#123;</span><br><span class="line">        <span class="string">&#x27;person&#x27;</span>: <span class="string">&#x27;4&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;ECGmonitor&#x27;</span>: <span class="string">&#x27;2&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;patientBed&#x27;</span>: <span class="string">&#x27;1&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;bedsideTable&#x27;</span>: <span class="string">&#x27;0&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;patient&#x27;</span>: <span class="string">&#x27;3&#x27;</span></span><br><span class="line">        <span class="comment"># 可以根据需要添加更多映射</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 确保输出目录存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(output_dir):</span><br><span class="line">        os.makedirs(output_dir)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 遍历输入目录中的所有txt文件</span></span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(input_dir):</span><br><span class="line">        <span class="keyword">if</span> filename.endswith(<span class="string">&#x27;.txt&#x27;</span>):</span><br><span class="line">            input_path = os.path.join(input_dir, filename)</span><br><span class="line">            output_path = os.path.join(output_dir, filename)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 读取并处理文件</span></span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(input_path, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                lines = f.readlines()</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 处理每一行</span></span><br><span class="line">            processed_lines = []</span><br><span class="line">            <span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">                parts = line.strip().split()</span><br><span class="line">                <span class="keyword">if</span> parts:  <span class="comment"># 确保行不为空</span></span><br><span class="line">                    <span class="comment"># 替换标签</span></span><br><span class="line">                    <span class="keyword">if</span> parts[<span class="number">0</span>] <span class="keyword">in</span> label_mapping:</span><br><span class="line">                        parts[<span class="number">0</span>] = label_mapping[parts[<span class="number">0</span>]]</span><br><span class="line">                    processed_line = <span class="string">&#x27; &#x27;</span>.join(parts)</span><br><span class="line">                    processed_lines.append(processed_line + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 写入新文件</span></span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(output_path, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                f.writelines(processed_lines)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 路径更改</span></span><br><span class="line">input_directory = <span class="string">r&#x27;F:\work\1&#x27;</span> <span class="comment"># 改为自己的输入路径</span></span><br><span class="line">output_directory = <span class="string">r&#x27;F:\work\2&#x27;</span> <span class="comment"># 改为自己的输出路径</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    process_label_files(input_directory, output_directory)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;处理完成！文件已保存到: <span class="subst">&#123;output_directory&#125;</span>&quot;</span>)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;处理过程中出现错误: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="训练模型"><a class="markdownIt-Anchor" href="#训练模型"></a> 训练模型</h2>
+<ol>
+<li>首先在终端进入目录：ultralytics-8.3.27，在终端输入命令：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ultralytics-8.3.27</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>在ultralytics-8.3.27里找到train_v8.py文件，更改其代码：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO</span><br><span class="line"><span class="keyword">import</span> yaml</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>(<span class="params">opt</span>):</span><br><span class="line">    yaml_path = opt.cfg</span><br><span class="line">    weights = opt.weights</span><br><span class="line">    config_path = opt.config</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 加载配置文件</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(config_path, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        config = yaml.safe_load(f)</span><br><span class="line">    </span><br><span class="line">    model = YOLO(yaml_path).load(weights)</span><br><span class="line">    model.info()</span><br><span class="line">    </span><br><span class="line">    results = model.train(**config)  <span class="comment"># 使用配置文件中的所有参数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">parse_opt</span>(<span class="params">known=<span class="literal">False</span></span>):</span><br><span class="line">    parser = argparse.ArgumentParser()</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--cfg&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;ultralytics/cfg/models/v8/yolov8.yaml&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;model.yaml path&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--weights&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;weights path&#x27;</span>)</span><br><span class="line">    parser.add_argument(<span class="string">&#x27;--config&#x27;</span>, <span class="built_in">type</span>=<span class="built_in">str</span>, default=<span class="string">&#x27;config.yaml&#x27;</span>, <span class="built_in">help</span>=<span class="string">&#x27;training config file&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    opt = parser.parse_known_args()[<span class="number">0</span>] <span class="keyword">if</span> known <span class="keyword">else</span> parser.parse_args()</span><br><span class="line">    <span class="keyword">return</span> opt</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    opt = parse_opt()</span><br><span class="line">    main(opt)</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在ultralytics-8.3.27上传配置文件coco128.yaml(可以根据自己的需求进行更改)</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据集位置</span></span><br><span class="line"><span class="attr">path:</span> <span class="string">../datasets/coco128</span> <span class="comment"># dataset root dir</span></span><br><span class="line"><span class="attr">train:</span> <span class="string">images/train2017</span> <span class="comment"># train images (relative to &#x27;path&#x27;) 128 images</span></span><br><span class="line"><span class="attr">val:</span> <span class="string">images/train2017</span> <span class="comment"># val images (relative to &#x27;path&#x27;) 128 images</span></span><br><span class="line"><span class="attr">test:</span> <span class="comment"># test images (optional)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 标签数量# 任务类型：目标检测</span></span><br><span class="line"><span class="attr">task:</span> <span class="string">detect</span></span><br><span class="line"><span class="comment"># 运行模式：训练</span></span><br><span class="line"><span class="attr">mode:</span> <span class="string">train</span></span><br><span class="line"><span class="comment"># 预训练模型：YOLOv8 Nano版本</span></span><br><span class="line"><span class="attr">model:</span> <span class="string">yolov8n.pt</span></span><br><span class="line"><span class="comment"># 数据集配置文件：COCO128数据集</span></span><br><span class="line"><span class="attr">data:</span> <span class="string">coco128.yaml</span></span><br><span class="line"><span class="comment"># 训练轮数：300轮</span></span><br><span class="line"><span class="attr">epochs:</span> <span class="number">300</span></span><br><span class="line"><span class="comment"># 输入图像尺寸：640x640像素</span></span><br><span class="line"><span class="attr">imgsz:</span> <span class="number">640</span></span><br><span class="line"><span class="comment"># 数据加载线程数：8个</span></span><br><span class="line"><span class="attr">workers:</span> <span class="number">8</span></span><br><span class="line"><span class="comment"># 批次样本数量：8个</span></span><br><span class="line"><span class="attr">batch:</span> <span class="number">8</span></span><br><span class="line"><span class="comment"># 初始学习率：0.0005</span></span><br><span class="line"><span class="attr">lr0:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 最终学习率：0.0005</span></span><br><span class="line"><span class="attr">lrf:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 动量参数：0.937</span></span><br><span class="line"><span class="attr">momentum:</span> <span class="number">0.937</span></span><br><span class="line"><span class="comment"># 权重衰减系数：0.0005</span></span><br><span class="line"><span class="attr">weight_decay:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 学习率预热轮数：3轮</span></span><br><span class="line"><span class="attr">warmup_epochs:</span> <span class="number">3.0</span></span><br><span class="line"><span class="comment"># 预热阶段动量参数：0.8</span></span><br><span class="line"><span class="attr">warmup_momentum:</span> <span class="number">0.8</span></span><br><span class="line"><span class="comment"># 预热阶段偏置项学习率：0.0001</span></span><br><span class="line"><span class="attr">warmup_bias_lr:</span> <span class="number">0.0001</span></span><br><span class="line"><span class="attr">nc:</span> <span class="number">84</span> </span><br><span class="line"><span class="comment"># 标签名字</span></span><br><span class="line"><span class="attr">names:</span> [<span class="string">&#x27;person&#x27;</span>, <span class="string">&#x27;bicycle&#x27;</span>, <span class="string">&#x27;car&#x27;</span>, <span class="string">&#x27;motorcycle&#x27;</span>, <span class="string">&#x27;airplane&#x27;</span>, <span class="string">&#x27;bus&#x27;</span>, <span class="string">&#x27;train&#x27;</span>, <span class="string">&#x27;truck&#x27;</span>, <span class="string">&#x27;boat&#x27;</span>, <span class="string">&#x27;traffic light&#x27;</span>, <span class="string">&#x27;fire hydrant&#x27;</span>, <span class="string">&#x27;stop sign&#x27;</span>, <span class="string">&#x27;parking meter&#x27;</span>, <span class="string">&#x27;bench&#x27;</span>, <span class="string">&#x27;bird&#x27;</span>, <span class="string">&#x27;cat&#x27;</span>, <span class="string">&#x27;dog&#x27;</span>, <span class="string">&#x27;horse&#x27;</span>, <span class="string">&#x27;sheep&#x27;</span>, <span class="string">&#x27;cow&#x27;</span>, <span class="string">&#x27;elephant&#x27;</span>, <span class="string">&#x27;bear&#x27;</span>, <span class="string">&#x27;zebra&#x27;</span>, <span class="string">&#x27;giraffe&#x27;</span>, <span class="string">&#x27;backpack&#x27;</span>, <span class="string">&#x27;umbrella&#x27;</span>, <span class="string">&#x27;handbag&#x27;</span>, <span class="string">&#x27;tie&#x27;</span>, <span class="string">&#x27;suitcase&#x27;</span>, <span class="string">&#x27;frisbee&#x27;</span>, <span class="string">&#x27;skis&#x27;</span>, <span class="string">&#x27;snowboard&#x27;</span>, <span class="string">&#x27;sports ball&#x27;</span>, <span class="string">&#x27;kite&#x27;</span>, <span class="string">&#x27;baseball bat&#x27;</span>, <span class="string">&#x27;baseball glove&#x27;</span>, <span class="string">&#x27;skateboard&#x27;</span>, <span class="string">&#x27;surfboard&#x27;</span>, <span class="string">&#x27;tennis racket&#x27;</span>, <span class="string">&#x27;bottle&#x27;</span>, <span class="string">&#x27;wine glass&#x27;</span>, <span class="string">&#x27;cup&#x27;</span>, <span class="string">&#x27;fork&#x27;</span>, <span class="string">&#x27;knife&#x27;</span>, <span class="string">&#x27;spoon&#x27;</span>, <span class="string">&#x27;bowl&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>, <span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;sandwich&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;broccoli&#x27;</span>, <span class="string">&#x27;carrot&#x27;</span>, <span class="string">&#x27;hot dog&#x27;</span>, <span class="string">&#x27;pizza&#x27;</span>, <span class="string">&#x27;donut&#x27;</span>, <span class="string">&#x27;cake&#x27;</span>, <span class="string">&#x27;chair&#x27;</span>, <span class="string">&#x27;couch&#x27;</span>, <span class="string">&#x27;potted plant&#x27;</span>, <span class="string">&#x27;patientBed&#x27;</span>, <span class="string">&#x27;dining table&#x27;</span>, <span class="string">&#x27;toilet&#x27;</span>, <span class="string">&#x27;tv&#x27;</span>, <span class="string">&#x27;laptop&#x27;</span>, <span class="string">&#x27;mouse&#x27;</span>, <span class="string">&#x27;remote&#x27;</span>, <span class="string">&#x27;keyboard&#x27;</span>, <span class="string">&#x27;cell phone&#x27;</span>, <span class="string">&#x27;microwave&#x27;</span>, <span class="string">&#x27;oven&#x27;</span>, <span class="string">&#x27;toaster&#x27;</span>, <span class="string">&#x27;sink&#x27;</span>, <span class="string">&#x27;refrigerator&#x27;</span>, <span class="string">&#x27;book&#x27;</span>, <span class="string">&#x27;clock&#x27;</span>, <span class="string">&#x27;vase&#x27;</span>, <span class="string">&#x27;scissors&#x27;</span>, <span class="string">&#x27;teddy bear&#x27;</span>, <span class="string">&#x27;hair drier&#x27;</span>, <span class="string">&#x27;toothbrush&#x27;</span>, <span class="string">&#x27;patient&#x27;</span>, <span class="string">&#x27;bedsideTable&#x27;</span>, <span class="string">&#x27;ECGmonitor&#x27;</span>, <span class="string">&#x27;curtain&#x27;</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>在ultralytics-8.3.27上传配置文件config.yaml</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 任务类型：目标检测</span></span><br><span class="line"><span class="attr">task:</span> <span class="string">detect</span></span><br><span class="line"><span class="comment"># 运行模式：训练</span></span><br><span class="line"><span class="attr">mode:</span> <span class="string">train</span></span><br><span class="line"><span class="comment"># 预训练模型：YOLOv8 Nano版本</span></span><br><span class="line"><span class="attr">model:</span> <span class="string">yolov8n.pt</span></span><br><span class="line"><span class="comment"># 数据集配置文件：COCO128数据集</span></span><br><span class="line"><span class="attr">data:</span> <span class="string">coco128.yaml</span></span><br><span class="line"><span class="comment"># 训练轮数：300轮</span></span><br><span class="line"><span class="attr">epochs:</span> <span class="number">300</span></span><br><span class="line"><span class="comment"># 输入图像尺寸：640x640像素</span></span><br><span class="line"><span class="attr">imgsz:</span> <span class="number">640</span></span><br><span class="line"><span class="comment"># 数据加载线程数：8个</span></span><br><span class="line"><span class="attr">workers:</span> <span class="number">8</span></span><br><span class="line"><span class="comment"># 批次样本数量：8个</span></span><br><span class="line"><span class="attr">batch:</span> <span class="number">8</span></span><br><span class="line"><span class="comment"># 初始学习率：0.0005</span></span><br><span class="line"><span class="attr">lr0:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 最终学习率：0.0005</span></span><br><span class="line"><span class="attr">lrf:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 动量参数：0.937</span></span><br><span class="line"><span class="attr">momentum:</span> <span class="number">0.937</span></span><br><span class="line"><span class="comment"># 权重衰减系数：0.0005</span></span><br><span class="line"><span class="attr">weight_decay:</span> <span class="number">0.0005</span></span><br><span class="line"><span class="comment"># 学习率预热轮数：3轮</span></span><br><span class="line"><span class="attr">warmup_epochs:</span> <span class="number">3.0</span></span><br><span class="line"><span class="comment"># 预热阶段动量参数：0.8</span></span><br><span class="line"><span class="attr">warmup_momentum:</span> <span class="number">0.8</span></span><br><span class="line"><span class="comment"># 预热阶段偏置项学习率：0.0001</span></span><br><span class="line"><span class="attr">warmup_bias_lr:</span> <span class="number">0.0001</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>
+<p>记得更改ultralytics-8.3.27/ultralytics/cfg/models/v8/目录下的yolov8.yaml，将nc：80改成nc: 84（也就是你自己的标签数量）</p>
+</li>
+<li>
+<p>最后进行模型的训练，在终端命令输入训练命令：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python train_v8.py --cfg ultralytics/cfg/models/v8/yolov8.yaml --weights yolov8n.pt --config config.yaml</span><br></pre></td></tr></table></figure>
+<h2 id="模型预测"><a class="markdownIt-Anchor" href="#模型预测"></a> 模型预测</h2>
+<ol>
+<li>在ultralytics-8.3.27里找到predict.py文件，我们需要把进行一点路径更改：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model = YOLO(<span class="string">&#x27;runs/detect/train/weights/best.pt&#x27;</span>)  <span class="comment"># 训练好的模型位置</span></span><br><span class="line">model.predict(<span class="string">&#x27;datasets/coco128/images/train2017/&#x27;</span>, save=<span class="literal">True</span>, imgsz=<span class="number">640</span>, conf=<span class="number">0.5</span>) <span class="comment"># 你的预测数据的位置</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>predict.py里上面的路径也需要更改一下：</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sys.path.append(<span class="string">&#x27;/root/ultralytics-8.3.27/&#x27;</span>) <span class="comment"># Path 以Autodl为例</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>在终端输入命令开始预测</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python predict.py</span><br></pre></td></tr></table></figure>
+<h2 id="收梢"><a class="markdownIt-Anchor" href="#收梢"></a> 收梢</h2>
+<p>在云服务器上进行训练还是很ok的，又便宜又快，比本地部署好用多了，就是需要一点略微花费。</p>
+<p><s>数据标注真费事</s></p>
+<p>阿门，下次有机会拉姆写写ORC或者MiniCPM-V-2.6</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>戴诺斯·拉姆 @ 拉姆的小树屋</p>
+    <p><strong>本文链接：</strong><a href="https://sherry14love.github.io/2024/11/09/learn/yolov8/">https://sherry14love.github.io/2024/11/09/learn/yolov8/</a></p>
+    
+    
+    
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
+  </blockquote>
+      
+      
+      
+        <a data-aos="zoom-in" href="/2024/11/09/learn/yolov8/#comments" class="article-comment-link">
+          <span class="post-comments-count twikoo-comment-count" data-path="/2024/11/09/learn/yolov8/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <script>
+          twikoo.getCommentsCount({
+            envId: 'https://blog.6677677.xyz/',
+            region: '',
+            urls: [
+              '/2024/11/09/learn/yolov8/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            _$('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        </script>
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E5%8D%B7/" rel="tag">卷</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/161/read" data-sizes="auto" alt="Java--Relearn" class="lazyload">
+      
+      <a href="/2024/09/26/learn/JavaRelearn/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          Java--Relearn
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+  <div id="comments" class="tcomment"></div>
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8%E5%B7%A5%E5%85%B7"><span class="toc-number">1.</span> <span class="toc-text"> 数据标注工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 训练模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.</span> <span class="toc-text"> 模型预测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%A2%A2"><span class="toc-number">4.</span> <span class="toc-text"> 收梢</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">25</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                2023-2024
+                <span class="footer-info-sep"></span>
+                戴诺斯·拉姆
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    50.4k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    03:00
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+            <div class="beian-info">
+                <img src="https://www.qiuxs.cn/sharing-tools/img/read/31890cf408183fdbdabef9cf0d3a4e97" alt="备案图标" class="beian-icon">
+                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">豫ICP备2024052277号-1</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+.beian-info {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beian-icon {
+    width: 1em;  /* 设置宽度为1个字体大小 */
+    height: 1em; /* 设置高度为1个字体大小 */
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.beian-info a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.beian-info a:hover {
+    text-decoration: underline;
+}
+</style>
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" alt="backtop" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8%E5%B7%A5%E5%85%B7"><span class="toc-number">1.</span> <span class="toc-text"> 数据标注工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text"> 训练模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E9%A2%84%E6%B5%8B"><span class="toc-number">3.</span> <span class="toc-text"> 模型预测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%94%B6%E6%A2%A2"><span class="toc-number">4.</span> <span class="toc-text"> 收梢</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">25</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+<script type="module" data-pjax>
+  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+  
+  const pswp = () => {
+    if (_$$('.article-entry a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-entry',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
+      }).init();
+    }
+    if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-gallery',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
+      }).init();
+    }
+    window.lightboxStatus = 'done';
+    window.removeEventListener('lightbox:ready', pswp);
+  }
+  if(window.lightboxStatus === 'ready') {
+    pswp()
+  } else {
+    window.addEventListener('lightbox:ready', pswp);
+  }
+</script>
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js" data-pjax></script>
+
+  <script data-pjax>
+    twikoo.init({
+      envId: 'https://blog.6677677.xyz/',
+      el: '.tcomment',
+      region: '',
+    })
+  </script>
+
+
+
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js"></script>
+
+  <script data-pjax>
+    quicklink.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
+
+
+<div id="lazy-script">
+  <div>
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.3.0-alpha.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+  
+<script src="/js/service_worker.js"></script>
+
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+

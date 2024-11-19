@@ -248,31 +248,28 @@ DeepSeek（写报告不错，就是敏感词太严格）：https://chat.deepseek
   <div class="post-wrapper">
   <div class="post-wrap-right" data-aos="fade-up">
     
-    <a class="post-link" href="/2024/11/09/learn/yolov8/" aria-label="yolov8使用心得/包含类别ID转换脚本"></a>
+    <a class="post-link" href="/2024/11/13/learn/openpose/" aria-label="人体姿势识别：openpose与yolov8_pose使用心得"></a>
     
     <div class="post-cover-right">
       
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/162/read" data-sizes="auto" alt="yolov8使用心得/包含类别ID转换脚本" class="lazyload">
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/167/read" data-sizes="auto" alt="人体姿势识别：openpose与yolov8_pose使用心得" class="lazyload">
       
     </div>
     <div class="post-info">
       <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-11-09</span>
-        <span><span class="icon-pencil"></span>2.2k 字</span>
-        <span><span class="icon-clock"></span>10 分钟</span>
+        <span><span class="icon-calendar"></span>2024-11-13</span>
+        <span><span class="icon-pencil"></span>4.7k 字</span>
+        <span><span class="icon-clock"></span>24 分钟</span>
       </div>
-      <h2 class="post-title">yolov8使用心得/包含类别ID转换脚本</h2>
+      <h2 class="post-title">人体姿势识别：openpose与yolov8_pose使用心得</h2>
       <article class="post-article">
         
-          项目地址：yolov8一键部署运行与云服务器
- 数据标注工具
-针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好
-仅针对于拉姆自己数据集的测试
-
-YOLO格式:类别ID和边界框坐标（中心x, 中心y, 宽度, 高度）
-
-对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，所以，可以用下面的脚本来创建一个字典映射进行更改：
-123456789101112131415161718192021222
+          项目地址1：openpose镜像，需要在云服务器上微调
+项目地址2：GitHub上大佬项目，在本地部署调试即可
+ openpose的使用
+CodeWithGPU里的镜像只支持3090及其以上的GPU部署运行，在终端输入下面命令即可运行查看项目情况：
+12cd openpose./build/examples/openpose/openpose.bin --video ~/test.mp4 --write_json ~/output_json --write_video ~/output.mp4 -display 0 -face -hand
+下面让我们继续微调，在根目录下面，创建两个文件夹，一个
         
       </article>
     </div>
@@ -285,10 +282,47 @@ YOLO格式:类别ID和边界框坐标（中心x, 中心y, 宽度, 高度）
   <div class="post-wrapper">
   <div class="post-wrap-left" data-aos="fade-up">
     
-      <a class="post-link" href="/2024/09/26/learn/JavaRelearn/" aria-label="Java--Relearn"></a>
+      <a class="post-link" href="/2024/11/09/learn/yolov8/" aria-label="yolov8使用心得/包含类别ID转换脚本"></a>
     
     
     <div class="post-cover-left">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/162/read" data-sizes="auto" alt="yolov8使用心得/包含类别ID转换脚本" class="lazyload">
+      
+    </div>
+    <div class="post-info">
+      <div class="post-meta">
+        <span><span class="icon-calendar"></span>2024-11-09</span>
+        <span><span class="icon-pencil"></span>2.2k 字</span>
+        <span><span class="icon-clock"></span>11 分钟</span>
+      </div>
+      <h2 class="post-title">yolov8使用心得/包含类别ID转换脚本</h2>
+      <article class="post-article">
+        
+          项目地址：yolov8镜像一键部署运行与云服务器
+ 数据标注工具
+针对与yolo系列模型，拉姆推荐使用LabelImg，而框框可以旋转的roLabelImg或者多边形标记的labelme拉姆都不推荐，因为到最后的yolo格式需要自己转换，并且效果不好
+仅针对于拉姆自己数据集的测试
+
+YOLO格式:类别ID和边界框坐标（中心x, 中心y, 宽度, 高度）
+
+对于标签类别ID，有的时候会很乱，比如，person的ID应该为83，但实际上，在使用LabelImg标签标记的时候是0，所以，可以用下面的脚本来创建一个字典映射进行更改：
+1234567891011121314151617181920212
+        
+      </article>
+    </div>
+  </div>
+  </div>
+
+
+  
+  
+  <div class="post-wrapper">
+  <div class="post-wrap-right" data-aos="fade-up">
+    
+    <a class="post-link" href="/2024/09/26/learn/JavaRelearn/" aria-label="Java--Relearn"></a>
+    
+    <div class="post-cover-right">
       
         <img data-src="https://www.qiuxs.cn/sharing-tools/img/161/read" data-sizes="auto" alt="Java--Relearn" class="lazyload">
       
@@ -329,11 +363,12 @@ ArrayDeque
   
   
   <div class="post-wrapper">
-  <div class="post-wrap-right" data-aos="fade-up">
+  <div class="post-wrap-left" data-aos="fade-up">
     
-    <a class="post-link" href="/2024/09/06/learn/business/" aria-label="数据分析之业务拆解和分析"></a>
+      <a class="post-link" href="/2024/09/06/learn/business/" aria-label="数据分析之业务拆解和分析"></a>
     
-    <div class="post-cover-right">
+    
+    <div class="post-cover-left">
       
         <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/cc1c01fd80cb63f5ff1f2aee62b0b227" data-sizes="auto" alt="数据分析之业务拆解和分析" class="lazyload">
       
@@ -361,12 +396,11 @@ ArrayDeque
   
   
   <div class="post-wrapper">
-  <div class="post-wrap-left" data-aos="fade-up">
+  <div class="post-wrap-right" data-aos="fade-up">
     
-      <a class="post-link" href="/2024/07/25/learn/mysql/" aria-label="数据分析之MySQL食用指南"></a>
+    <a class="post-link" href="/2024/07/25/learn/mysql/" aria-label="数据分析之MySQL食用指南"></a>
     
-    
-    <div class="post-cover-left">
+    <div class="post-cover-right">
       
         <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/49e6d4f9cec5ebfad27078fa982cacea" data-sizes="auto" alt="数据分析之MySQL食用指南" class="lazyload">
       
@@ -399,199 +433,11 @@ ArrayDeque
 
 
   
-  
-  <div class="post-wrapper">
-  <div class="post-wrap-right" data-aos="fade-up">
-    
-    <a class="post-link" href="/2024/07/15/learn/data6/" aria-label="随机森林如何调参"></a>
-    
-    <div class="post-cover-right">
-      
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/161/read" data-sizes="auto" alt="随机森林如何调参" class="lazyload">
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-07-15</span>
-        <span><span class="icon-pencil"></span>692 字</span>
-        <span><span class="icon-clock"></span>3 分钟</span>
-      </div>
-      <h2 class="post-title">随机森林如何调参</h2>
-      <article class="post-article">
-        
-          随机森林是一种强大的集成学习方法，通过构建多个决策树并取它们的平均值来进行预测。为了获得最佳性能，需要对随机森林模型进行调参。以下是一些常见的参数和调参方法：
- 常见参数
-
-n_estimators: 决策树的数量。通常，增加树的数量可以提高模型的性能，但也会增加计算成本。
-max_depth: 每棵树的最大深度。限制树的深度可以防止过拟合。
-min_samples_split: 内部节点再划分所需最小样本数。增加这个值可以防止过拟合。
-min_samples_leaf: 叶子节点最少样本数。增加这个值可以防止过拟合。
-max_features: 寻找最佳分割时要考虑的特征数量。通常，默认值（
-        
-      </article>
-    </div>
-  </div>
-  </div>
-
-
-  
-  
-  <div class="post-wrapper">
-  <div class="post-wrap-left" data-aos="fade-up">
-    
-      <a class="post-link" href="/2024/07/12/learn/tableau/" aria-label="数据分析之Tableau食用指南"></a>
-    
-    
-    <div class="post-cover-left">
-      
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/f812e950f1c35ccbc4434436a5197b60" data-sizes="auto" alt="数据分析之Tableau食用指南" class="lazyload">
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-07-12</span>
-        <span><span class="icon-pencil"></span>6.7k 字</span>
-        <span><span class="icon-clock"></span>22 分钟</span>
-      </div>
-      <h2 class="post-title">数据分析之Tableau食用指南</h2>
-      <article class="post-article">
-        
-          Tableau：最易上手且功能强大的可视化操作BI工具
-Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用户界面和强大的数据可视化功能而闻名。无论是数据分析师、业务用户还是IT专业人员，都能快速上手并利用Tableau进行高效的数据分析和可视化展示。
-相对于Excel，Tableau可以处理以亿为级别的数据，展现出其卓越的数据处理能力。而Excel在处理几十万条数据的时候，往往会出现卡顿现象，限制了其在大型数据集上的应用。
-相较于MySQL，Tableau不仅提供了强大的数据连接和处理功能，还以其可视化操作和丰富的图表选项著称。用户可以通过Tableau直观地展示数据，进行深入的
-        
-      </article>
-    </div>
-  </div>
-  </div>
-
-
-  
-  
-  <div class="post-wrapper">
-  <div class="post-wrap-right" data-aos="fade-up">
-    
-    <a class="post-link" href="/2024/07/02/learn/excel/" aria-label="数据分析之Excel食用指南"></a>
-    
-    <div class="post-cover-right">
-      
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/3205b28e7822df8df658bbbaeda95a2e" data-sizes="auto" alt="数据分析之Excel食用指南" class="lazyload">
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-07-02</span>
-        <span><span class="icon-pencil"></span>8.5k 字</span>
-        <span><span class="icon-clock"></span>29 分钟</span>
-      </div>
-      <h2 class="post-title">数据分析之Excel食用指南</h2>
-      <article class="post-article">
-        
-          Excel，作为微软公司开发的一款强大电子表格软件，不仅在数据分析、财务计算、项目管理、统计分析等领域发挥着重要作用，还因其丰富的数据处理和计算功能，以及多样化的图表和图形工具，成为高效管理和分析数据的得力助手。
-如下图，是拉姆在系统学习Excel时制作的某店铺报表，其中利用了切片器灵活筛选美团、饿了么的数据情况，这是初级数据分析师所必须掌握的。接下来，我们要介绍关于excel的各类用法，帮助大家胜任数据分析师。
-
- 基础篇
-首先，为了确保数据的安全性和便于分析计算结果，我们需采取以下步骤：
-
-创建一个新的工作簿（例如工作簿2），专门用于存储和分析计算结果。
-这样做的好处是可以避免在原始数据工
-        
-      </article>
-    </div>
-  </div>
-  </div>
-
-
-  
-  
-  <div class="post-wrapper">
-  <div class="post-wrap-left" data-aos="fade-up">
-    
-      <a class="post-link" href="/2024/06/15/learn/data5/" aria-label="数据分析食用指南2-优化与连接"></a>
-    
-    
-    <div class="post-cover-left">
-      
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/8e5ecf8b479b44f141156be470585207" data-sizes="auto" alt="数据分析食用指南2-优化与连接" class="lazyload">
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-06-15</span>
-        <span><span class="icon-pencil"></span>2.4k 字</span>
-        <span><span class="icon-clock"></span>9 分钟</span>
-      </div>
-      <h2 class="post-title">数据分析食用指南2-优化与连接</h2>
-      <article class="post-article">
-        
-           优化算法
-曾经有一次面试的时候，HR问拉姆优化算法都是有哪些，拉姆很懵，因为拉姆下意识以为这是算法岗的内容，就磕磕绊绊得回答的很糟糕。
-现在了解一下，其实数据分析和数据挖掘中常用的优化算法是有很多的，这些算法可以帮助我们找到最优或近似最优的解决方案。
-以下是一些常见的优化算法及其应用场景：
- 梯度下降（Gradient Descent）
-梯度下降是一种迭代优化算法，用于最小化一个函数。在机器学习中，它通常用于最小化损失函数，以找到模型的最佳参数。
-应用场景：线性回归、逻辑回归、神经网络等模型的参数优化。
- 随机梯度下降（Stochastic Gradient Descent, SGD）
-随机
-        
-      </article>
-    </div>
-  </div>
-  </div>
-
-
-  
-  
-  <div class="post-wrapper">
-  <div class="post-wrap-right" data-aos="fade-up">
-    
-    <a class="post-link" href="/2024/06/05/learn/data3/" aria-label="回归与分类"></a>
-    
-    <div class="post-cover-right">
-      
-        <img data-src="https://www.qiuxs.cn/sharing-tools/img/read/2005c9d06d20bae87f89f7b5be6758a0" data-sizes="auto" alt="回归与分类" class="lazyload">
-      
-    </div>
-    <div class="post-info">
-      <div class="post-meta">
-        <span><span class="icon-calendar"></span>2024-06-05</span>
-        <span><span class="icon-pencil"></span>2k 字</span>
-        <span><span class="icon-clock"></span>7 分钟</span>
-      </div>
-      <h2 class="post-title">回归与分类</h2>
-      <article class="post-article">
-        
-          回归（Regression）和分类（Classification）是机器学习中两种常见的监督学习任务，它们在目标和方法上有所不同。
- 回归（Regression）
-回归分析是一种预测性的建模技术，它研究的是因变量（目标）和自变量（预测器）之间的关系。这种技术通常用于预测一个具体的数值，如房价、股票价格、温度等。
-关键特点：
-
-目标变量：连续值。
-输出：一个数值。
-例子：线性回归、多项式回归、决策树回归、随机森林回归等。
-
-应用场景：
-
-房价预测
-销售预测
-股票价格预测
-
- 线性回归
-线性回归（Linear Regression）是统计学和机器学习中最基础的预测建模技术之一，它用于建立和估计一个
-        
-      </article>
-    </div>
-  </div>
-  </div>
-
-
-  
 
 
   <nav id="page-nav" data-aos="fade-up">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
   </nav>
 
 
@@ -609,7 +455,7 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">25</div>
+    <div class="sidebar-state-number">26</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>
@@ -710,6 +556,10 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
         <ul>
           
             <li>
+              <a href="/2024/11/13/learn/openpose/">人体姿势识别：openpose与yolov8_pose使用心得</a>
+            </li>
+          
+            <li>
               <a href="/2024/11/09/learn/yolov8/">yolov8使用心得/包含类别ID转换脚本</a>
             </li>
           
@@ -723,10 +573,6 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
           
             <li>
               <a href="/2024/07/25/learn/mysql/">数据分析之MySQL食用指南</a>
-            </li>
-          
-            <li>
-              <a href="/2024/07/15/learn/data6/">随机森林如何调参</a>
             </li>
           
         </ul>
@@ -761,10 +607,10 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
             
                 <div>
                     <span class="icon-brush"></span>
-                    50.3k
+                    55k
                     &nbsp;|&nbsp;
                     <span class="icon-coffee"></span>
-                    02:59
+                    03:24
                 </div>
             
             
@@ -825,7 +671,7 @@ Tableau是一款广受欢迎的商业智能（BI）工具，以其直观的用�
 <div class="sidebar-state">
   <div class="sidebar-state-article">
     <div>文章</div>
-    <div class="sidebar-state-number">25</div>
+    <div class="sidebar-state-number">26</div>
   </div>
   <div class="sidebar-state-category">
     <div>分类</div>

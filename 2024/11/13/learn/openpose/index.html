@@ -1,0 +1,729 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  
+  <script>window.icon_font = '4552607_tq6stt6tcg';window.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":true,"count":50,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.swPath = '/sw.js';</script>
+  
+  
+  <title>
+    人体姿势识别：openpose与yolov8_pose使用心得 |
+    
+    拉姆的小树屋
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CUbuntu%20Mono:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="项目地址1：openpose镜像，需要在云服务器上微调 项目地址2：GitHub上大佬项目，在本地部署调试即可  openpose的使用 CodeWithGPU里的镜像只支持3090及其以上的GPU部署运行，在终端输入下面命令即可运行查看项目情况： 12cd openpose.&#x2F;build&#x2F;examples&#x2F;openpose&#x2F;openpose.bin --video ~&#x2F;test.mp4 --wr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="人体姿势识别：openpose与yolov8_pose使用心得">
+<meta property="og:url" content="https://sherry14love.github.io/2024/11/13/learn/openpose/index.html">
+<meta property="og:site_name" content="拉姆的小树屋">
+<meta property="og:description" content="项目地址1：openpose镜像，需要在云服务器上微调 项目地址2：GitHub上大佬项目，在本地部署调试即可  openpose的使用 CodeWithGPU里的镜像只支持3090及其以上的GPU部署运行，在终端输入下面命令即可运行查看项目情况： 12cd openpose.&#x2F;build&#x2F;examples&#x2F;openpose&#x2F;openpose.bin --video ~&#x2F;test.mp4 --wr">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-11-19T06:04:36.261Z">
+<meta property="article:author" content="戴诺斯·拉姆">
+<meta property="article:tag" content="卷">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="拉姆的小树屋" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="https://www.qiuxs.cn/sharing-tools/img/read/0a1f41f52ba880b1308bda7f148d2639">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+    
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.9/dist/katex.min.css">
+
+    
+  
+  
+  
+  
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js"></script>
+
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.0.1/dist/aos.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+          <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="#ff5252" />
+          <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+         M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="#ff5252" />
+        </svg>
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+  <div class="notification-wrapper">
+    <h1>发现新版本</h1>
+    <p>网站好像有新内容，是否更新(ﾟ⊿ﾟ)ﾂ？</p>
+    <div class="notification-btn">
+      <button id="notification-update-btn">更新</button>
+      <button id="notification-close-btn">取消</button>
+    </div>
+  </div>
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/">首页</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/archives">归档</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/about">关于</a>
+      </span>
+    
+      <span class="main-nav-link-wrap">
+        <div class="main-nav-icon icon-taichi"></div>
+        <a class="main-nav-link" href="/friend">友链</a>
+      </span>
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="https://www.qiuxs.cn/sharing-tools/img/167/read" alt="人体姿势识别：openpose与yolov8_pose使用心得">
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">人体姿势识别：openpose与yolov8_pose使用心得</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content">
+          
+          <section id="main"><article id="post-learn/openpose" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2024/11/13/learn/openpose/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2024-11-12T16:00:00.000Z" itemprop="datePublished">2024-11-13</time>
+    <time style="display: none;" id="post-update-time">2024-11-19</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/learn/" data-aos="zoom-in">learn</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <p>项目地址1：<a target="_blank" rel="noopener" href="https://www.codewithgpu.com/i/CMU-Perceptual-Computing-Lab/openpose/openpose">openpose镜像，需要在云服务器上微调</a></p>
+<p>项目地址2：<a target="_blank" rel="noopener" href="https://github.com/Mrjianning/yolov8_pose_judge">GitHub上大佬项目，在本地部署调试即可</a></p>
+<h2 id="openpose的使用"><a class="markdownIt-Anchor" href="#openpose的使用"></a> openpose的使用</h2>
+<p>CodeWithGPU里的镜像只支持3090及其以上的GPU部署运行，在终端输入下面命令即可运行查看项目情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> openpose</span><br><span class="line">./build/examples/openpose/openpose.bin --video ~/test.mp4 --write_json ~/output_json --write_video ~/output.mp4 -display 0 -face -hand</span><br></pre></td></tr></table></figure>
+<p>下面让我们继续微调，在<strong>根目录</strong>下面，创建两个文件夹，一个test，一个test_run，放入我们的测试图片和输出图片。</p>
+<p>再在<strong>根目录</strong>创建一个python文件，detect_pose函数里有着我们的判断算法（不过我当时写的时候感觉有点奇怪，效果也一般般，需要你自己调整）</p>
+<p>main函数里还有需要一个SimHei.ttf，也就是中文字体，需要自己下载，放在<strong>根目录</strong>里，记得名称要对喔，拉姆当时就是因为下载的是SimHei.ttf，但是代码里写的是<code>font_path = &quot;simhei.ttf&quot;</code>，导致拉姆修了半个小时的bug（悲）</p>
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"></span><br><span class="line">sys.path.append(<span class="string">&#x27;/root/openpose/build/python&#x27;</span>)</span><br><span class="line"><span class="keyword">from</span> openpose <span class="keyword">import</span> pyopenpose <span class="keyword">as</span> op</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calculate_angle</span>(<span class="params">point1, point2, point3</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算三个点形成的角度</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> <span class="number">0</span> <span class="keyword">in</span> (point1[<span class="number">2</span>], point2[<span class="number">2</span>], point3[<span class="number">2</span>]):  <span class="comment"># 如果置信度为0，表示点没有被检测到</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">        </span><br><span class="line">    a = np.array([point1[<span class="number">0</span>], point1[<span class="number">1</span>]])</span><br><span class="line">    b = np.array([point2[<span class="number">0</span>], point2[<span class="number">1</span>]])</span><br><span class="line">    c = np.array([point3[<span class="number">0</span>], point3[<span class="number">1</span>]])</span><br><span class="line">    </span><br><span class="line">    ba = a - b</span><br><span class="line">    bc = c - b</span><br><span class="line">    </span><br><span class="line">    cosine_angle = np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc))</span><br><span class="line">    angle = np.arccos(cosine_angle)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> np.degrees(angle)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">detect_pose</span>(<span class="params">pose_keypoints</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    基于关键点判断姿势</span></span><br><span class="line"><span class="string">    返回姿势名称和置信度</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">if</span> pose_keypoints <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> <span class="built_in">len</span>(pose_keypoints) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;No person detected&quot;</span>, <span class="number">0.0</span></span><br><span class="line">        </span><br><span class="line">    <span class="comment"># 提取关键点</span></span><br><span class="line">    <span class="comment"># 鼻子和颈部</span></span><br><span class="line">    nose = pose_keypoints[<span class="number">0</span>]</span><br><span class="line">    neck = pose_keypoints[<span class="number">1</span>]</span><br><span class="line">    <span class="comment"># 臀部中心点</span></span><br><span class="line">    hip_center = pose_keypoints[<span class="number">8</span>]</span><br><span class="line">    <span class="comment"># 左右臀部</span></span><br><span class="line">    left_hip = pose_keypoints[<span class="number">12</span>]</span><br><span class="line">    right_hip = pose_keypoints[<span class="number">9</span>]</span><br><span class="line">    <span class="comment"># 左右膝盖</span></span><br><span class="line">    left_knee = pose_keypoints[<span class="number">13</span>]</span><br><span class="line">    right_knee = pose_keypoints[<span class="number">10</span>]</span><br><span class="line">    <span class="comment"># 左右脚踝</span></span><br><span class="line">    left_ankle = pose_keypoints[<span class="number">14</span>]</span><br><span class="line">    right_ankle = pose_keypoints[<span class="number">11</span>]</span><br><span class="line">    <span class="comment"># 左右肩膀</span></span><br><span class="line">    left_shoulder = pose_keypoints[<span class="number">5</span>]</span><br><span class="line">    right_shoulder = pose_keypoints[<span class="number">2</span>]</span><br><span class="line">    <span class="comment"># 左右肘部</span></span><br><span class="line">    left_elbow = pose_keypoints[<span class="number">6</span>]</span><br><span class="line">    right_elbow = pose_keypoints[<span class="number">3</span>]</span><br><span class="line">    <span class="comment"># 左右手腕</span></span><br><span class="line">    left_wrist = pose_keypoints[<span class="number">7</span>]</span><br><span class="line">    right_wrist = pose_keypoints[<span class="number">4</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算膝盖角度</span></span><br><span class="line">    left_knee_angle = calculate_angle(left_hip, left_knee, left_ankle)</span><br><span class="line">    right_knee_angle = calculate_angle(right_hip, right_knee, right_ankle)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取髋部高度（相对于脚踝）</span></span><br><span class="line">    hip_height = <span class="built_in">abs</span>(hip_center[<span class="number">1</span>] - left_ankle[<span class="number">1</span>] + hip_center[<span class="number">1</span>] - right_ankle[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 计算鼻子和脚高度（身高）</span></span><br><span class="line">    body_height = <span class="built_in">abs</span>(nose[<span class="number">1</span>]-left_ankle[<span class="number">1</span>])</span><br><span class="line">    bo_height = <span class="built_in">abs</span>(left_shoulder [<span class="number">1</span>]-right_hip[<span class="number">1</span>])</span><br><span class="line">  </span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 姿态判断逻辑</span></span><br><span class="line">    <span class="keyword">if</span> left_knee_angle <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> right_knee_angle <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> hip_height <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;关键点缺失&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 站立判断：膝盖角度接近180度</span></span><br><span class="line">    <span class="keyword">if</span> (left_knee_angle &gt; <span class="number">160</span> <span class="keyword">and</span> right_knee_angle &gt; <span class="number">160</span>): </span><br><span class="line">        <span class="keyword">if</span> (body_height &gt; <span class="number">2</span> * bo_height):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;站立&quot;</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;平躺&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># # 关键点判断</span></span><br><span class="line">    <span class="comment"># if nose is None and neck is None:</span></span><br><span class="line">    <span class="comment">#     return &quot;关键点缺失&quot;, 0.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># # 姿态判断逻辑</span></span><br><span class="line">    <span class="comment"># if left_knee_angle is None or right_knee_angle is None or hip_height is None:</span></span><br><span class="line">    <span class="comment">#     return &quot;关键点缺失&quot;, 0.0</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 蹲下判断：膝盖角度小于120度且髋部降低</span></span><br><span class="line">    <span class="keyword">if</span> (left_knee_angle &lt; <span class="number">120</span> <span class="keyword">and</span> right_knee_angle &lt; <span class="number">120</span>):</span><br><span class="line">        confidence = (<span class="number">120</span> - <span class="built_in">max</span>(left_knee_angle, right_knee_angle)) / <span class="number">60</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;蹲下&quot;</span></span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 抬腿判断：一条腿的膝盖角度明显小于另一条腿</span></span><br><span class="line">    knee_angle_diff = <span class="built_in">abs</span>(left_knee_angle - right_knee_angle)</span><br><span class="line">    <span class="keyword">if</span> (knee_angle_diff &gt; <span class="number">30</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;抬腿&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 双腿抬起判断：两条腿的膝盖角度都小于某个阈值（例如120度）</span></span><br><span class="line">    <span class="keyword">if</span> (left_knee_angle &lt; <span class="number">120</span> <span class="keyword">and</span> right_knee_angle &lt; <span class="number">120</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;双腿抬起&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 举手判断：手腕和肩膀的高度</span></span><br><span class="line">    <span class="keyword">if</span> (left_wrist[<span class="number">1</span>] &lt; left_shoulder[<span class="number">1</span>] <span class="keyword">or</span> right_wrist[<span class="number">1</span>] &lt; right_shoulder[<span class="number">1</span>]):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;手部举起&quot;</span></span><br><span class="line">        </span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;未检测到正确动作&quot;</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 图像进行测试    </span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># OpenPose参数配置</span></span><br><span class="line">    params = <span class="built_in">dict</span>()</span><br><span class="line">    params[<span class="string">&quot;face&quot;</span>] = <span class="literal">True</span></span><br><span class="line">    params[<span class="string">&quot;hand&quot;</span>] = <span class="literal">True</span> </span><br><span class="line">    params[<span class="string">&quot;model_folder&quot;</span>] = <span class="string">&quot;/root/openpose/models/&quot;</span></span><br><span class="line">    <span class="comment"># 初始化OpenPose</span></span><br><span class="line">    opWrapper = op.WrapperPython()</span><br><span class="line">    opWrapper.configure(params)</span><br><span class="line">    opWrapper.start()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 图像文件夹路径</span></span><br><span class="line">    img_folder = <span class="string">&quot;./test&quot;</span>  <span class="comment"># 替换为你的图像文件夹路径</span></span><br><span class="line">    test_folder = <span class="string">&quot;./test_run&quot;</span>  <span class="comment"># 替换为你的输出文件夹路径</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 确保输出文件夹存在</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(test_folder):</span><br><span class="line">        os.makedirs(test_folder)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 获取图像文件列表</span></span><br><span class="line">    image_paths = [os.path.join(img_folder, f) <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(img_folder) <span class="keyword">if</span> f.endswith((<span class="string">&#x27;.png&#x27;</span>, <span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.jpeg&#x27;</span>))]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> image_path <span class="keyword">in</span> image_paths:</span><br><span class="line">        <span class="comment"># 读取图像文件</span></span><br><span class="line">        frame = cv2.imread(image_path)</span><br><span class="line">        <span class="keyword">if</span> frame <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error: Could not read image <span class="subst">&#123;image_path&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">            </span><br><span class="line">        <span class="comment"># 准备OpenPose输入</span></span><br><span class="line">        datum = op.Datum()</span><br><span class="line">        datum.cvInputData = frame</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># OpenPose处理</span></span><br><span class="line">        opWrapper.emplaceAndPop(op.VectorDatum([datum]))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 获取姿态预测</span></span><br><span class="line">        <span class="keyword">if</span> datum.poseKeypoints <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> <span class="built_in">len</span>(datum.poseKeypoints) &gt; <span class="number">0</span>:</span><br><span class="line">            pose, confidence = detect_pose(datum.poseKeypoints[<span class="number">0</span>])</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 在图像上绘制关键点和框框</span></span><br><span class="line">            <span class="keyword">for</span> keypoints <span class="keyword">in</span> datum.poseKeypoints:</span><br><span class="line">                <span class="keyword">for</span> i, keypoint <span class="keyword">in</span> <span class="built_in">enumerate</span>(keypoints):</span><br><span class="line">                    x, y, confidence = keypoint</span><br><span class="line">                    <span class="keyword">if</span> confidence &gt; <span class="number">0.1</span>:  <span class="comment"># 只绘制置信度大于0.1的关键点</span></span><br><span class="line">                        cv2.circle(frame, (<span class="built_in">int</span>(x), <span class="built_in">int</span>(y)), <span class="number">5</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">                        cv2.putText(frame, <span class="built_in">str</span>(i), (<span class="built_in">int</span>(x), <span class="built_in">int</span>(y)), cv2.FONT_HERSHEY_SIMPLEX, <span class="number">0.5</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), <span class="number">2</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 使用PIL库在图像上显示中文字符</span></span><br><span class="line">            pil_image = Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))</span><br><span class="line">            draw = ImageDraw.Draw(pil_image)</span><br><span class="line">            font_path = <span class="string">&quot;SimHei.ttf&quot;</span>  <span class="comment"># 字体文件与脚本文件在同一目录下</span></span><br><span class="line">            font = ImageFont.truetype(font_path, <span class="number">24</span>) </span><br><span class="line">            draw.text((<span class="number">50</span>, <span class="number">50</span>), <span class="string">f&quot;<span class="subst">&#123;pose&#125;</span> (<span class="subst">&#123;confidence:<span class="number">.2</span>f&#125;</span>)&quot;</span>, font=font, fill=(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>) <span class="keyword">if</span> confidence &gt; <span class="number">0.5</span> <span class="keyword">else</span> (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>))</span><br><span class="line">            frame = cv2.cvtColor(np.array(pil_image), cv2.COLOR_RGB2BGR)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 保存处理后的图像</span></span><br><span class="line">        output_path = os.path.join(test_folder, os.path.basename(image_path))</span><br><span class="line">        cv2.imwrite(output_path, frame)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Processed image saved to <span class="subst">&#123;output_path&#125;</span>&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 释放资源</span></span><br><span class="line">    cv2.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>祝使用愉快/记得要自己修判断算法逻辑喔</p>
+<h2 id="yolov8_pose的使用"><a class="markdownIt-Anchor" href="#yolov8_pose的使用"></a> yolov8_pose的使用</h2>
+<p>安装指令：<br />
+首先克隆这个仓库到本地：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/Mrjianning/yolov8_pose_judge.git</span><br><span class="line"><span class="built_in">cd</span> yolov8_pose_judge</span><br></pre></td></tr></table></figure>
+<p>安装所需的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p>快速开始:<br />
+运行以下命令以启动姿态检测：<code>python main.py</code></p>
+<p>没有问题的话，我们在<code>根目录</code>下创建一个python文件</p>
+<p>python代码里有三个实现，分别是针对于图片的静态识别，针对于视频的动态识别，以及调用摄像头的实时动态识别</p>
+<p>当然，determine_pose函数中姿态识别的算法逻辑代码，拉姆这边还是有一些问题的，请你自己修改喔~</p>
+<p>完整代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> ultralytics.data.augment <span class="keyword">import</span> LetterBox</span><br><span class="line"><span class="keyword">from</span> ultralytics.utils <span class="keyword">import</span> ops</span><br><span class="line"><span class="keyword">from</span> ultralytics.engine.results <span class="keyword">import</span> Results</span><br><span class="line"><span class="keyword">import</span> copy</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image, ImageDraw, ImageFont</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">sys.stdout.reconfigure(encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">YOLOv8Pose</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, model_path, device=<span class="string">&#x27;cpu&#x27;</span>, conf=<span class="number">0.25</span>, iou=<span class="number">0.7</span></span>):</span><br><span class="line">        self.device = device</span><br><span class="line">        self.conf = conf</span><br><span class="line">        self.iou = iou</span><br><span class="line">        self.model = self.load_model(model_path)</span><br><span class="line">        self.letterbox = LetterBox([<span class="number">640</span>, <span class="number">640</span>], auto=<span class="literal">True</span>, stride=<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">load_model</span>(<span class="params">self, model_path</span>):</span><br><span class="line">        ckpt = torch.load(model_path, map_location=self.device)</span><br><span class="line">        model = ckpt[<span class="string">&#x27;model&#x27;</span>].to(self.device).<span class="built_in">float</span>()</span><br><span class="line">        model.<span class="built_in">eval</span>()</span><br><span class="line">        <span class="keyword">return</span> model</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">preprocess</span>(<span class="params">self, img_path</span>):</span><br><span class="line">        im = cv.imread(img_path)</span><br><span class="line">        im = [im]</span><br><span class="line">        orig_imgs = copy.deepcopy(im)</span><br><span class="line">        im = [self.letterbox(image=x) <span class="keyword">for</span> x <span class="keyword">in</span> im]</span><br><span class="line">        im = im[<span class="number">0</span>][<span class="literal">None</span>]</span><br><span class="line">        im = im[..., ::-<span class="number">1</span>].transpose((<span class="number">0</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">        im = np.ascontiguousarray(im)</span><br><span class="line">        im = torch.from_numpy(im)</span><br><span class="line">        img = im.to(self.device)</span><br><span class="line">        img = img.<span class="built_in">float</span>()</span><br><span class="line">        img /= <span class="number">255</span></span><br><span class="line">        <span class="keyword">return</span> img, orig_imgs</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">infer</span>(<span class="params">self, img</span>):</span><br><span class="line">        preds = self.model(img)</span><br><span class="line">        prediction = ops.non_max_suppression(preds, self.conf, self.iou, agnostic=<span class="literal">False</span>, max_det=<span class="number">300</span>, classes=<span class="literal">None</span>,</span><br><span class="line">                                             nc=<span class="built_in">len</span>(self.model.names))</span><br><span class="line">        <span class="keyword">return</span> prediction</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">postprocess</span>(<span class="params">self, prediction, orig_imgs, img_shape, img_path</span>):</span><br><span class="line">        results = []</span><br><span class="line">        <span class="keyword">for</span> i, pred <span class="keyword">in</span> <span class="built_in">enumerate</span>(prediction):</span><br><span class="line">            orig_img = orig_imgs[i] <span class="keyword">if</span> <span class="built_in">isinstance</span>(orig_imgs, <span class="built_in">list</span>) <span class="keyword">else</span> orig_imgs</span><br><span class="line">            shape = orig_img.shape</span><br><span class="line">            pred[:, :<span class="number">4</span>] = ops.scale_boxes(img_shape, pred[:, :<span class="number">4</span>], shape).<span class="built_in">round</span>()</span><br><span class="line">            pred_kpts = pred[:, <span class="number">6</span>:].view(<span class="built_in">len</span>(pred), *self.model.kpt_shape) <span class="keyword">if</span> <span class="built_in">len</span>(pred) <span class="keyword">else</span> pred[:, <span class="number">6</span>:]</span><br><span class="line">            pred_kpts = ops.scale_coords(img_shape, pred_kpts, shape)</span><br><span class="line"></span><br><span class="line">            results.append(</span><br><span class="line">                Results(orig_img=orig_img,</span><br><span class="line">                        path=img_path,</span><br><span class="line">                        names=self.model.names,</span><br><span class="line">                        boxes=pred[:, :<span class="number">6</span>],</span><br><span class="line">                        keypoints=pred_kpts))</span><br><span class="line">        <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">plot_results</span>(<span class="params">self, results, img</span>):</span><br><span class="line">        plot_args = &#123;<span class="string">&#x27;line_width&#x27;</span>: <span class="literal">None</span>, <span class="string">&#x27;boxes&#x27;</span>: <span class="literal">True</span>, <span class="string">&#x27;conf&#x27;</span>: <span class="literal">True</span>, <span class="string">&#x27;labels&#x27;</span>: <span class="literal">True</span>&#125;</span><br><span class="line">        plot_args[<span class="string">&#x27;im_gpu&#x27;</span>] = img[<span class="number">0</span>]</span><br><span class="line">        result = results[<span class="number">0</span>]</span><br><span class="line">        plotted_img = result.plot(**plot_args)</span><br><span class="line">        <span class="keyword">return</span> plotted_img</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">detect</span>(<span class="params">self, img_path</span>):</span><br><span class="line">        img, orig_imgs = self.preprocess(img_path)</span><br><span class="line">        prediction = self.infer(img)</span><br><span class="line">        results = self.postprocess(prediction, orig_imgs, img.shape[<span class="number">2</span>:], img_path)</span><br><span class="line">        <span class="keyword">return</span> results</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">show_results</span>(<span class="params">self, results, img_path</span>):</span><br><span class="line">        img, _ = self.preprocess(img_path)</span><br><span class="line">        plotted_img = self.plot_results(results, img)</span><br><span class="line"></span><br><span class="line">        cv.imshow(<span class="string">&#x27;plotted_img&#x27;</span>, plotted_img)</span><br><span class="line">        cv.waitKey(<span class="number">0</span>)</span><br><span class="line">        cv.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">determine_pose</span>(<span class="params">self, keypoints</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        根据关键点确定人体姿态。</span></span><br><span class="line"><span class="string">        :param keypoints: 包含每个关键点的坐标和置信度的元组列表，例如 [(x1, y1, conf1), ...]</span></span><br><span class="line"><span class="string">        :return: 姿态类别：&#x27;站立&#x27;,&#x27;抬腿&#x27;,&#x27;平躺&#x27;,&quot;抬胳膊&quot;,&quot;蹲下&quot;,&quot;举左手&quot;,&quot;举右手&quot;,&quot;腿弯曲&quot;,&#x27;未检测到正确动作&#x27;</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 定义关键点索引</span></span><br><span class="line">        left_ankle, right_ankle = keypoints[<span class="number">15</span>], keypoints[<span class="number">16</span>]</span><br><span class="line">        left_knee, right_knee = keypoints[<span class="number">13</span>], keypoints[<span class="number">14</span>]</span><br><span class="line">        left_hip, right_hip = keypoints[<span class="number">11</span>], keypoints[<span class="number">12</span>]</span><br><span class="line">        left_shoulder, right_shoulder = keypoints[<span class="number">5</span>], keypoints[<span class="number">6</span>]</span><br><span class="line">        left_elbow, right_elbow = keypoints[<span class="number">7</span>], keypoints[<span class="number">8</span>]</span><br><span class="line">        left_wrist, right_wrist = keypoints[<span class="number">9</span>], keypoints[<span class="number">10</span>]</span><br><span class="line">        nose = keypoints[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 检查置信度</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">any</span>(conf &lt; <span class="number">0</span> <span class="keyword">for</span> _, _, conf <span class="keyword">in</span></span><br><span class="line">               [left_ankle, right_ankle, left_knee, right_knee, left_hip, right_hip, left_shoulder, right_shoulder]):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;xxx未检测到正确动作&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">calculate_angle</span>(<span class="params">point1, point2, point3</span>):</span><br><span class="line">            <span class="string">&quot;&quot;&quot;计算由三个点形成的角度。&quot;&quot;&quot;</span></span><br><span class="line">            vector1 = (point2[<span class="number">0</span>] - point1[<span class="number">0</span>], point2[<span class="number">1</span>] - point1[<span class="number">1</span>])</span><br><span class="line">            vector2 = (point3[<span class="number">0</span>] - point2[<span class="number">0</span>], point3[<span class="number">1</span>] - point2[<span class="number">1</span>])</span><br><span class="line">            dot_product = vector1[<span class="number">0</span>] * vector2[<span class="number">0</span>] + vector1[<span class="number">1</span>] * vector2[<span class="number">1</span>]</span><br><span class="line">            magnitude1 = math.sqrt(vector1[<span class="number">0</span>] ** <span class="number">2</span> + vector1[<span class="number">1</span>] ** <span class="number">2</span>)</span><br><span class="line">            magnitude2 = math.sqrt(vector2[<span class="number">0</span>] ** <span class="number">2</span> + vector2[<span class="number">1</span>] ** <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">if</span> magnitude1 * magnitude2 == <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">            cos_theta = <span class="built_in">max</span>(-<span class="number">1</span>, <span class="built_in">min</span>(<span class="number">1</span>, dot_product / (magnitude1 * magnitude2)))</span><br><span class="line">            <span class="keyword">return</span> math.degrees(math.acos(cos_theta))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算关键角度</span></span><br><span class="line">        left_knee_angle = calculate_angle(left_hip, left_knee, left_ankle)</span><br><span class="line">        right_knee_angle = calculate_angle(right_hip, right_knee, right_ankle)</span><br><span class="line">        left_hip_angle = calculate_angle(left_shoulder, left_hip, left_knee)</span><br><span class="line">        right_hip_angle = calculate_angle(right_shoulder, right_hip, right_knee)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 计算关键位置关系</span></span><br><span class="line">        body_height = <span class="built_in">abs</span>(nose[<span class="number">1</span>] - left_ankle[<span class="number">1</span>])</span><br><span class="line">        bo_height = <span class="built_in">abs</span>(left_ankle[<span class="number">1</span>] - right_hip[<span class="number">1</span>])</span><br><span class="line">        ankle_distance = <span class="built_in">abs</span>(left_ankle[<span class="number">0</span>] - right_ankle[<span class="number">0</span>])</span><br><span class="line">        knee_distance = <span class="built_in">abs</span>(left_knee[<span class="number">0</span>] - right_knee[<span class="number">0</span>])</span><br><span class="line">        avg_hip_height = (left_hip[<span class="number">1</span>] + right_hip[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line">        avg_shoulder_height = (left_shoulder[<span class="number">1</span>] + right_shoulder[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line">        avg_knee_height = (left_knee[<span class="number">1</span>] + right_knee[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line">        avg_ankle_height = (left_ankle[<span class="number">1</span>] + right_ankle[<span class="number">1</span>]) / <span class="number">2</span></span><br><span class="line">        shoulder_to_hip_dist = <span class="built_in">abs</span>((left_shoulder[<span class="number">1</span>] + right_shoulder[<span class="number">1</span>]) / <span class="number">2</span> -(left_hip[<span class="number">1</span>] + right_hip[<span class="number">1</span>]) / <span class="number">2</span>)</span><br><span class="line">        hip_to_ankle_dist = <span class="built_in">abs</span>((left_hip[<span class="number">1</span>] + right_hip[<span class="number">1</span>]) / <span class="number">2</span> -(left_ankle[<span class="number">1</span>] + right_ankle[<span class="number">1</span>]) / <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># if (left_shoulder[1] &lt; left_hip[1] &lt; left_knee[1] &lt; left_ankle[1] and</span></span><br><span class="line">        <span class="comment">#         right_shoulder[1] &lt; right_hip[1] &lt; right_knee[1] &lt; right_ankle[1]):</span></span><br><span class="line">        <span class="comment">#     # 确保身体没有抬起，适用于完全平躺的场景</span></span><br><span class="line">        <span class="comment">#     if (body_height &gt; 2 * bo_height):</span></span><br><span class="line">        <span class="comment">#         return &quot;1站立&quot;</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment">#     shoulder_to_hip_dist = abs((left_shoulder[1] + right_shoulder[1]) / 2 -</span></span><br><span class="line">        <span class="comment">#                                (left_hip[1] + right_hip[1]) / 2)</span></span><br><span class="line">        <span class="comment">#     hip_to_ankle_dist = abs((left_hip[1] + right_hip[1]) / 2 -</span></span><br><span class="line">        <span class="comment">#                             (left_ankle[1] + right_ankle[1]) / 2)</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment">#     if shoulder_to_hip_dist &gt; hip_to_ankle_dist * 0.5:</span></span><br><span class="line">        <span class="comment">#         if left_ankle[0]&gt;left_knee[0]:</span></span><br><span class="line">        <span class="comment">#             return &#x27;2站立&#x27;</span></span><br><span class="line">        <span class="comment">#         else:</span></span><br><span class="line">        <span class="comment">#             return &quot;平躺&quot;</span></span><br><span class="line">        <span class="comment">#     else:</span></span><br><span class="line">        <span class="comment">#         if (left_knee[1] &gt;= avg_hip_height and right_knee[1] &gt;= avg_hip_height) or (</span></span><br><span class="line">        <span class="comment">#                 left_knee_angle &gt;= 120 and right_knee_angle &gt;= 120):</span></span><br><span class="line">        <span class="comment">#             return &#x27;平躺&#x27;</span></span><br><span class="line">        <span class="comment">#         else:</span></span><br><span class="line">        <span class="comment">#             return &#x27;可能抬腿&#x27;</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        <span class="comment"># # 抬腿动作检测，要在其他条件下做进一步细化</span></span><br><span class="line">        <span class="comment"># knee_angle_diff = abs(left_knee_angle - right_knee_angle)</span></span><br><span class="line">        <span class="comment"># if (left_knee[1] &lt; avg_hip_height or right_knee[1] &lt; avg_hip_height) and (</span></span><br><span class="line">        <span class="comment">#         left_knee_angle &lt; 120 or right_knee_angle &lt; 120) or (knee_angle_diff &gt; 30):</span></span><br><span class="line">        <span class="comment">#     return &#x27;抬腿&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (left_shoulder[<span class="number">1</span>] &lt; left_hip[<span class="number">1</span>] &lt; left_knee[<span class="number">1</span>] &lt; left_ankle[<span class="number">1</span>] <span class="keyword">and</span></span><br><span class="line">                right_shoulder[<span class="number">1</span>] &lt; right_hip[<span class="number">1</span>] &lt; right_knee[<span class="number">1</span>] &lt; right_ankle[<span class="number">1</span>]):</span><br><span class="line">            <span class="keyword">if</span> (body_height &gt; <span class="number">2</span> * bo_height):</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;1站立&quot;</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 如果肩膀到髋部的距离大于一定比例，判定为站立</span></span><br><span class="line">            <span class="keyword">if</span> shoulder_to_hip_dist &gt; hip_to_ankle_dist * <span class="number">0.5</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&#x27;2站立&#x27;</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&#x27;平躺&#x27;</span></span><br><span class="line"></span><br><span class="line">        knee_angle_diff = <span class="built_in">abs</span>(left_knee_angle - right_knee_angle)</span><br><span class="line">        <span class="comment"># 2. 抬腿动作检测</span></span><br><span class="line">        <span class="keyword">if</span> (left_knee[<span class="number">1</span>] &lt; avg_hip_height <span class="keyword">or</span> right_knee[<span class="number">1</span>] &lt; avg_hip_height) <span class="keyword">and</span> (</span><br><span class="line">                left_knee_angle &lt; <span class="number">120</span> <span class="keyword">or</span> right_knee_angle &lt; <span class="number">120</span>) <span class="keyword">or</span> (knee_angle_diff &gt; <span class="number">30</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;抬腿&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4. 蹲下检测</span></span><br><span class="line">        <span class="keyword">if</span> (avg_knee_height &lt; avg_hip_height <span class="keyword">and</span> left_knee_angle &lt; <span class="number">150</span></span><br><span class="line">                <span class="keyword">and</span> right_knee_angle &lt; <span class="number">150</span>):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;蹲下&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 举手判断：手腕和肩膀的高度</span></span><br><span class="line">        <span class="keyword">if</span> (left_wrist[<span class="number">1</span>] &lt; left_shoulder[<span class="number">1</span>] <span class="keyword">or</span> right_wrist[<span class="number">1</span>] &lt; right_shoulder[<span class="number">1</span>] <span class="keyword">or</span></span><br><span class="line">                left_elbow[<span class="number">1</span>] &lt; left_shoulder[<span class="number">1</span>] <span class="keyword">or</span> right_elbow[<span class="number">1</span>] &lt; right_shoulder[<span class="number">1</span>]):</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;手部举起&quot;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;未检测到正确动作&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_results_as_dicts</span>(<span class="params">self, results</span>):</span><br><span class="line">        results_list = []</span><br><span class="line">        <span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">            <span class="keyword">for</span> i, box <span class="keyword">in</span> <span class="built_in">enumerate</span>(result.boxes.data):</span><br><span class="line">                cls_id = result.boxes.cls[i].item()  <span class="comment"># 获取类别ID</span></span><br><span class="line">                class_name = result.names.get(cls_id)</span><br><span class="line">                confidence = result.boxes.conf[i].item()  <span class="comment"># 获取置信度</span></span><br><span class="line">                bbox = box[:<span class="number">4</span>].tolist()  <span class="comment"># 获取边框坐标</span></span><br><span class="line"></span><br><span class="line">                <span class="comment"># 准备关键点信息</span></span><br><span class="line">                keypoints = []</span><br><span class="line">                <span class="keyword">if</span> result.keypoints.has_visible:</span><br><span class="line">                    <span class="keyword">for</span> kpt <span class="keyword">in</span> result.keypoints.data:</span><br><span class="line">                        <span class="keyword">for</span> point <span class="keyword">in</span> kpt:</span><br><span class="line">                            x, y, conf = point.tolist()</span><br><span class="line">                            keypoints.append((x, y, conf))</span><br><span class="line"></span><br><span class="line">                <span class="comment"># 判断姿态</span></span><br><span class="line">                pose = self.determine_pose(keypoints)</span><br><span class="line"></span><br><span class="line">                result_dict = &#123;</span><br><span class="line">                    <span class="string">&quot;class_name&quot;</span>: class_name,</span><br><span class="line">                    <span class="string">&quot;boxes&quot;</span>: bbox,</span><br><span class="line">                    <span class="string">&quot;confidence&quot;</span>: confidence,</span><br><span class="line">                    <span class="string">&quot;keypoints&quot;</span>: keypoints,</span><br><span class="line">                    <span class="string">&quot;pose&quot;</span>: pose  <span class="comment"># 增加姿态信息</span></span><br><span class="line">                &#125;</span><br><span class="line">                results_list.append(result_dict)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> results_list</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关键点的连接关系（COCO数据集的例子）</span></span><br><span class="line">skeleton = [</span><br><span class="line">    (<span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">4</span>), (<span class="number">3</span>, <span class="number">5</span>), (<span class="number">4</span>, <span class="number">6</span>),  <span class="comment"># 头部到身体</span></span><br><span class="line">    (<span class="number">5</span>, <span class="number">6</span>), (<span class="number">5</span>, <span class="number">7</span>), (<span class="number">7</span>, <span class="number">9</span>), (<span class="number">6</span>, <span class="number">8</span>), (<span class="number">8</span>, <span class="number">10</span>),  <span class="comment"># 身体到手臂</span></span><br><span class="line">    (<span class="number">5</span>, <span class="number">11</span>), (<span class="number">6</span>, <span class="number">12</span>), (<span class="number">11</span>, <span class="number">12</span>),  <span class="comment"># 躯干</span></span><br><span class="line">    (<span class="number">11</span>, <span class="number">13</span>), (<span class="number">12</span>, <span class="number">14</span>), (<span class="number">13</span>, <span class="number">15</span>), (<span class="number">14</span>, <span class="number">16</span>)  <span class="comment"># 躯干到腿</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># opencv绘制结果</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_results</span>(<span class="params">image, results</span>):</span><br><span class="line">    height, width, _ = image.shape</span><br><span class="line">    scale_factor = height / <span class="number">500</span>  <span class="comment"># 假设基准高度为500像素</span></span><br><span class="line"></span><br><span class="line">    line_thickness = <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="number">2</span> * scale_factor))  <span class="comment"># 线条粗细至少为1</span></span><br><span class="line">    font_scale = <span class="built_in">max</span>(<span class="number">0.5</span>, <span class="number">0.5</span> * scale_factor)  <span class="comment"># 字体缩放至少为0.5</span></span><br><span class="line">    circle_radius = <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="number">3</span> * scale_factor))  <span class="comment"># 圆点半径至少为1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> res <span class="keyword">in</span> results:</span><br><span class="line">        <span class="comment"># 绘制边框和类别名</span></span><br><span class="line">        bbox = res[<span class="string">&#x27;boxes&#x27;</span>]</span><br><span class="line">        confidence = res[<span class="string">&#x27;confidence&#x27;</span>]</span><br><span class="line">        class_name = res[<span class="string">&#x27;class_name&#x27;</span>]</span><br><span class="line"></span><br><span class="line">        start_point = (<span class="built_in">int</span>(bbox[<span class="number">0</span>]), <span class="built_in">int</span>(bbox[<span class="number">1</span>]))</span><br><span class="line">        end_point = (<span class="built_in">int</span>(bbox[<span class="number">2</span>]), <span class="built_in">int</span>(bbox[<span class="number">3</span>]))</span><br><span class="line">        cv.rectangle(image, start_point, end_point, (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">        label = <span class="string">f&quot;<span class="subst">&#123;class_name&#125;</span>: <span class="subst">&#123;confidence:<span class="number">.2</span>f&#125;</span>&quot;</span></span><br><span class="line">        cv.putText(image, label, (start_point[<span class="number">0</span>], start_point[<span class="number">1</span>] - <span class="number">10</span>), cv.FONT_HERSHEY_SIMPLEX, font_scale,</span><br><span class="line">                   (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 绘制关键点</span></span><br><span class="line">        keypoints = [(<span class="built_in">int</span>(kpt[<span class="number">0</span>]), <span class="built_in">int</span>(kpt[<span class="number">1</span>]), kpt[<span class="number">2</span>]) <span class="keyword">for</span> kpt <span class="keyword">in</span> res[<span class="string">&#x27;keypoints&#x27;</span>]]</span><br><span class="line">        <span class="keyword">for</span> idx, (x, y, conf) <span class="keyword">in</span> <span class="built_in">enumerate</span>(keypoints):</span><br><span class="line">            <span class="keyword">if</span> conf &gt; <span class="number">0.5</span>:</span><br><span class="line">                cv.circle(image, (x, y), circle_radius, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">                cv.putText(image, <span class="built_in">str</span>(idx), (x + <span class="number">5</span>, y + <span class="number">5</span>), cv.FONT_HERSHEY_SIMPLEX, font_scale, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>),</span><br><span class="line">                           line_thickness)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 绘制骨架</span></span><br><span class="line">        <span class="keyword">for</span> start_idx, end_idx <span class="keyword">in</span> skeleton:</span><br><span class="line">            start_point = keypoints[start_idx]</span><br><span class="line">            end_point = keypoints[end_idx]</span><br><span class="line">            <span class="keyword">if</span> start_point[<span class="number">2</span>] &gt; <span class="number">0.5</span> <span class="keyword">and</span> end_point[<span class="number">2</span>] &gt; <span class="number">0.5</span>:</span><br><span class="line">                cv.line(image, (start_point[<span class="number">0</span>], start_point[<span class="number">1</span>]), (end_point[<span class="number">0</span>], end_point[<span class="number">1</span>]), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>),</span><br><span class="line">                        line_thickness)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 显示姿态信息</span></span><br><span class="line">        pose_label = <span class="string">f&quot;姿态: <span class="subst">&#123;res[<span class="string">&#x27;pose&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">        <span class="comment"># cv.putText(image, pose_label, (start_point[0], start_point[1] - 30), cv.FONT_HERSHEY_SIMPLEX, font_scale, (255, 255, 255), line_thickness)</span></span><br><span class="line"></span><br><span class="line">        image = draw_chinese_text(image, pose_label, (<span class="number">50</span>, <span class="number">50</span>), <span class="string">&quot;./STSONG.TTF&quot;</span>, <span class="number">48</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_chinese_text</span>(<span class="params">image, text, position, font_path, font_size, color</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在图像上绘制中文文本</span></span><br><span class="line"><span class="string">    :param image: OpenCV 图像</span></span><br><span class="line"><span class="string">    :param text: 要绘制的中文文本</span></span><br><span class="line"><span class="string">    :param position: 文本绘制位置 (x, y)</span></span><br><span class="line"><span class="string">    :param font_path: 字体文件路径</span></span><br><span class="line"><span class="string">    :param font_size: 字体大小</span></span><br><span class="line"><span class="string">    :param color: 文本颜色 (B, G, R)</span></span><br><span class="line"><span class="string">    :return: 绘制中文文本后的图像</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 将 OpenCV 图像转换为 PIL 图像</span></span><br><span class="line">    image_pil = Image.fromarray(cv.cvtColor(image, cv.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(image_pil)</span><br><span class="line">    font = ImageFont.truetype(font_path, font_size, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制中文文本</span></span><br><span class="line">    draw.text(position, text, font=font, fill=color)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将 PIL 图像转换回 OpenCV 图像</span></span><br><span class="line">    image = cv.cvtColor(np.array(image_pil), cv.COLOR_RGB2BGR)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 视频检测</span></span><br><span class="line"><span class="comment"># 修复绘制中文文本函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_chinese_text</span>(<span class="params">image, text, position, font_path, font_size, color</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    在图像上绘制中文文本</span></span><br><span class="line"><span class="string">    :param image: OpenCV 图像</span></span><br><span class="line"><span class="string">    :param text: 要绘制的中文文本</span></span><br><span class="line"><span class="string">    :param position: 文本绘制位置 (x, y)</span></span><br><span class="line"><span class="string">    :param font_path: 字体文件路径</span></span><br><span class="line"><span class="string">    :param font_size: 字体大小</span></span><br><span class="line"><span class="string">    :param color: 文本颜色 (B, G, R)</span></span><br><span class="line"><span class="string">    :return: 绘制中文文本后的图像</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 将 OpenCV 图像转换为 PIL 图像</span></span><br><span class="line">    image_pil = Image.fromarray(cv.cvtColor(image, cv.COLOR_BGR2RGB))</span><br><span class="line">    draw = ImageDraw.Draw(image_pil)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        font = ImageFont.truetype(font_path, font_size, encoding=<span class="string">&quot;utf-8&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;字体加载错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="comment"># 如果字体加载失败，返回原图</span></span><br><span class="line">        <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 绘制中文文本</span></span><br><span class="line">    draw.text(position, text, font=font, fill=color[::-<span class="number">1</span>])  <span class="comment"># 颜色需要转换BGR到RGB</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将 PIL 图像转换回 OpenCV 图像并返回</span></span><br><span class="line">    <span class="keyword">return</span> cv.cvtColor(np.array(image_pil), cv.COLOR_RGB2BGR)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修复绘制结果函数</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">draw_results</span>(<span class="params">image, results</span>):</span><br><span class="line">    <span class="keyword">if</span> image <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> <span class="built_in">len</span>(image.shape) != <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;无效的输入图像&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"></span><br><span class="line">    height, width, _ = image.shape</span><br><span class="line">    scale_factor = height / <span class="number">500</span>  <span class="comment"># 假设基准高度为500像素</span></span><br><span class="line"></span><br><span class="line">    line_thickness = <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="number">2</span> * scale_factor))  <span class="comment"># 线条粗细至少为1</span></span><br><span class="line">    font_scale = <span class="built_in">max</span>(<span class="number">0.5</span>, <span class="number">0.5</span> * scale_factor)  <span class="comment"># 字体缩放至少为0.5</span></span><br><span class="line">    circle_radius = <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="number">3</span> * scale_factor))  <span class="comment"># 圆点半径至少为1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建图像副本以避免修改原图</span></span><br><span class="line">    image_with_results = image.copy()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> res <span class="keyword">in</span> results:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 绘制边框和类别名</span></span><br><span class="line">            bbox = res[<span class="string">&#x27;boxes&#x27;</span>]</span><br><span class="line">            confidence = res[<span class="string">&#x27;confidence&#x27;</span>]</span><br><span class="line">            class_name = res[<span class="string">&#x27;class_name&#x27;</span>]</span><br><span class="line"></span><br><span class="line">            start_point = (<span class="built_in">int</span>(bbox[<span class="number">0</span>]), <span class="built_in">int</span>(bbox[<span class="number">1</span>]))</span><br><span class="line">            end_point = (<span class="built_in">int</span>(bbox[<span class="number">2</span>]), <span class="built_in">int</span>(bbox[<span class="number">3</span>]))</span><br><span class="line">            cv.rectangle(image_with_results, start_point, end_point, (<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">            label = <span class="string">f&quot;<span class="subst">&#123;class_name&#125;</span>: <span class="subst">&#123;confidence:<span class="number">.2</span>f&#125;</span>&quot;</span></span><br><span class="line">            cv.putText(image_with_results, label, (start_point[<span class="number">0</span>], start_point[<span class="number">1</span>] - <span class="number">10</span>),</span><br><span class="line">                       cv.FONT_HERSHEY_SIMPLEX, font_scale, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 绘制关键点</span></span><br><span class="line">            keypoints = [(<span class="built_in">int</span>(kpt[<span class="number">0</span>]), <span class="built_in">int</span>(kpt[<span class="number">1</span>]), kpt[<span class="number">2</span>]) <span class="keyword">for</span> kpt <span class="keyword">in</span> res[<span class="string">&#x27;keypoints&#x27;</span>]]</span><br><span class="line">            <span class="keyword">for</span> idx, (x, y, conf) <span class="keyword">in</span> <span class="built_in">enumerate</span>(keypoints):</span><br><span class="line">                <span class="keyword">if</span> conf &gt; <span class="number">0.2</span>:</span><br><span class="line">                    cv.circle(image_with_results, (x, y), circle_radius, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">                    cv.putText(image_with_results, <span class="built_in">str</span>(idx), (x + <span class="number">5</span>, y + <span class="number">5</span>),</span><br><span class="line">                               cv.FONT_HERSHEY_SIMPLEX, font_scale, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 绘制骨架</span></span><br><span class="line">            <span class="keyword">for</span> start_idx, end_idx <span class="keyword">in</span> skeleton:</span><br><span class="line">                start_point = keypoints[start_idx]</span><br><span class="line">                end_point = keypoints[end_idx]</span><br><span class="line">                <span class="keyword">if</span> start_point[<span class="number">2</span>] &gt; <span class="number">0.5</span> <span class="keyword">and</span> end_point[<span class="number">2</span>] &gt; <span class="number">0.5</span>:</span><br><span class="line">                    cv.line(image_with_results, (start_point[<span class="number">0</span>], start_point[<span class="number">1</span>]),</span><br><span class="line">                            (end_point[<span class="number">0</span>], end_point[<span class="number">1</span>]), (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), line_thickness)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 显示姿态信息</span></span><br><span class="line">            pose_label = <span class="string">f&quot;姿态: <span class="subst">&#123;res[<span class="string">&#x27;pose&#x27;</span>]&#125;</span>&quot;</span></span><br><span class="line">            <span class="comment"># 使用修复后的draw_chinese_text函数</span></span><br><span class="line">            image_with_results = draw_chinese_text(</span><br><span class="line">                image_with_results,</span><br><span class="line">                pose_label,</span><br><span class="line">                (<span class="number">50</span>, <span class="number">50</span>),</span><br><span class="line">                <span class="string">&quot;./STSONG.TTF&quot;</span>,</span><br><span class="line">                <span class="number">48</span>,</span><br><span class="line">                (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>)</span><br><span class="line">            )</span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;绘制结果时发生错误: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> image_with_results</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片检测</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    yolov8 = YOLOv8Pose(model_path=<span class="string">&#x27;yolov8x-pose.pt&#x27;</span>, device=<span class="string">&#x27;cpu&#x27;</span>, conf=<span class="number">0.25</span>, iou=<span class="number">0.7</span>)</span><br><span class="line">    <span class="comment"># imgs = [&quot;img_2.png&quot;]</span></span><br><span class="line">    img_folder = <span class="string">&quot;./test/&quot;</span></span><br><span class="line">    output_folder = <span class="string">&quot;./test_run/&quot;</span></span><br><span class="line"></span><br><span class="line">    imgs = [os.path.join(img_folder, img) <span class="keyword">for</span> img <span class="keyword">in</span> os.listdir(img_folder) <span class="keyword">if</span> img.endswith((<span class="string">&#x27;.png&#x27;</span>, <span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.jpeg&#x27;</span>))]</span><br><span class="line">    <span class="comment"># 存储处理后的图片结果</span></span><br><span class="line">    processed_images = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 处理每张图片并存储结果</span></span><br><span class="line">    <span class="keyword">for</span> img_path <span class="keyword">in</span> imgs:</span><br><span class="line">        img = cv.imread(img_path)</span><br><span class="line">        results = yolov8.detect(img_path)</span><br><span class="line">        results_ = yolov8.get_results_as_dicts(results)</span><br><span class="line">        img_with_results = draw_results(img, results_)</span><br><span class="line">        processed_images.append(img_with_results)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 保存处理后的图片到输出文件夹</span></span><br><span class="line">        output_path = os.path.join(output_folder, os.path.basename(img_path))</span><br><span class="line">        cv.imwrite(output_path, img_with_results)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算每张图片的显示尺寸</span></span><br><span class="line">    max_width = <span class="number">600</span></span><br><span class="line">    <span class="keyword">for</span> idx, img_result <span class="keyword">in</span> <span class="built_in">enumerate</span>(processed_images):</span><br><span class="line">        height = <span class="built_in">int</span>(img_result.shape[<span class="number">0</span>] * (max_width / img_result.shape[<span class="number">1</span>]))</span><br><span class="line">        <span class="keyword">if</span> height &gt; <span class="number">900</span>:</span><br><span class="line">            height = <span class="number">900</span></span><br><span class="line">            max_width = <span class="built_in">int</span>(img_result.shape[<span class="number">1</span>] * (height / img_result.shape[<span class="number">0</span>]))</span><br><span class="line">        processed_images[idx] = cv.resize(img_result, (max_width, height))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 显示每张图片的处理结果在独立窗口中</span></span><br><span class="line">    <span class="keyword">for</span> idx, img_result <span class="keyword">in</span> <span class="built_in">enumerate</span>(processed_images):</span><br><span class="line">        cv.imshow(<span class="string">f&#x27;Processed Image <span class="subst">&#123;idx + <span class="number">1</span>&#125;</span>&#x27;</span>, img_result)</span><br><span class="line"></span><br><span class="line">    cv.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv.destroyAllWindows()</span><br><span class="line"></span><br><span class="line"><span class="comment"># # 视频处理主函数</span></span><br><span class="line"><span class="comment"># if __name__ == &quot;__main__&quot;:</span></span><br><span class="line"><span class="comment">#     # 初始化模型</span></span><br><span class="line"><span class="comment">#     yolov8 = YOLOv8Pose(model_path=&#x27;yolov8x-pose.pt&#x27;, device=&#x27;cpu&#x27;, conf=0.25, iou=0.7)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 设置输入和输出视频路径</span></span><br><span class="line"><span class="comment">#     input_video_path = &quot;test.mp4&quot;  # 替换为你的输入视频路径</span></span><br><span class="line"><span class="comment">#     output_video_path = &quot;output_video.mp4&quot;  # 输出视频的保存路径</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 打开视频文件</span></span><br><span class="line"><span class="comment">#     cap = cv.VideoCapture(input_video_path)</span></span><br><span class="line"><span class="comment">#     if not cap.isOpened():</span></span><br><span class="line"><span class="comment">#         print(f&quot;无法打开视频文件: &#123;input_video_path&#125;&quot;)</span></span><br><span class="line"><span class="comment">#         exit()</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 获取视频的基本信息</span></span><br><span class="line"><span class="comment">#     frame_width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))</span></span><br><span class="line"><span class="comment">#     frame_height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))</span></span><br><span class="line"><span class="comment">#     fps = int(cap.get(cv.CAP_PROP_FPS))</span></span><br><span class="line"><span class="comment">#     total_frames = int(cap.get(cv.CAP_PROP_FRAME_COUNT))</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     print(f&quot;视频信息: &#123;frame_width&#125;x&#123;frame_height&#125; @ &#123;fps&#125;fps, 总帧数: &#123;total_frames&#125;&quot;)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 创建视频写入器</span></span><br><span class="line"><span class="comment">#     fourcc = cv.VideoWriter_fourcc(*&#x27;mp4v&#x27;)</span></span><br><span class="line"><span class="comment">#     out = cv.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     processed_frames = 0</span></span><br><span class="line"><span class="comment">#     temp_img_path = &quot;temp_frame.jpg&quot;</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     try:</span></span><br><span class="line"><span class="comment">#         while cap.isOpened():</span></span><br><span class="line"><span class="comment">#             ret, frame = cap.read()</span></span><br><span class="line"><span class="comment">#             if not ret:</span></span><br><span class="line"><span class="comment">#                 print(&quot;\n到达视频结尾&quot;)</span></span><br><span class="line"><span class="comment">#                 break</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#             try:</span></span><br><span class="line"><span class="comment">#                 # 确保帧是有效的</span></span><br><span class="line"><span class="comment">#                 if frame is None or frame.size == 0:</span></span><br><span class="line"><span class="comment">#                     print(f&quot;\n无效帧 &#123;processed_frames&#125;&quot;)</span></span><br><span class="line"><span class="comment">#                     processed_frames += 1</span></span><br><span class="line"><span class="comment">#                     continue</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                 # 保存和处理当前帧</span></span><br><span class="line"><span class="comment">#                 cv.imwrite(temp_img_path, frame)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                 # 检查临时文件是否成功创建</span></span><br><span class="line"><span class="comment">#                 if not os.path.exists(temp_img_path):</span></span><br><span class="line"><span class="comment">#                     print(f&quot;\n临时文件创建失败，跳过帧 &#123;processed_frames&#125;&quot;)</span></span><br><span class="line"><span class="comment">#                     processed_frames += 1</span></span><br><span class="line"><span class="comment">#                     continue</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                 # 进行检测</span></span><br><span class="line"><span class="comment">#                 results = yolov8.detect(temp_img_path)</span></span><br><span class="line"><span class="comment">#                 results_ = yolov8.get_results_as_dicts(results)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                 # 绘制结果</span></span><br><span class="line"><span class="comment">#                 frame_with_results = draw_results(frame, results_)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                 if frame_with_results is not None:</span></span><br><span class="line"><span class="comment">#                     # 写入处理后的帧</span></span><br><span class="line"><span class="comment">#                     out.write(frame_with_results)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                     # 显示处理进度</span></span><br><span class="line"><span class="comment">#                     processed_frames += 1</span></span><br><span class="line"><span class="comment">#                     progress = (processed_frames / total_frames) * 100</span></span><br><span class="line"><span class="comment">#                     print(f&quot;\r处理进度: &#123;progress:.2f&#125;%&quot;, end=&#x27;&#x27;)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                     # 显示预览</span></span><br><span class="line"><span class="comment">#                     cv.imshow(&#x27;Video Processing&#x27;, frame_with_results)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#                     if cv.waitKey(1) &amp; 0xFF == ord(&#x27;q&#x27;):</span></span><br><span class="line"><span class="comment">#                         print(&quot;\n用户中断处理&quot;)</span></span><br><span class="line"><span class="comment">#                         break</span></span><br><span class="line"><span class="comment">#                 else:</span></span><br><span class="line"><span class="comment">#                     print(f&quot;\n帧 &#123;processed_frames&#125; 处理失败&quot;)</span></span><br><span class="line"><span class="comment">#                     processed_frames += 1</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#             except Exception as e:</span></span><br><span class="line"><span class="comment">#                 print(f&quot;\n处理帧 &#123;processed_frames&#125; 时发生错误: &#123;str(e)&#125;&quot;)</span></span><br><span class="line"><span class="comment">#                 processed_frames += 1</span></span><br><span class="line"><span class="comment">#                 continue</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     except Exception as e:</span></span><br><span class="line"><span class="comment">#         print(f&quot;\n处理视频时发生错误: &#123;str(e)&#125;&quot;)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     finally:</span></span><br><span class="line"><span class="comment">#         # 清理资源</span></span><br><span class="line"><span class="comment">#         print(f&quot;\n处理完成，共处理 &#123;processed_frames&#125; 帧&quot;)</span></span><br><span class="line"><span class="comment">#         cap.release()</span></span><br><span class="line"><span class="comment">#         out.release()</span></span><br><span class="line"><span class="comment">#         cv.destroyAllWindows()</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 删除临时文件</span></span><br><span class="line"><span class="comment">#         if os.path.exists(temp_img_path):</span></span><br><span class="line"><span class="comment">#             try:</span></span><br><span class="line"><span class="comment">#                 os.remove(temp_img_path)</span></span><br><span class="line"><span class="comment">#             except Exception as e:</span></span><br><span class="line"><span class="comment">#                 print(f&quot;删除临时文件时发生错误: &#123;str(e)&#125;&quot;)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 摄像头检测</span></span><br><span class="line"><span class="comment"># if __name__ == &quot;__main__&quot;:</span></span><br><span class="line"><span class="comment">#     # 初始化模型</span></span><br><span class="line"><span class="comment">#     yolov8 = YOLOv8Pose(model_path=&#x27;yolov8n-pose.pt&#x27;, device=&#x27;cpu&#x27;, conf=0.25, iou=0.7)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 打开摄像头</span></span><br><span class="line"><span class="comment">#     cap = cv.VideoCapture(0)  # 使用默认摄像头，如果有多个摄像头可以改变参数</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     while True:</span></span><br><span class="line"><span class="comment">#         # 读取摄像头帧</span></span><br><span class="line"><span class="comment">#         ret, frame = cap.read()</span></span><br><span class="line"><span class="comment">#         if not ret:</span></span><br><span class="line"><span class="comment">#             print(&quot;无法读取摄像头画面&quot;)</span></span><br><span class="line"><span class="comment">#             break</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 保存当前帧到临时文件</span></span><br><span class="line"><span class="comment">#         temp_img_path = &quot;temp_frame.jpg&quot;</span></span><br><span class="line"><span class="comment">#         cv.imwrite(temp_img_path, frame)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 进行检测</span></span><br><span class="line"><span class="comment">#         results = yolov8.detect(temp_img_path)</span></span><br><span class="line"><span class="comment">#         results_ = yolov8.get_results_as_dicts(results)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 绘制结果</span></span><br><span class="line"><span class="comment">#         frame_with_results = draw_results(frame, results_)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 显示结果</span></span><br><span class="line"><span class="comment">#         cv.imshow(&#x27;实时姿态检测&#x27;, frame_with_results)</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#         # 按&#x27;q&#x27;键退出</span></span><br><span class="line"><span class="comment">#         if cv.waitKey(1) &amp; 0xFF == ord(&#x27;q&#x27;):</span></span><br><span class="line"><span class="comment">#             break</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     # 释放资源</span></span><br><span class="line"><span class="comment">#     cap.release()</span></span><br><span class="line"><span class="comment">#     cv.destroyAllWindows()</span></span><br></pre></td></tr></table></figure>
+<p>此外，里面用到的<code>yolov8l-pose.pt、 yolov8n-pose.pt、 yolov8x-pose.pt</code>这几个模型，可以自己进行训练或者更替为其他模型，这几个模型可以在网上自己下载喔~</p>
+<p>那么，祝你用餐愉快~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>戴诺斯·拉姆 @ 拉姆的小树屋</p>
+    <p><strong>本文链接：</strong><a href="https://sherry14love.github.io/2024/11/13/learn/openpose/">https://sherry14love.github.io/2024/11/13/learn/openpose/</a></p>
+    
+    
+    
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
+  </blockquote>
+      
+      
+      
+        <a data-aos="zoom-in" href="/2024/11/13/learn/openpose/#comments" class="article-comment-link">
+          <span class="post-comments-count twikoo-comment-count" data-path="/2024/11/13/learn/openpose/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <script>
+          twikoo.getCommentsCount({
+            envId: 'https://blog.6677677.xyz/',
+            region: '',
+            urls: [
+              '/2024/11/13/learn/openpose/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            _$('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        </script>
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E5%8D%B7/" rel="tag">卷</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/162/read" data-sizes="auto" alt="yolov8使用心得/包含类别ID转换脚本" class="lazyload">
+      
+      <a href="/2024/11/09/learn/yolov8/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          yolov8使用心得/包含类别ID转换脚本
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+  
+</article>
+
+
+
+  <div id="comments" class="tcomment"></div>
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#openpose%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> openpose的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yolov8_pose%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> yolov8_pose的使用</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer" class="wow fadeInUp">
+    <div style="width: 100%; overflow: hidden"><div class="footer-line"></div></div>
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+            <div>
+                <span class="icon-copyright"></span>
+                2023-2024
+                <span class="footer-info-sep"></span>
+                戴诺斯·拉姆
+            </div>
+            
+                <div>
+                    基于&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>&nbsp;
+                    Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" target="_blank">Reimu</a>
+                </div>
+            
+            
+                <div>
+                    <span class="icon-brush"></span>
+                    55k
+                    &nbsp;|&nbsp;
+                    <span class="icon-coffee"></span>
+                    03:24
+                </div>
+            
+            
+                <div>
+                    <span class="icon-eye"></span>
+                    <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+                    &nbsp;|&nbsp;
+                    <span class="icon-user"></span>
+                    <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+                </div>
+            
+            <div class="beian-info">
+                <img src="https://www.qiuxs.cn/sharing-tools/img/read/31890cf408183fdbdabef9cf0d3a4e97" alt="备案图标" class="beian-icon">
+                <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">豫ICP备2024052277号-1</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+.beian-info {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beian-icon {
+    width: 1em;  /* 设置宽度为1个字体大小 */
+    height: 1em; /* 设置高度为1个字体大小 */
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.beian-info a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.beian-info a:hover {
+    text-decoration: underline;
+}
+</style>
+        <div class="sidebar-top">
+          <img src="/images/taichi.png" height="50" width="50" alt="backtop" />
+          <div class="arrow-up"></div>
+        </div>
+        <div id="mask"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#openpose%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text"> openpose的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yolov8_pose%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> yolov8_pose的使用</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">26</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">4</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">首页</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">归档</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">关于</div>
+    </div>
+  
+    <div class="sidebar-menu-link-wrap">
+      <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+      <div class="sidebar-menu-icon icon-taichi"></div>
+      <div class="sidebar-menu-link">友链</div>
+    </div>
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+<script type="module" data-pjax>
+  import PhotoSwipeLightbox from "https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js";
+  
+  const pswp = () => {
+    if (_$$('.article-entry a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-entry',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
+      }).init();
+    }
+    if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+      new PhotoSwipeLightbox({
+        gallery: '.article-gallery',
+        children: 'a.article-gallery-item',
+        pswpModule: () => import("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js")
+      }).init();
+    }
+    window.lightboxStatus = 'done';
+    window.removeEventListener('lightbox:ready', pswp);
+  }
+  if(window.lightboxStatus === 'ready') {
+    pswp()
+  } else {
+    window.addEventListener('lightbox:ready', pswp);
+  }
+</script>
+
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js" data-pjax></script>
+
+  <script data-pjax>
+    twikoo.init({
+      envId: 'https://blog.6677677.xyz/',
+      el: '.tcomment',
+      region: '',
+    })
+  </script>
+
+
+
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.4/dist/index.umd.js"></script>
+
+  <script>
+    firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/quicklink@2.3.0/dist/quicklink.umd.js"></script>
+
+  <script data-pjax>
+    quicklink.listen({
+      timeout: 3000,
+      priority: true,
+      ignores: []
+    });
+  </script>
+
+
+<div id="lazy-script">
+  <div>
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '0.3.0-alpha.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" async></script>
+
+
+
+
+  
+<script src="/js/service_worker.js"></script>
+
+
+  <!-- hexo injector body_end start -->
+<script src="/js/insert_highlight.js" data-pjax></script>
+<!-- hexo injector body_end end --></body>
+  </html>
+

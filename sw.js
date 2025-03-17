@@ -1,13 +1,4 @@
-const preCache = [
-  "/images/taichi.png",
-  "https://www.qiuxs.cn/sharing-tools/img/read/5bd456c9169be94896101588e4465396",
-  "/images/taichi-fill.png",
-  "/css/loader.css",
-  "/css/style.css",
-  "/js/script.js",
-];
-const VERSION = "1731997071100";
-const cacheDomain = [
+const VERSION = "1742225194008";const preCache = ["/images/taichi.png","https://img.6677677.xyz/file/1734873534230_0.jpg","/css/loader.css","/css/style.css","/js/script.js"];const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",
   "unpkg.com",

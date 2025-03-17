@@ -6,7 +6,7 @@
   <link href="https://sherry14love.github.io/atom.xml" rel="self"/>
   
   <link href="https://sherry14love.github.io/"/>
-  <updated>2024-11-19T06:04:36.261Z</updated>
+  <updated>2025-02-24T06:24:17.654Z</updated>
   <id>https://sherry14love.github.io/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pycharm食用指南</title>
+    <link href="https://sherry14love.github.io/2024/11/29/learn/pycharm/"/>
+    <id>https://sherry14love.github.io/2024/11/29/learn/pycharm/</id>
+    <published>2024-11-28T16:00:00.000Z</published>
+    <updated>2025-02-24T06:24:17.654Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="快捷键指令"><a class="markdownIt-Anchor" href="#快捷键指令"></a> 快捷键指令：</h2><h3 id="代码重构与质量检测"><a class="markdownIt-Anchor" href="#代码重构与质量检测"></a> 代码重构与质量检测</h3><ul><li><strong>Ctrl + Alt + Shift + T</strong>: 打开重构菜单</li><li><strong>Ctrl + Alt + L</strong>: 自动格式化代码</li><li><strong>Alt + Enter</strong>: 查看代码检查修复建议</li></ul><h3 id="文件搜索与快速导航"><a class="markdownIt-Anchor" href="#文件搜索与快速导航"></a> 文件搜索与快速导航</h3><ul><li><strong>Ctrl + N</strong>: 搜索类名</li><li><strong>Ctrl + Shift + N</strong>: 搜索文件</li><li><strong>Ctrl + E</strong>: 查看最近打开的文件</li></ul><h3 id="自动补全与重构快捷键"><a class="markdownIt-Anchor" href="#自动补全与重构快捷键"></a> 自动补全与重构快捷键</h3><ul><li><strong>Alt + Enter</strong>: 修复错误</li><li><strong>Shift + F6</strong>: 重命名变量或函数</li></ul><h3 id="代码块与行操作"><a class="markdownIt-Anchor" href="#代码块与行操作"></a> 代码块与行操作</h3><ul><li><strong>Ctrl + Y</strong>: 删除当前行</li><li><strong>Ctrl + D</strong>: 复制当前行</li><li><strong>Ctrl + /</strong>: 快速注释/取消注释</li></ul><h3 id="代码管理与调试功能"><a class="markdownIt-Anchor" href="#代码管理与调试功能"></a> 代码管理与调试功能</h3><ul><li><strong>Shift + F9</strong>: 启动调试模式</li><li><strong>F8</strong>: 逐步执行代码</li><li><strong>F9</strong>: 跳至下一个断点</li></ul><h3 id="编辑器操作"><a class="markdownIt-Anchor" href="#编辑器操作"></a> 编辑器操作</h3><ul><li><strong>Ctrl + Z</strong>: 撤销</li><li><strong>Ctrl + Shift + Z</strong>: 重做</li><li><strong>Ctrl + X</strong>: 剪切当前行或选中的内容</li><li><strong>Ctrl + C</strong>: 复制当前行或选中的内容</li><li><strong>Ctrl + V</strong>: 粘贴</li><li><strong>Ctrl + Shift + V</strong>: 从剪贴板历史中选择粘贴内容</li><li><strong>Ctrl + W</strong>: 扩展选中范围</li><li><strong>Ctrl + Shift + W</strong>: 缩小选中范围</li><li><strong>Ctrl + Shift + U</strong>: 大小写转换</li><li><strong>Ctrl + Shift + J</strong>: 合并行</li><li><strong>Ctrl + Shift + Enter</strong>: 补全当前语句</li></ul><h3 id="导航与搜索"><a class="markdownIt-Anchor" href="#导航与搜索"></a> 导航与搜索</h3><ul><li><strong>Ctrl + B</strong>: 跳转到声明（变量、函数、类等）</li><li><strong>Ctrl + Alt + B</strong>: 跳转到实现</li><li><strong>Ctrl + Shift + B</strong>: 跳转到类型声明</li><li><strong>Ctrl + U</strong>: 跳转到父类或父方法</li><li><strong>Ctrl + Alt + Left/Right</strong>: 导航回退/前进</li><li><strong>Ctrl + Shift + Backspace</strong>: 跳转到上次编辑位置</li><li><strong>Ctrl + Shift + F7</strong>: 高亮显示当前文件中的变量</li><li><strong>Ctrl + Alt + F7</strong>: 显示使用情况</li></ul><h3 id="代码生成与重构"><a class="markdownIt-Anchor" href="#代码生成与重构"></a> 代码生成与重构</h3><ul><li><strong>Alt + Insert</strong>: 生成代码（构造函数、getter/setter、toString等）</li><li><strong>Ctrl + Alt + M</strong>: 提取方法</li><li><strong>Ctrl + Alt + V</strong>: 提取变量</li><li><strong>Ctrl + Alt + F</strong>: 提取字段</li><li><strong>Ctrl + Alt + C</strong>: 提取常量</li><li><strong>Ctrl + Alt + P</strong>: 提取参数</li></ul><h3 id="调试"><a class="markdownIt-Anchor" href="#调试"></a> 调试</h3><ul><li><strong>Ctrl + F8</strong>: 切换断点</li><li><strong>Ctrl + Shift + F8</strong>: 查看所有断点</li><li><strong>Alt + F8</strong>: 在调试时计算表达式</li><li><strong>F7</strong>: 进入方法内部</li><li><strong>Shift + F7</strong>: 智能进入方法内部</li><li><strong>F9</strong>: 恢复程序执行</li><li><strong>Ctrl + F2</strong>: 停止调试</li></ul><h3 id="版本控制"><a class="markdownIt-Anchor" href="#版本控制"></a> 版本控制</h3><ul><li><strong>Ctrl + K</strong>: 提交更改</li><li><strong>Ctrl + T</strong>: 更新项目</li><li><strong>Alt + `</strong>: 打开版本控制操作菜单</li></ul><h3 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h3><ul><li><strong>Ctrl + Alt + S</strong>: 打开设置</li><li><strong>Ctrl + Alt + Shift + S</strong>: 打开项目结构</li><li><strong>Ctrl + Shift + A</strong>: 查找操作</li><li><strong>Ctrl + Tab</strong>: 切换编辑器选项卡</li><li><strong>Ctrl + Shift + F12</strong>: 最大化编辑器窗口</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;快捷键指令&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#快捷键指令&quot;&gt;&lt;/a&gt; 快捷键指令：&lt;/h2&gt;
+&lt;h3 id=&quot;代码重构与质量检测&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#代码重构与质量检测&quot;</summary>
+      
+    
+    
+    
+    <category term="Tool" scheme="https://sherry14love.github.io/categories/Tool/"/>
+    
+    <category term="learn" scheme="https://sherry14love.github.io/categories/Tool/learn/"/>
+    
+    
+    <category term="GPT" scheme="https://sherry14love.github.io/tags/GPT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>初遇·冬日北平</title>
+    <link href="https://sherry14love.github.io/2024/11/22/diary/2024senior/"/>
+    <id>https://sherry14love.github.io/2024/11/22/diary/2024senior/</id>
+    <published>2024-11-21T16:00:00.000Z</published>
+    <updated>2025-03-17T15:25:38.695Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="拾序"><a class="markdownIt-Anchor" href="#拾序"></a> 拾序</h2><p>辞了颜色与交替，杨柳依旧沾青云<br />新旧故尘无处寻，只得冬日梦染身</p><h2 id="思来旧绪饮茶论平生"><a class="markdownIt-Anchor" href="#思来旧绪饮茶论平生"></a> 思来旧绪，饮茶论平生</h2><p>论不清与寒风相拥的刺骨，道不明这颠沛流离的道路，东西奔走，是讲不透的辛苦盈盈，南北漂往，是说不来的苦海相逢。</p><p>有时候，我独自一人，会陷入一种荒诞与矛盾的哲学思考之中，在不断的自我剖析中去不断的否定自己、不断的厌恶自己，既没有苏格拉底的认识自己，也没有尼采的成为自己，这样来看，我部署的人生，无疑是糟糕无趣的。</p><h2 id="青春将逝荒唐一场梦"><a class="markdownIt-Anchor" href="#青春将逝荒唐一场梦"></a> 青春将逝，荒唐一场梦</h2><p>这时候，我总会怀念起初一的时光，或许是因为，那时候的我，不会为学业担忧，更不会有来自社会的压力，还记得班级第二永远在换人，而班级第一永远都是我（窃喜一下下啦嗯~ o(<em>￣▽￣</em>)o）</p><p>那时候在课上，很喜欢发呆，也会赶在假期前写完作业然后疯玩，课间偶尔会和前桌打闹，午休的时候看些闲书，这样的时光，好似梦幻般，美好。</p><p>我还记得当时喜欢看《怪物大师》《查理九世》，他们的冒险故事是我的童年与青春。</p><p>当然，我也记得我那时的班主任是一位男老师，生物老师，他总是笑眯眯的，五官端正立体，真说起来，有点像乌克兰的总统小泽。</p><p>班主任说，有的大学很大很大，需要每天赶公交才能到教室。当时我就在想，我未来是不是也这样。</p><p>但其实，我的大学很小，虽说刚开始有点失落，但后来我七点五十七起床，八点能踩点到教室的时候，我觉得，这或许也不错。</p><h2 id="辞往日心敬来日微呡"><a class="markdownIt-Anchor" href="#辞往日心敬来日微呡"></a> 辞往日心，敬来日微呡</h2><p>当我坐在公交车上，听着音乐，看着窗外的雪，有一瞬间，失了神。</p><p>有时候，人会对某个陌生的场景感到很熟悉，彷佛是前世，又像是来生。</p><p>走走停停，并不是心的流浪，也不是灵魂的漂泊，只是走累了，停下来，歇一会。</p><hr /><p><strong>2024-12-22</strong></p><!-- 三千语，四万言，寥寥思绪笔墨怜 --><p>三千言，四万语，寥寥思绪笔墨聚</p><p><strong>2025-3-11</strong><br />记北京小雨<br />柔不见骨美如梦，意不知君风不冷<br />风不冷、花不争，静心寻道春无声</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;拾序&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#拾序&quot;&gt;&lt;/a&gt; 拾序&lt;/h2&gt;
+&lt;p&gt;辞了颜色与交替，杨柳依旧沾青云&lt;br /&gt;
+新旧故尘无处寻，只得冬日梦染身&lt;/p&gt;
+&lt;h2 id=&quot;思来旧绪饮茶论平生&quot;&gt;&lt;a class=&quot;m</summary>
+      
+    
+    
+    
+    <category term="dairy" scheme="https://sherry14love.github.io/categories/dairy/"/>
+    
+    <category term="诗词" scheme="https://sherry14love.github.io/categories/dairy/%E8%AF%97%E8%AF%8D/"/>
+    
+    
+    <category term="拾词" scheme="https://sherry14love.github.io/tags/%E6%8B%BE%E8%AF%8D/"/>
+    
+    <category term="日记" scheme="https://sherry14love.github.io/tags/%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>人体姿势识别：openpose与yolov8_pose使用心得</title>
@@ -113,9 +171,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -140,9 +198,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -167,9 +225,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -194,9 +252,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -221,9 +279,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -248,9 +306,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -275,9 +333,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -286,16 +344,21 @@
     <link href="https://sherry14love.github.io/2024/06/01/Tool/ChatGPTfree/"/>
     <id>https://sherry14love.github.io/2024/06/01/Tool/ChatGPTfree/</id>
     <published>2024-05-31T16:00:00.000Z</published>
-    <updated>2024-10-27T15:25:02.162Z</updated>
+    <updated>2025-03-17T08:58:23.371Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="gpt4"><a class="markdownIt-Anchor" href="#gpt4"></a> GPT4</h2><blockquote><p>注意，套壳网站注册的时候，千万别用自己的qq邮箱还有手机号，密码记得随机生成，容易被开盒（亲身吃瓜）</p></blockquote><h3 id="官网"><a class="markdownIt-Anchor" href="#官网"></a> <code>官网</code>:</h3><blockquote><ol><li><em>openAI</em>⭐⭐⭐（什么实力就不用说了吧）：<a href="https://chat.openai.com/">https://chat.openai.com/</a></li></ol></blockquote><blockquote><ol start="2"><li><em>Claude</em>⭐⭐⭐（唯一一家在正面上能力比OpenAI强的）：<a href="https://claude.ai/">https://claude.ai/</a></li></ol></blockquote><blockquote><ol start="3"><li>Copilot⭐⭐⭐（最早联网的AI，微软的心头宝）：<a href="https://copilot.microsoft.com/">https://copilot.microsoft.com/</a></li></ol></blockquote><blockquote><ol start="4"><li><em>DeepSeek</em>（写报告不错，就是敏感词太严格）：<a href="https://chat.deepseek.com/">https://chat.deepseek.com/</a></li></ol></blockquote><blockquote><ol start="5"><li>智谱清言（国内的免费挡NO.1了几乎）：<a href="https://chatglm.cn/">https://chatglm.cn/</a></li></ol></blockquote><blockquote><ol start="6"><li>Kimi（除了上传文档多之外，逻辑能力有点堪忧）：<a href="https://kimi.moonshot.cn/">https://kimi.moonshot.cn/</a></li></ol></blockquote><blockquote><ol start="7"><li>通义千问（没细用过，不太清楚）：<a href="https://tongyi.aliyun.com/qianwen/">https://tongyi.aliyun.com/qianwen/</a></li></ol></blockquote><blockquote><ol start="8"><li>讯飞星火（没细用过，不太清楚）：<a href="https://xinghuo.xfyun.cn/">https://xinghuo.xfyun.cn/</a></li></ol></blockquote><blockquote><ol start="9"><li>文心一言（嗯…3.5一言难尽）：<a href="https://yiyan.baidu.com/">https://yiyan.baidu.com/</a></li></ol></blockquote><blockquote><ol start="10"><li>豆包（逻辑能力还可以）：<a href="https://www.doubao.com/chat/">https://www.doubao.com/chat/</a></li></ol></blockquote><blockquote><ol start="11"><li>万知AI（恩…一般）：<a href="https://www.wanzhi.com/">https://www.wanzhi.com/</a></li></ol></blockquote><blockquote><ol start="12"><li>复仇者联盟AI（整合了国内的所有的AI）：<a href="https://bot.360.com/">https://bot.360.com/</a></li></ol></blockquote><blockquote><ol start="13"><li>知乎直答：<a href="https://zhida.zhihu.com/">https://zhida.zhihu.com/</a></li></ol></blockquote><h3 id="套壳-有删除线的是已失效的"><a class="markdownIt-Anchor" href="#套壳-有删除线的是已失效的"></a> <code>套壳</code>: 有删除线的是已失效的</h3><p><strong>注意，有<code>国内直连</code>标志的，如果用手机或者电脑访问不成功，基本上是你所在地区的运营商不支持这个网址，换一个运营商或者借助魔法，就可以访问了(也有概率是挂了)。</strong></p><ol><li><p>Poe（每日10次4o）：<a href="https://poe.com/">https://poe.com/</a></p></li><li><p>Coze（现在不推荐了）：<a href="https://www.coze.com/">https://www.coze.com/</a></p></li><li><p>慧AI（<code>国内直连</code>、每日150次4o）：<a href="https://huiai.io/signup/?code=2926">https://huiai.io/signup/?code=2926</a></p></li><li><p>Arena（<code>国内直连</code>、免费，拥挤）：<a href="https://arena.lmsys.org/">https://arena.lmsys.org/</a></p></li><li><p>ChatGate（<code>国内直连</code>、所有模型可用但不能上传文件）：<a href="https://chatgate.ai/">https://chatgate.ai/</a></p></li><li><p><s>ChatData（<code>国内直连</code>、免费可用所有模型，不稳定）</s>：<a href="https://chat.chatdata.online/chat">https://chat.chatdata.online/chat</a></p></li><li><p><em>Aicnn</em>（<code>国内直连</code>、联系拉姆）：<a href="http://aicnn.cn/loginPage?aff=zypTghoVaW">http://aicnn.cn/loginPage?aff=zypTghoVaW</a></p></li></ol><!-- *Aicnn*：http://www.aicnn.cn/oaifree --><ol start="8"><li><p><s>套壳1(不推荐）</s>： <a href="https://oai.aitopk.com/">https://oai.aitopk.com/</a></p></li><li><p><s>套壳2（可用4o）</s>： <a href="https://share.bpj666.xyz/">https://share.bpj666.xyz/</a></p></li><li><p>套壳3（<code>国内直连</code>、可体验4）：<a href="https://jvip.ccaiai.com/#/chat/1002">https://jvip.ccaiai.com/#/chat/1002</a></p></li><li><p>套壳4（免费公共账户-4）：<a href="https://share.wendaalpha.net/">https://share.wendaalpha.net/</a></p></li><li><p><s>套壳5（可用4o）</s>：<a href="https://jialeopen.love/chat/#/">https://jialeopen.love/chat/#/</a></p></li><li><p>WRTN（免费4，韩国）：<a href="https://wrtn.ai/">https://wrtn.ai/</a></p></li><li><p>Dify（免费Claude）：<a href="https://cloud.dify.ai/">https://cloud.dify.ai/</a></p></li><li><p>Merlin（<code>国内直连</code>、每日4o四次）：<a href="https://www.getmerlin.in/zh-CN/chat">https://www.getmerlin.in/zh-CN/chat</a></p></li><li><p><s>LibreChat（<code>国内直连</code>、慈善家，免费）</s>：<a href="https://get.multibotapp.com/c/new">https://get.multibotapp.com/c/new</a></p></li><li><p>OhMyGpt（不推荐）：<a href="https://www.ohmygpt.com/">https://www.ohmygpt.com/</a></p></li><li><p>Free For Ai（<code>国内直连</code>、慈善家，Open WebUI）：<a href="https://ffa.chat/">https://ffa.chat/</a></p></li><li><p>ChandlerAi（<code>国内直连</code>、每月四十次）:<a href="https://mychandler.bet/">https://mychandler.bet/</a></p></li></ol><!-- 20. 套壳6（50次3小时4o）：https://share.sydney-ai.com/ --><ol start="20"><li><p>套壳6（<code>国内直连</code>、50次3小时4o）：<a href="https://share.tu-zi.com/">https://share.tu-zi.com/</a></p></li><li><p>套壳7（<code>国内直连</code>、一日五次4o）：<a href="https://gpt4o.so/zh-CN/app">https://gpt4o.so/zh-CN/app</a></p></li><li><p>套壳8（<code>国内直连</code>、模型变少了）：<a href="https://chat.sorapi.dev/">https://chat.sorapi.dev/</a></p></li><li><p>套壳9（<code>国内直连</code>、领悟AI，免费4o）：<a href="https://www.chatgpt.sh/?inviteCode=ad824001">https://www.chatgpt.sh/?inviteCode=ad824001</a></p></li><li><p><s>morphic（<code>国内直连</code>、免费4o、Claude3.5）</s>：<a href="https://www.morphic.sh/">https://www.morphic.sh/</a></p></li><li><p>julius（<code>国内直连</code>、<code>专攻</code>数据分析的AI）：<a href="https://julius.ai/">https://julius.ai/</a></p></li><li><p>套壳9（<code>国内直连</code>、Claude3.5）：<a href="https://www.zaiwen.top/">https://www.zaiwen.top/</a></p></li><li><p>hiplotAI（<code>国内直连</code>、<code>专攻</code>生物信息分析）：<a href="https://hiplot.cn/?lang=zh_cn">https://hiplot.cn/?lang=zh_cn</a></p></li><li><p><s>VecMul Chat(<code>国内直连</code>、可联系拉姆)</s>:<a href="https://www.vecmul.com?inviteCode=HBFLI9K7">https://www.vecmul.com?inviteCode=HBFLI9K7</a></p></li><li><p>wordware(<code>国内直连</code>、目前免费):<a href="https://www.wordware.ai/">https://www.wordware.ai/</a></p></li><li><p>SambaVova(Meta-Llama3.1-405B):<a href="https://sambanova.ai/">https://sambanova.ai/</a></p></li><li><p>套壳10(<code>国内直连</code>、目前免费405B、Claude3.5)：<a href="https://openai-x.net/">https://openai-x.net/</a></p></li><li><p>RawChat公益站点(<code>国内直连</code>、Claude3.5)：<a href="https://kelaode.ai/">https://kelaode.ai/</a></p></li><li><p>套壳11(<code>国内直连</code>、4o和Claude3.5万完全免费)：<a href="https://aichatru.ru/zh-CN/app">https://aichatru.ru/zh-CN/app</a></p></li><li><p><strong>Notiamond</strong>(每月100000次免费请求额度)：<a href="https://www.notdiamond.ai/">https://www.notdiamond.ai/</a></p></li><li><p>GizAI(所有模型免费，包括O1):<a href="https://app.giz.ai/shared">https://app.giz.ai/shared</a></p></li></ol><h2 id="ai搜索"><a class="markdownIt-Anchor" href="#ai搜索"></a> AI搜索</h2><ol><li><p>清华的AMiner（<code>国内直连</code>、AI学术搜索平台）：<a href="https://www.aminer.cn/">https://www.aminer.cn/</a></p></li><li><p>秘塔AI（<code>国内直连</code>、全网、学术、文库、播客搜索AI）：<a href="https://metaso.cn/">https://metaso.cn/</a></p></li><li><p>ScholarAI（学术AI）<a href="https://app.scholarai.io/home">https://app.scholarai.io/home</a></p></li><li><p>DevvAI（特色：有GitHub库搜索）：<a href="https://devv.ai/zh/referral?code=driyivdqpn9c">https://devv.ai/zh/referral?code=driyivdqpn9c</a></p></li><li><p>Genspark（在检索某些信息方面个人感觉比秘塔好一点）：<a href="https://www.genspark.ai">https://www.genspark.ai</a></p></li><li><p>Perplexity（AI搜索鼻祖）：<a href="https://www.perplexity.ai/">https://www.perplexity.ai/</a></p></li><li><p>Phind（有IDE支持，还可以）<a href="https://www.phind.com/">https://www.phind.com/</a></p></li><li><p><strong>Copilot</strong>（最早联网的AI，涵盖AI搜索的功能）：<a href="https://copilot.microsoft.com/">https://copilot.microsoft.com/</a></p></li><li><p>百小应（<code>国内直连</code>、百度的）：<a href="https://ying.baichuan-ai.com/chat">https://ying.baichuan-ai.com/chat</a></p></li><li><p>360搜索（<code>国内直连</code>、360）：<a href="https://so.360.com/">https://so.360.com/</a></p></li><li><p>博查AI（<code>国内直连</code>、提供联网搜索、AI搜索、智能体搜索等API服务）：<a href="https://bochaai.com/">https://bochaai.com/</a></p></li><li><p>天工AI（<code>国内直连</code>）：<a href="https://www.tiangong.cn/">https://www.tiangong.cn/</a></p></li><li><p>ThinkAny（<code>国内直连</code>、提供GitHub、twitter、Wikipedia搜索）<a href="https://thinkany.so/zh">https://thinkany.so/zh</a></p></li><li><p>快搜AI（<code>国内直连</code>）：<a href="https://www.kuaisou.com/">https://www.kuaisou.com/</a></p></li><li><p>心流AI（<code>国内直连</code>，阿里巴巴的）:<a href="https://iflow.cn/">https://iflow.cn/</a></p></li><li><p>开搜AI (<code>国内直连</code>):<a href="https://kaisouai.com/?from=wananxz">https://kaisouai.com/?from=wananxz</a></p></li></ol><h2 id="ai导航站"><a class="markdownIt-Anchor" href="#ai导航站"></a> <code>AI导航站</code>:</h2><ol><li><p><em>GPT公益导航</em>：<a href="https://dongfang.flowus.cn/">https://dongfang.flowus.cn/</a></p></li><li><p>摸鱼技术网：<a href="https://xn--v4q818bf34b.com/">https://摸鱼儿.com/</a></p></li><li><p>Github统计免费GPT导航网页：<a href="https://github.com/LiLittleCat/awesome-free-chatgpt?tab=readme-ov-file#-chatgpt-%E9%95%9C%E5%83%8F%E5%88%97%E8%A1%A8">https://github.com/LiLittleCat/awesome-free-chatgpt?tab=readme-ov-file#-chatgpt-镜像列表</a></p></li><li><p>非猪ai导航：<a href="https://feizhuke.com/#term-6606">https://feizhuke.com/#term-6606</a></p></li><li><p>潮点AI导航：<a href="https://aichaodian.com/">https://aichaodian.com/</a></p></li><li><p>公益RawChat：<a href="https://sharedchat.cn/">https://sharedchat.cn/</a></p></li><li><p>AI工具集：<a href="https://ai-bot.cn/">https://ai-bot.cn/</a></p></li></ol><h2 id="ai-排行榜"><a class="markdownIt-Anchor" href="#ai-排行榜"></a> AI 排行榜：</h2><ol><li><p>aider：<a href="https://aider.chat/docs/leaderboards/">https://aider.chat/docs/leaderboards/</a></p></li><li><p>Arena：<a href="https://arena.lmsys.org/">https://arena.lmsys.org/</a></p></li><li><p>全球百大 AI 排行榜:<a href="https://a16z.com/100-gen-ai-apps-3/">https://a16z.com/100-gen-ai-apps-3/</a></p></li></ol><blockquote><p>声明:本文旨在分享个人对各种人工智能工具的使用体验和主观看法,仅供参考。如有不当之处可能引起不适,敬请谅解并欢迎与作者联系,拉姆将及时修改或删除相关内容。</p></blockquote><p><em>本文秉持互联网开放共享精神,无任何商业目的。若不慎侵犯了您的权益,烦请及时告知,拉姆将立即采取妥善措施。</em></p><p><em>感谢您的理解与支持。</em></p>]]></content>
+    <content type="html"><![CDATA[<!-- ## GPT4 > 注意，套壳网站注册的时候，千万别用自己的qq邮箱还有手机号，密码记得随机生成，容易被开盒（亲身吃瓜）### `官网`:> 1. *openAI*⭐⭐⭐（什么实力就不用说了吧）：https://chat.openai.com/> 2. *Claude*⭐⭐⭐（唯一一家在正面上能力比OpenAI强的）：https://claude.ai/> 3. Copilot⭐⭐⭐（最早联网的AI，微软的心头宝）：https://copilot.microsoft.com/> 4. *DeepSeek*（写报告不错，就是敏感词太严格）：https://chat.deepseek.com/> 5. 智谱清言（国内的免费挡NO.1了几乎）：https://chatglm.cn/> 6. Kimi（除了上传文档多之外，逻辑能力有点堪忧）：https://kimi.moonshot.cn/> 7. 通义千问（没细用过，不太清楚）：https://tongyi.aliyun.com/qianwen/> 8. 讯飞星火（没细用过，不太清楚）：https://xinghuo.xfyun.cn/> 9. 文心一言（嗯...3.5一言难尽）：https://yiyan.baidu.com/> 10. 豆包（逻辑能力还可以）：https://www.doubao.com/chat/> 11. 万知AI（恩...一般）：https://www.wanzhi.com/> ~~12. 复仇者联盟AI（整合了国内的所有的AI）~~：https://bot.360.com/> 13. 知乎直答：https://zhida.zhihu.com/### `套壳`: 有删除线的是已失效的**注意，有`国内直连`标志的，如果用手机或者电脑访问不成功，基本上是你所在地区的运营商不支持这个网址，换一个运营商或者借助魔法，就可以访问了(也有概率是挂了)。**1. Poe（每日10次4o）：https://poe.com/2. Coze（现在不推荐了）：https://www.coze.com/3. 慧AI（`国内直连`、每日150次4o）：https://huiai.io/signup/?code=29264. Arena（`国内直连`、免费，拥挤）：https://arena.lmsys.org/5. ChatGate（`国内直连`、所有模型可用但不能上传文件）：https://chatgate.ai/6. ~~ChatData（`国内直连`、免费可用所有模型，不稳定）~~：https://chat.chatdata.online/chat7. *Aicnn*（`国内直连`、联系拉姆）：http://aicnn.cn/loginPage?aff=zypTghoVaW<!-- *Aicnn*：http://www.aicnn.cn/oaifree --><!-- 8. ~~套壳1(不推荐）~~： https://oai.aitopk.com/ 9. ~~套壳2（可用4o）~~： https://share.bpj666.xyz/10. 套壳3（`国内直连`、可体验4）：https://jvip.ccaiai.com/#/chat/100211. 套壳4（免费公共账户-4）：https://share.wendaalpha.net/12. ~~套壳5（可用4o）~~：https://jialeopen.love/chat/#/13. WRTN（免费4，韩国）：https://wrtn.ai/14. Dify（免费Claude）：https://cloud.dify.ai/15. Merlin（`国内直连`、每日4o四次）：https://www.getmerlin.in/zh-CN/chat16. ~~LibreChat（`国内直连`、慈善家，免费）~~：https://get.multibotapp.com/c/new17. OhMyGpt（不推荐）：https://www.ohmygpt.com/18. Free For Ai（`国内直连`、慈善家，Open WebUI）：https://ffa.chat/19. ChandlerAi（`国内直连`、每月四十次）:https://mychandler.bet/<!-- 20. 套壳6（50次3小时4o）：https://share.sydney-ai.com/ --><!-- 20. 套壳6（`国内直连`、50次3小时4o）：https://share.tu-zi.com/21. 套壳7（`国内直连`、一日五次4o）：https://gpt4o.so/zh-CN/app22. 套壳8（`国内直连`、模型变少了）：https://chat.sorapi.dev/ 23. 套壳9（`国内直连`、领悟AI，免费4o）：https://www.chatgpt.sh/?inviteCode=ad82400124. ~~morphic（`国内直连`、免费4o、Claude3.5）~~：https://www.morphic.sh/25. julius（`国内直连`、`专攻`数据分析的AI）：https://julius.ai/26. 套壳9（`国内直连`、Claude3.5）：https://www.zaiwen.top/27. hiplotAI（`国内直连`、`专攻`生物信息分析）：https://hiplot.cn/?lang=zh_cn28. ~~VecMul Chat(`国内直连`、可联系拉姆)~~:https://www.vecmul.com?inviteCode=HBFLI9K729. wordware(`国内直连`、目前免费):https://www.wordware.ai/30. SambaVova(Meta-Llama3.1-405B):https://sambanova.ai/31. 套壳10(`国内直连`、目前免费405B、Claude3.5)：https://openai-x.net/32. RawChat公益站点(`国内直连`、Claude3.5)：https://kelaode.ai/33. 套壳11(`国内直连`、4o和Claude3.5万完全免费)：https://aichatru.ru/zh-CN/app34. **Notiamond**(每月100000次免费请求额度)：https://www.notdiamond.ai/35. GizAI(所有模型免费，包括O1):https://app.giz.ai/shared36. Le Chat：https://chat.mistral.ai/chat37. GPT PLUS：https://share.aivvm.com/  --><p>如欲免费平替，可自行搭建或和拉姆联系，不过正常情况下，下面的就足够你用了。</p><h2 id="ai对话"><a class="markdownIt-Anchor" href="#ai对话"></a> AI对话</h2><ol><li><p><em>openAI</em>⭐⭐⭐（AI界老大哥）：<a href="https://chat.openai.com/">https://chat.openai.com/</a></p></li><li><p><em>Claude</em>⭐⭐⭐（代码生产和文笔理解第一）：<a href="https://claude.ai/">https://claude.ai/</a></p></li><li><p><em>gemini</em>⭐⭐⭐（Google的多模态很🐂）:<a href="https://gemini.google.com/app">https://gemini.google.com/app</a></p></li><li><p><em>qwen</em>⭐⭐⭐（<code>国内直连</code>，千问很可以）:<a href="https://chat.qwen.ai/">https://chat.qwen.ai/</a></p></li><li><p><em>DeepSeek</em>（服务器易宕机，建议用平替或者qwen）：<a href="https://chat.deepseek.com/">https://chat.deepseek.com/</a></p></li></ol><p><a href="https://ccnk05wgo092.feishu.cn/wiki/WeGmwNVgLi9SFtkfwnacu6H5nfd?table=tblfZlmGJHoAYrQe&amp;view=vewv6xDDG2">R1平替文档汇总</a></p><ol start="6"><li><p>Grop⭐⭐⭐（马斯克的X）：<a href="https://grok.com/">https://grok.com/</a></p></li><li><p>Copilot⭐⭐⭐（微软）：<a href="https://copilot.microsoft.com/">https://copilot.microsoft.com/</a></p></li><li><p>Mercury Coder（你对<code>速度</code>一无所知）: <a href="https://chat.inceptionlabs.ai/">https://chat.inceptionlabs.ai/</a></p></li></ol><h2 id="ai前端"><a class="markdownIt-Anchor" href="#ai前端"></a> AI前端</h2><ol><li><p>V0：<a href="https://v0.dev/chat">https://v0.dev/chat</a></p></li><li><p>bolt：<a href="https://bolt.new/">https://bolt.new/</a></p></li></ol><h2 id="ai音乐"><a class="markdownIt-Anchor" href="#ai音乐"></a> AI音乐</h2><ol><li><em>suno</em>（唯一真神）：<a href="https://suno.com/">https://suno.com/</a></li></ol><h2 id="ai搜索"><a class="markdownIt-Anchor" href="#ai搜索"></a> AI搜索</h2><ol><li><p>清华的AMiner（<code>国内直连</code>、AI学术搜索平台）：<a href="https://www.aminer.cn/">https://www.aminer.cn/</a></p></li><li><p>秘塔AI（<code>国内直连</code>、全网、学术、文库、播客搜索AI）：<a href="https://metaso.cn/">https://metaso.cn/</a></p></li><li><p>ScholarAI（学术AI）<a href="https://app.scholarai.io/home">https://app.scholarai.io/home</a></p></li><li><p>DevvAI（特色：有GitHub库搜索）：<a href="https://devv.ai/zh/referral?code=driyivdqpn9c">https://devv.ai/zh/referral?code=driyivdqpn9c</a></p></li><li><p>Genspark（在检索某些信息方面个人感觉比秘塔好一点）：<a href="https://www.genspark.ai">https://www.genspark.ai</a></p></li><li><p>Perplexity（AI搜索鼻祖）：<a href="https://www.perplexity.ai/">https://www.perplexity.ai/</a></p></li><li><p>Phind（有IDE支持，还可以）<a href="https://www.phind.com/">https://www.phind.com/</a></p></li><li><p><strong>Copilot</strong>（最早联网的AI，涵盖AI搜索的功能）：<a href="https://copilot.microsoft.com/">https://copilot.microsoft.com/</a></p></li><li><p>百小应（<code>国内直连</code>、百度的）：<a href="https://ying.baichuan-ai.com/chat">https://ying.baichuan-ai.com/chat</a></p></li><li><p>360搜索（<code>国内直连</code>、360）：<a href="https://so.360.com/">https://so.360.com/</a></p></li><li><p>博查AI（<code>国内直连</code>、提供联网搜索、AI搜索、智能体搜索等API服务）：<a href="https://bochaai.com/">https://bochaai.com/</a></p></li><li><p>天工AI（<code>国内直连</code>）：<a href="https://www.tiangong.cn/">https://www.tiangong.cn/</a></p></li><li><p>ThinkAny（<code>国内直连</code>、提供GitHub、twitter、Wikipedia搜索）<a href="https://thinkany.so/zh">https://thinkany.so/zh</a></p></li><li><p>快搜AI（<code>国内直连</code>）：<a href="https://www.kuaisou.com/">https://www.kuaisou.com/</a></p></li><li><p>心流AI（<code>国内直连</code>，阿里巴巴的）:<a href="https://iflow.cn/">https://iflow.cn/</a></p></li><li><p>开搜AI (<code>国内直连</code>):<a href="https://kaisouai.com/?from=wananxz">https://kaisouai.com/?from=wananxz</a></p></li><li><p>纳米搜索(<code>国内直连</code>)：<a href="https://n.cn/">https://n.cn/</a></p></li><li><p>STORM(来自斯坦福):<a href="https://storm.genie.stanford.edu">https://storm.genie.stanford.edu</a></p></li><li><p>HECKAI(<code>国内直连</code>):<a href="https://heck.ai/zh">https://heck.ai/zh</a></p></li></ol><h2 id="ai导航站"><a class="markdownIt-Anchor" href="#ai导航站"></a> <code>AI导航站</code>:</h2><ol><li><p><em>GPT公益导航</em>：<a href="https://dongfang.flowus.cn/">https://dongfang.flowus.cn/</a></p></li><li><p>摸鱼技术网：<a href="https://xn--v4q818bf34b.com/">https://摸鱼儿.com/</a></p></li><li><p>Github统计免费GPT导航网页：<a href="https://github.com/LiLittleCat/awesome-free-chatgpt?tab=readme-ov-file#-chatgpt-%E9%95%9C%E5%83%8F%E5%88%97%E8%A1%A8">https://github.com/LiLittleCat/awesome-free-chatgpt?tab=readme-ov-file#-chatgpt-镜像列表</a></p></li><li><p>非猪ai导航：<a href="https://feizhuke.com/#term-6606">https://feizhuke.com/#term-6606</a></p></li><li><p>潮点AI导航：<a href="https://aichaodian.com/">https://aichaodian.com/</a></p></li><li><p>公益RawChat：<a href="https://sharedchat.cn/">https://sharedchat.cn/</a></p></li><li><p>AI工具集：<a href="https://ai-bot.cn/">https://ai-bot.cn/</a></p></li></ol><h2 id="ai-排行榜"><a class="markdownIt-Anchor" href="#ai-排行榜"></a> AI 排行榜：</h2><ol><li><p>aider：<a href="https://aider.chat/docs/leaderboards/">https://aider.chat/docs/leaderboards/</a></p></li><li><p>Arena：<a href="https://arena.lmsys.org/">https://arena.lmsys.org/</a></p></li><li><p>全球百大 AI 排行榜:<a href="https://a16z.com/100-gen-ai-apps-3/">https://a16z.com/100-gen-ai-apps-3/</a></p></li><li><p>大模型排行榜：<a href="https://livebench.ai/#/">https://livebench.ai/#/</a></p></li><li><p>AI排行榜：<a href="https://countless.dev/">https://countless.dev/</a></p></li></ol><h2 id="ai使用总结"><a class="markdownIt-Anchor" href="#ai使用总结"></a> AI使用总结：</h2><p>1️⃣ <strong>先随便问，再慢慢细化</strong></p><ul><li>刚开始不用想太多，想到啥问啥（比如&quot;帮我写个方案&quot;）</li><li>如果回答太模糊，就追加问题：“能不能具体说说第2点？”</li><li>如果方向错了，直接说：“撤回！我们重新从XX开始”</li><li>碰到新想法时：“先停一下，我们换个角度想想…”</li></ul><p>2️⃣ <strong>让AI当你的复读机</strong><br />每聊一会儿就让AI帮你总结两份东西：</p><ul><li>📝 <strong>问题清单</strong>：到目前为止我们都讨论了哪些需求？</li><li>🛠️ <strong>答案进度</strong>：现在有哪些已经搞定的方案？</li></ul><p>3️⃣ <strong>让AI反过来问你</strong><br />当需求不清楚时，让AI扮演小白用户提问：<br />“您是要做活动海报还是产品手册？”<br />“需要考虑预算限制吗？”<br />（这样能帮你发现自己没考虑到的细节）</p><p>4️⃣ <strong>货比三家找答案</strong><br />把整理好的需求清单复制到其他AI工具里）<br />对比不同AI给的方案，把好的部分整合到你的答案文档里</p><p>5️⃣ <strong>无限套娃优化</strong><br />重复上面的步骤：<br />提问→总结→对比方案→更新文档→继续提问…<br />直到你看着两份文档说，“完美！”</p><p>💡 小贴士：就像玩你画我猜，先随便比划，再逐步缩小范围，最后用排除法找到完美答案</p><blockquote><p>声明:本文旨在分享个人对各种人工智能工具的使用体验和主观看法,仅供参考。如有不当之处或引起不适,敬请谅解并欢迎与作者联系,拉姆将及时修改或删除相关内容。</p></blockquote><p><em>本文秉持互联网开放共享精神,无任何商业目的。若不慎侵犯了您的权益,烦请及时告知,拉姆将立即采取妥善措施。</em></p><p><em>感谢您的理解与支持。</em></p>]]></content>
     
     
       
       
-    <summary type="html">&lt;h2 id=&quot;gpt4&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#gpt4&quot;&gt;&lt;/a&gt; GPT4&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;注意，套壳网站注册的时候，千万别用自己的qq邮箱还有手机号，密码记得随机生成，容易被开盒（亲身吃瓜）&lt;/p</summary>
+    <summary type="html">&lt;!-- ## GPT4 
+
+&gt; 注意，套壳网站注册的时候，千万别用自己的qq邮箱还有手机号，密码记得随机生成，容易被开盒（亲身吃瓜）
+
+### `官网`:
+&gt; 1. *openAI*⭐⭐⭐（什么实力就不用说了吧）：https://chat.openai.com/
+
+&gt; 2. *</summary>
       
     
     
@@ -328,9 +391,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -382,9 +445,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -410,9 +473,9 @@
     <category term="learn" scheme="https://sherry14love.github.io/categories/learn/"/>
     
     
-    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
-    
     <category term="数据分析" scheme="https://sherry14love.github.io/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+    
+    <category term="卷" scheme="https://sherry14love.github.io/tags/%E5%8D%B7/"/>
     
   </entry>
   
@@ -494,57 +557,6 @@
     
     
     <category term="GPT" scheme="https://sherry14love.github.io/tags/GPT/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Summary for 2021-2023</title>
-    <link href="https://sherry14love.github.io/2024/03/30/diary/university/"/>
-    <id>https://sherry14love.github.io/2024/03/30/diary/university/</id>
-    <published>2024-03-29T16:00:00.000Z</published>
-    <updated>2024-06-26T07:43:08.007Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="如果能重来"><a class="markdownIt-Anchor" href="#如果能重来"></a> 如果能重来</h2><p>一眨眼就到大三下学期了，想想似乎是昨天才刚步入大学校园，急景流年，韶光如箭啊。</p><p>目前来看，大学生活虽谈不上颓废，也可以说得上是无所事事，说说比较后悔的几件事吧。</p><p>平心而论，比较<strong>后悔的第一件事</strong>，就是拉姆应该从大一便开始，积极参加各种竞赛项目的，不然也不至于现在连拿得出手的国奖都没几个。</p><blockquote><p>这点可以参考拉姆的班委，拿了二三十个竞赛奖项，还有一个大佬，拉姆只是见到过，大三上学期就拿到了几十个奖项，还有各种合作项目，真的真的太强了。</p></blockquote><p>当然，说笑一下，90%以上的大学生都不知道也不会参与各种竞赛，有这种觉悟的人是很少的，毕竟一般来说你的辅导员催你搞创新学分都在大三大四。</p><p>前些时候在群里看到一个HR说，现在的小孩，<strong>大一大二</strong>就开始<strong>卷实习</strong>，大三秋招，然后月入过万起步，害，要不然每个人的认知水平是不同的，你看看人家，再看看拉姆，不能比不能比。</p><p><strong>其二</strong>比较后悔的事情便是Java学得不怎么样，不过这点还好，目前已经决定不走后端，前端也不走，其实早知如此就应该报名<strong>数据科学专业</strong>的，刚好也和现如今的offer相匹配，再不然学学软件测试一类的也还好（毕竟在招聘会上看到招软件测试的比较多）</p><p>就是不知道以后ChatGPT这一类的AI对目前行业的影响了，毕竟前些时候世界上第一位完全自主运行的人工智能软件工程师<strong>Devin</strong>已经面世了（当然很多人对Devin提出的质疑咱暂且不提）。</p><p><strong>其三</strong>嘛，这个博客应该大一就开始做的，无论是记录生活还是写写诗词，亦或者分享学习技术，都是可以的，大三做博客就有点晚了。</p><p><strong>其四</strong>，虚度光阴，这点深有体会啊，拉姆平常就喜欢看看小说，但是一看便愈发不可收拾，说实在，看小说不如提高一下英语水平，说不准以后还能进个外企，但是现实嘛，不提也罢。</p><p><strong>其五</strong>，拉姆在网上查了查，写到其四的时候就没有想到其他的，查到一个，认真说起来，拉姆不清楚算不算得遗憾，这更多的可能只是一种选择，那就是看见网上有好多人在说后悔没有体验一下校园恋爱，这点，拉姆不清楚，毕竟身处局中，非旁观者迷。</p><p><s>不过前些时候拉姆的老大<strong>SXH</strong>，在qq上跟拉姆发癫，一直说他好想谈恋爱</s></p><p><s>所以有想恋爱的童鞋，可以和拉姆联系哦，拉姆的老大可是<strong>学历985</strong>，身高<strong>180</strong>，五官端正立体，皮肤细腻如玉，平时动不动就脸红的单纯大男孩。</s></p><!--   如果能重来，拉姆肯定大一就开始打竞赛。  说真的，你想想，大一就开始打各种竞赛，你到大三肯定得二三十个证书了（详细请参考拉姆的班委）  拉姆目前能拿出的竞赛证书证明只有六七八个，都是23年打下来的，但感觉竞赛知名度不怎么高，而且国奖只有三个，实际帮助可能并不大，现在再打的话就已经没那个精力了。  前些时候看到一个HR在群里说，现在大一大二的小孩好多都在卷实习，大三直接秋招，这简直...太厉害了，果然每个人的认知都是不同的。拉姆大一时候，似乎还在看小说，虽然现在也在看就是了。  你现在如果是在大一或者大二，真的可以考虑一下是否卷卷实习，打打竞赛，这样你会学到很多，而且到时候你的简历也很好看。  拉姆这个专业，到后面走人工智能是不可能的，走算法也不大可能，毕竟算法方面除非你大一大二就开始搞算法，不然你真的看不懂，算法实在是太抽象了（也可能拉姆比较笨）  刚刚和朋友聊了聊，他说算法岗不好走，对口专业的工作更不好走，他考研不走人工智能，走计科。其实也挺好，毕竟研究生现在那些搞AI的原先都是搞大数据和算法的，只不过这两年AI火起来了，只不过，拉姆这个学校的考研率只有10-15%嗯...上一年好像只有一个学生考到了985，其他的绝大部分都是双非，211也不多。  害其实最终目的都是为了就业，但是目前真的不如十年前甚至五年前，太饱和了，现在哪里像以前啊。 --><h2 id="回归过去"><a class="markdownIt-Anchor" href="#回归过去"></a> 回归过去</h2><p><s>其实过去也没那么的烂，写过的诗词挺多</s></p><p>最起码还是参加过一些竞赛的，在简历上有项目经历和荣誉奖项可写。</p><p>还有认识了好多好多朋友（在大学貌似异性缘和同性缘都挺不错的，这点很开心）</p><h2 id="展望一下24年的未来"><a class="markdownIt-Anchor" href="#展望一下24年的未来"></a> 展望一下24年的未来</h2><p>目前最要紧的事情是做算法题，毕竟蓝桥杯04-13要开始了，再不做就来不及了，还有就是学习实习那边要求的各种课程视频，毕竟实习什么都不会的话，就很说不过去。</p><p>期待未来越来越好，拉姆，嗯！要越来越幸运！</p><p>下一篇博客应该是关于AI工具的分享，毕竟今天弄了一天了（好）</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;如果能重来&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#如果能重来&quot;&gt;&lt;/a&gt; 如果能重来&lt;/h2&gt;
-&lt;p&gt;一眨眼就到大三下学期了，想想似乎是昨天才刚步入大学校园，急景流年，韶光如箭啊。&lt;/p&gt;
-&lt;p&gt;目前来看，大学生活虽谈不上颓废，</summary>
-      
-    
-    
-    
-    <category term="dairy" scheme="https://sherry14love.github.io/categories/dairy/"/>
-    
-    
-    <category term="日记" scheme="https://sherry14love.github.io/tags/%E6%97%A5%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>2023下半年之奇怪的散文总结</title>
-    <link href="https://sherry14love.github.io/2024/01/08/diary/2023/"/>
-    <id>https://sherry14love.github.io/2024/01/08/diary/2023/</id>
-    <published>2024-01-07T16:00:00.000Z</published>
-    <updated>2024-06-17T01:48:27.847Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="其实时间过得很快"><a class="markdownIt-Anchor" href="#其实时间过得很快"></a> 其实时间过得很快</h2><p>想起这个博客创建时还是在暑假学车那时候，计划中的GO语言也没怎么学，到现在都2024年了，碌碌无为啊。</p><p>也发生了很多事，有悲有喜，有痛苦也有快乐，印象最深刻的是梦与现实的纠缠，这并不好，因为会打扰到别人。</p><p>记录一下“有意思”的时刻吧，出门被绊已是家常便饭，上次计算智能张伟伟老师让做小组PPT讲解论文，拉姆那一组是拉姆上去演讲，然后bingo，组长选的论文是会议论文而且发布时间有点早，不符合要求，重新做（QAQ）。</p><p>这个其实还好，上次跟着钟佬打亚太数模才是真的痛苦，什么都不会，最后一天熬了通宵在早上八点半交上去了作品，距离截至时间就剩下了半个小时，然后回去的时候全宿舍还都在睡觉，被迫在宿舍门口等待，又困又累又冷，后来还是km醒了，给拉姆开得门，上床睡觉醒来就是晚上六七点了。</p><p>预约纪念币也是如此，地图上明明是中原区，拉姆预约网点当时很着急，看见带有中原的，就选了，结果那边距离这里很远，坐车要一个半小时起步，高新区才是距离拉姆最近的网点（QAQ）</p><p>让拉姆想想，还有被别人第n次当成女生，走错实验室，走错教室，一觉醒来七点五十八（有早八）等<br /><img src="https://www.qiuxs.cn/sharing-tools/img/read/17c5e537b12f0be6f4d335031f710891" alt="第n次被当成女生" /><br />其实也有幸运的时刻，比如在提前考试的那一周，和王振宇在背复习资料的时候，看到了奇妙君在送GPT4激活码，然后然后拉姆就抽到了！虽然是个阉割版，但是这很德克斯特！！</p><p>上面是一个幸运时刻，但下面的让拉姆觉得更幸运，就是和曾经的故人聊天，很开心。</p><p>虽然拉姆可能会打扰到别人，但是如果拉姆能提供情绪价值，这是很幸运且值得的。拉姆喜欢这种感觉。如果没有提供情绪价值，拉姆真的很抱歉，此非本愿，愿君谅解。</p><p><strong>旧日未见乱心神，因梦记君扰故人</strong></p><p>眨眼间，距离高二的转折点过了四年，距离最开心的七年级过了八年，其实时间过得很快。</p><h2 id="每个人时刻都在改变着自己"><a class="markdownIt-Anchor" href="#每个人时刻都在改变着自己"></a> 每个人时刻都在改变着自己</h2><p>每个人或许都在变得陌生，时间是可怕的东西，不过在时光的洗礼之后，所记得的，才更加珍贵。</p><p>拉姆不知道未来，就像曾经不知道现在，愧疚解不开执念，念念不忘不一定会有回响，每一次的疑问不一定都有回应。</p><p>猫猫是可爱的动物，拉姆很喜欢。</p><p>拉姆有个奇怪的能力，动物化，有时候会把别人看成某些小动物，很有意思。</p><p>不过拉姆很少能把别人看成猫猫，如果拉姆把你看成猫猫了，那么可能，拉姆想要养你，毕竟猫猫那么可爱（bushi）</p><p>提前考试那一周，很痛苦，可以和上上学期备战四级的时候不小心闪到腰有的一拼，那时候躺了两三天，腰才好一点，谁家系个鞋带能闪到腰！</p><p>不气不气，明天还要去吹寒风排队，敲，倒霉…</p><p>不过今天还有个单项，起码( )还是赔钱了…</p><p>果然，拉姆是拉姆，不是德克斯特，也不是乔治戴诺&lt;(＿　＿)&gt;</p><h2 id="期待"><a class="markdownIt-Anchor" href="#期待"></a> 期待</h2><p>每个人都会有期待吧，希望24年可以，不那么倒霉，hhhh说笑了，倒霉已经习惯了，争取以后当乔治戴诺O(∩_∩)O</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;其实时间过得很快&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#其实时间过得很快&quot;&gt;&lt;/a&gt; 其实时间过得很快&lt;/h2&gt;
-&lt;p&gt;想起这个博客创建时还是在暑假学车那时候，计划中的GO语言也没怎么学，到现在都2024年了，碌碌无为啊。&lt;/p</summary>
-      
-    
-    
-    
-    <category term="dairy" scheme="https://sherry14love.github.io/categories/dairy/"/>
-    
-    
-    <category term="日记" scheme="https://sherry14love.github.io/tags/%E6%97%A5%E8%AE%B0/"/>
     
   </entry>
   

@@ -1,6 +1,6 @@
 // from https://blog.naaln.com/2016/07/hexo-with-algolia/
 const algoliaHandler = () => {
-  const algoliaSettings = CONFIG.algolia;
+  const algoliaSettings = ALGOLIA_CONFIG.algolia;
   const isAlgoliaSettingsValid =
     algoliaSettings.applicationID &&
     algoliaSettings.apiKey &&
@@ -82,8 +82,8 @@ const algoliaHandler = () => {
             stats +
             '<span class="reimu-powered">' +
             '  <img src="' +
-            CONFIG.root +
-            'images/algolia_logo.svg" alt="Algolia" />' +
+            ALGOLIA_CONFIG.logo +
+            '" alt="Algolia" />' +
             "</span>" +
             "<hr />"
           );
@@ -108,26 +108,25 @@ const algoliaHandler = () => {
 
   search.start();
 
-  document
-    .querySelector(".popup-trigger")
+  _$(".popup-trigger")
     .off("click")
     .on("click", (event) => {
       event.stopPropagation();
-      document.body.insertAdjacentHTML("beforeend", '<div class="popoverlay"></div>');
-      const scrollWidth = window.innerWidth - document.documentElement.offsetWidth;
+      const scrollWidth =
+        window.innerWidth - document.documentElement.offsetWidth;
       _$("#container").style.marginRight = scrollWidth + "px";
       _$("#header-nav").style.marginRight = scrollWidth + "px";
       _$(".popup").classList.add("show");
+      _$("#mask").classList.remove("hide");
       document.body.style.overflow = "hidden";
       _$("#reimu-search-input input").focus();
     });
 
-  document
-    .querySelector(".popup-btn-close")
+  _$(".popup-btn-close")
     .off("click")
     .on("click", () => {
       _$(".popup").classList.remove("show");
-      _$(".popoverlay").remove();
+      _$("#mask").classList.add("hide");
       _$("#container").style.marginRight = "";
       _$("#header-nav").style.marginRight = "";
       document.body.style.overflow = "";

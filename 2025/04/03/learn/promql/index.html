@@ -1,0 +1,893 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  >
+  <head>
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_tq6stt6tcg';window.REIMU_CONFIG.clipboard_tips = {"success":"复制成功(*^▽^*)","fail":"复制失败 (ﾟ⊿ﾟ)ﾂ","copyright":{"enable":true,"count":100,"content":"本文版权：本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！"}};window.REIMU_CONFIG.code_block = {"expand":6};</script>
+  
+  <title>
+    PromQL食用指南 |
+    
+    拉姆的小树屋
+  </title>
+  <script defer src="https://umami.suanleme.cn:3000/script.js" data-website-id="3308cd9b-0482-473d-b599-1024f83acbe9"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_tq6stt6tcg.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="PromQL（Prometheus Query Language）是 Prometheus 监控系统中使用的一种查询语言。 它是一种专门设计用于从 Prometheus 时间序列数据库中提取、处理和分析监控数据的语言。PromQL 提供了强大的表达能力，可以对时间序列数据进行复杂的过滤、聚合和计算操作。 ps：PromQL 类似于 SQL 语言，但它是专门为时间序列数据设计的。  Promethe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PromQL食用指南">
+<meta property="og:url" content="https://sherry14love.github.io/2025/04/03/learn/promql/index.html">
+<meta property="og:site_name" content="拉姆的小树屋">
+<meta property="og:description" content="PromQL（Prometheus Query Language）是 Prometheus 监控系统中使用的一种查询语言。 它是一种专门设计用于从 Prometheus 时间序列数据库中提取、处理和分析监控数据的语言。PromQL 提供了强大的表达能力，可以对时间序列数据进行复杂的过滤、聚合和计算操作。 ps：PromQL 类似于 SQL 语言，但它是专门为时间序列数据设计的。  Promethe">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-11T02:50:57.047Z">
+<meta property="article:author" content="戴诺斯·拉姆">
+<meta property="article:tag" content="数据分析">
+<meta property="article:tag" content="卷">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="拉姆的小树屋" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  
+    
+      
+        
+<link rel="stylesheet" href="https://npm.webcache.cn/katex@0.16.11/dist/katex.min.css">
+
+      
+    
+  
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.0/dist/aos.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+  <body>
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon rotate">
+            &#xe62b;
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
+    
+    
+    
+      <a id="nav-search-btn" class="nav-icon popup-trigger" title="搜索"></a>
+    
+  </nav>
+</div>
+<header id="header">
+  
+    <img fetchpriority="high" src="https://www.qiuxs.cn/sharing-tools/img/read/49e6d4f9cec5ebfad27078fa982cacea" alt="PromQL食用指南">
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">PromQL食用指南</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content">
+          
+          <section id="main"><article id="post-learn/promql" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <a href="/2025/04/03/learn/promql/" class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-04-02T16:00:00.000Z" itemprop="datePublished">2025-04-03</time>
+    <time style="display: none;" id="post-update-time">2025-04-11</time>
+  </a>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/learn/" data-aos="zoom-in">learn</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <p>PromQL（Prometheus Query Language）是 Prometheus 监控系统中使用的一种查询语言。</p>
+<p>它是一种专门设计用于从 Prometheus 时间序列数据库中提取、处理和分析监控数据的语言。PromQL 提供了强大的表达能力，可以对时间序列数据进行复杂的过滤、聚合和计算操作。</p>
+<p>ps：PromQL 类似于 SQL 语言，但它是专门为时间序列数据设计的。</p>
+<blockquote>
+<p>Prometheus 译名<code>普罗米修斯</code>，是一个开源的监控和警报工具，用于收集、存储和分析时间序列数据。还有一个名为Thanos的扩展组件，中文译名 <code>灭霸</code>🧐</p>
+</blockquote>
+<h2 id="promql-基础概念"><a class="markdownIt-Anchor" href="#promql-基础概念"></a> PromQL 基础概念</h2>
+<h3 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h3>
+<ul>
+<li><strong>瞬时向量 (Instant Vector)</strong>：某一时刻的指标快照（如 <code>node_cpu_seconds_total</code>）</li>
+<li><strong>区间向量 (Range Vector)</strong>：一段时间范围内的指标数据（如 <code>node_cpu_seconds_total[5m]</code>）</li>
+<li><strong>标量 (Scalar)</strong>：单一数值（如 <code>count(node_cpu_seconds_total)</code>）</li>
+<li><strong>字符串 (String)</strong>：字符串常量（日常使用较少）</li>
+</ul>
+<h3 id="时间序列选择器"><a class="markdownIt-Anchor" href="#时间序列选择器"></a> 时间序列选择器</h3>
+<h4 id="瞬时向量选择器"><a class="markdownIt-Anchor" href="#瞬时向量选择器"></a> 瞬时向量选择器</h4>
+<p>匹配 job 为 api-server 且状态码非 4xx 的请求</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total&#123;job<span class="operator">=</span>&quot;api-server&quot;, status<span class="operator">!</span><span class="operator">~</span>&quot;4..&quot;&#125;  </span><br></pre></td></tr></table></figure>
+<h4 id="区间向量选择器"><a class="markdownIt-Anchor" href="#区间向量选择器"></a> 区间向量选择器</h4>
+<p>获取最近 5 分钟的数据点</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total[<span class="number">5</span>m]  </span><br></pre></td></tr></table></figure>
+<h3 id="过滤器运算符"><a class="markdownIt-Anchor" href="#过滤器运算符"></a> 过滤器运算符</h3>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>完全匹配</td>
+<td><code>&#123;status=&quot;500&quot;&#125;</code></td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>不等于</td>
+<td><code>&#123;method!=&quot;GET&quot;&#125;</code></td>
+</tr>
+<tr>
+<td><code>=~</code></td>
+<td>正则匹配</td>
+<td><code>&#123;path=~&quot;/api/.*&quot;&#125;</code></td>
+</tr>
+<tr>
+<td><code>!~</code></td>
+<td>正则排除</td>
+<td><code>&#123;instance!~&quot;10.0.0.1:.*&quot;&#125;</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="核心操作符"><a class="markdownIt-Anchor" href="#核心操作符"></a> 核心操作符</h3>
+<h4 id="算术运算符"><a class="markdownIt-Anchor" href="#算术运算符"></a> 算术运算符</h4>
+<p>计算内存空闲百分比</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_memory_free_bytes <span class="operator">/</span> node_memory_total_bytes <span class="operator">*</span> <span class="number">100</span>  </span><br></pre></td></tr></table></figure>
+<h4 id="比较运算符"><a class="markdownIt-Anchor" href="#比较运算符"></a> 比较运算符</h4>
+<p>筛选请求量超过 1000 的序列</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total <span class="operator">&gt;</span> <span class="number">1000</span>  </span><br></pre></td></tr></table></figure>
+<h4 id="聚合运算符"><a class="markdownIt-Anchor" href="#聚合运算符"></a> 聚合运算符</h4>
+<p>按服务维度聚合总请求量</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sum</span>(http_requests_total) <span class="keyword">by</span> (service)  </span><br></pre></td></tr></table></figure>
+<h4 id="逻辑运算符"><a class="markdownIt-Anchor" href="#逻辑运算符"></a> 逻辑运算符</h4>
+<p>实例宕机或磁盘将在1小时内写满</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">up <span class="operator">=</span><span class="operator">=</span> <span class="number">0</span> <span class="keyword">or</span> predict_linear(node_filesystem_free_bytes[<span class="number">1</span>h], <span class="number">3600</span>) <span class="operator">&lt;</span> <span class="number">0</span>  </span><br></pre></td></tr></table></figure>
+<h3 id="常用函数"><a class="markdownIt-Anchor" href="#常用函数"></a> 常用函数</h3>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rate()</code></td>
+<td>计算每秒增长率</td>
+<td><code>rate(http_requests_total[5m])</code></td>
+</tr>
+<tr>
+<td><code>increase()</code></td>
+<td>计算区间增长量</td>
+<td><code>increase(node_network_bytes[1h])</code></td>
+</tr>
+<tr>
+<td><code>sum_over_time()</code></td>
+<td>区间内数值求和</td>
+<td><code>sum_over_time(log_entries[24h])</code></td>
+</tr>
+<tr>
+<td><code>histogram_quantile()</code></td>
+<td>计算分位数</td>
+<td><code>histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))</code></td>
+</tr>
+<tr>
+<td><code>label_replace()</code></td>
+<td>动态修改标签</td>
+<td><code>label_replace(up, &quot;new_label&quot;, &quot;$1&quot;, &quot;instance&quot;, &quot;(.*):.*&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="实际应用示例"><a class="markdownIt-Anchor" href="#实际应用示例"></a> 实际应用示例</h2>
+<h3 id="匹配指标名称"><a class="markdownIt-Anchor" href="#匹配指标名称"></a> 匹配指标名称</h3>
+<p>匹配所有具有非空指标名称的时间序列:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;__name__<span class="operator">=</span><span class="operator">~</span>&quot;.+&quot;&#125;</span><br></pre></td></tr></table></figure>
+<p>基于这行命令，我们可以得到：</p>
+<ol>
+<li><code>&#123;__name__=~&quot;http_.*&quot;&#125;</code> ：匹配以 http_ 开头的指标</li>
+<li><code>&#123;__name__=~&quot;node_.*&quot;&#125;</code> ：匹配以 node_ 开头的指标</li>
+<li><code>&#123;__name__=~&quot;.+&quot;&#125; and &#123;endpoint=&quot;https&quot;&#125;</code> ：匹配所有具有非空指标名称且端点为HTTPS的时间序列</li>
+</ol>
+<p>再进一步，我们可以使用 <code>!=</code> 来排除某些指标，例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;__name__<span class="operator">=</span><span class="operator">~</span>&quot;http_.*&quot;&#125; <span class="operator">!=</span> &#123;__name__<span class="operator">=</span>&quot;http_requests_total&quot;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="错误率计算"><a class="markdownIt-Anchor" href="#错误率计算"></a> 错误率计算</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">sum</span>(rate(http_requests_total&#123;status<span class="operator">=</span><span class="operator">~</span>&quot;5..&quot;&#125;[<span class="number">5</span>m])) </span><br><span class="line"><span class="operator">/</span> </span><br><span class="line">(<span class="built_in">sum</span>(rate(http_requests_total[<span class="number">5</span>m]))) </span><br><span class="line"><span class="operator">*</span> <span class="number">100</span>  # 计算 <span class="number">5</span>xx 错误率百分比</span><br></pre></td></tr></table></figure>
+<h3 id="预测磁盘写满时间"><a class="markdownIt-Anchor" href="#预测磁盘写满时间"></a> 预测磁盘写满时间</h3>
+<p>预测 1 小时后磁盘是否写满</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">predict_linear(node_filesystem_free_bytes[<span class="number">1</span>h], <span class="number">3600</span>) <span class="operator">&lt;</span> <span class="number">0</span>  </span><br></pre></td></tr></table></figure>
+<h3 id="cpu-使用率"><a class="markdownIt-Anchor" href="#cpu-使用率"></a> CPU 使用率</h3>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">100</span> <span class="operator">-</span> (avg <span class="keyword">by</span> (instance)(rate(node_cpu_seconds_total&#123;mode<span class="operator">=</span>&quot;idle&quot;&#125;[<span class="number">5</span>m])) <span class="operator">*</span> <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="调试技巧"><a class="markdownIt-Anchor" href="#调试技巧"></a> 调试技巧</h2>
+<ol>
+<li><strong>快速验证指标存在性</strong></li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">count</span>(up)  # 返回监控目标数量</span><br><span class="line"><span class="built_in">count</span>(up <span class="operator">=</span><span class="operator">=</span> <span class="number">1</span>) # 筛选出所有在线的设备</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><strong>查看最新数据点</strong><br />
+查看 1 分钟前的数据</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http_requests_total <span class="keyword">offset</span> <span class="number">1</span>m  </span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><strong>多条件组合查询</strong><br />
+联查生产环境非 Redis 容器内存</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;__name__<span class="operator">=</span><span class="operator">~</span>&quot;node_.*&quot;, environment<span class="operator">=</span>&quot;prod&quot;&#125; </span><br><span class="line"><span class="keyword">and</span> <span class="keyword">ON</span> (instance) </span><br><span class="line">container_memory_usage_bytes&#123;image<span class="operator">!</span><span class="operator">~</span>&quot;redis.*&quot;&#125;  </span><br></pre></td></tr></table></figure>
+<hr />
+<p>未完待续~~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <blockquote class="article-copyright">
+    <p><strong>本文作者：</strong>戴诺斯·拉姆 @ 拉姆的小树屋</p>
+    <p><strong>本文链接：</strong><a href="https://sherry14love.github.io/2025/04/03/learn/promql/">https://sherry14love.github.io/2025/04/03/learn/promql/</a></p>
+    
+    
+    
+    <p><strong>本文版权：</strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener external nofollow noreferrer" target="_blank"><span class="icon-creative-commons"></span>BY-NC-SA</a> 许可协议。转载请注明出处！</p>
+    <span class="icon-creative-commons article-copyright-bg"></span>
+  </blockquote>
+      
+      
+        <div class="sponsor-wrapper">
+  <div class="sponsor-button-wrapper">
+    <div class="sponsor-icon rotate"></div>
+    <div class="sponsor-title">赞助</div>
+    <div class="sponsor-icon rotate"></div>
+  </div>
+  <div class="sponsor-tip">什么，你要请拉姆姐姐喝奶茶吗q(≧▽≦q)</div>
+  
+    <div class="sponsor-qr">
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="https://img.6677677.xyz/file/1742197790416_89b82c7892197ff7dc498ab5d33d8ab.jpg" alt=支付宝 width="200" />
+          <p class="sponsor-qr-name">支付宝</p>
+        </div>
+      
+        <div class="sponsor-qr-image-wrapper">
+          <img src="https://img.6677677.xyz/file/1742197976251_6dc2d4142f08a9277cf78eca7b6952f.jpg" alt=微信 width="200" />
+          <p class="sponsor-qr-name">微信</p>
+        </div>
+      
+    </div>
+  
+</div>
+      
+      
+      
+      
+        <a data-aos="zoom-in" href="/2025/04/03/learn/promql/#comments" class="article-comment-link">
+          <span class="post-comments-count twikoo-comment-count" data-path="/2025/04/03/learn/promql/" itemprop="commentCount"></span>
+          留言
+        </a>
+        <script>
+          twikoo.getCommentsCount({
+            envId: 'https://blog.6677677.xyz/',
+            region: '',
+            urls: [
+              '/2025/04/03/learn/promql/'
+            ],
+            includeReply: false
+          }).then((res) => {
+            _$('.twikoo-comment-count').innerText = res[0].count;
+          }).catch((err) => {
+            console.error(err);
+          });
+        </script>
+      
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E5%8D%B7/" rel="tag">卷</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" rel="tag">数据分析</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+      <div class="article-nav-link-wrap article-nav-link-left">
+        
+          <img data-src="https://www.qiuxs.cn/sharing-tools/img/161/read" data-sizes="auto" alt="拾词-叁" class="lazyload">
+        
+        <a href="/2025/04/06/Poem/there/"></a>
+        <div class="article-nav-caption">前一篇</div>
+        <h3 class="article-nav-title">
+          
+            拾词-叁
+          
+        </h3>
+      </div>
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="https://www.qiuxs.cn/sharing-tools/img/159/read" data-sizes="auto" alt="Pycharm快捷键食用指南" class="lazyload">
+      
+      <a href="/2024/11/29/learn/pycharm/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          Pycharm快捷键食用指南
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+
+  <div id="comments" class="tcomment" data-aos="fade-up"></div>
+
+
+
+
+</section>
+          
+            <aside id="sidebar">
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#promql-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> PromQL 基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 时间序列选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9E%AC%E6%97%B6%E5%90%91%E9%87%8F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 瞬时向量选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E9%97%B4%E5%90%91%E9%87%8F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 区间向量选择器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.3.</span> <span class="toc-text"> 过滤器运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text"> 核心操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 算术运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 比较运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 聚合运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 逻辑运算符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.</span> <span class="toc-text"> 常用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text"> 实际应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E6%8C%87%E6%A0%87%E5%90%8D%E7%A7%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 匹配指标名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%8E%87%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.</span> <span class="toc-text"> 错误率计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E7%A3%81%E7%9B%98%E5%86%99%E6%BB%A1%E6%97%B6%E9%97%B4"><span class="toc-number">2.3.</span> <span class="toc-text"> 预测磁盘写满时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpu-%E4%BD%BF%E7%94%A8%E7%8E%87"><span class="toc-number">2.4.</span> <span class="toc-text"> CPU 使用率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">3.</span> <span class="toc-text"> 调试技巧</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">30</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">6</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+      
+        <div class="sidebar-btn-wrapper" style="position:static">
+          <div class="sidebar-toc-btn current"></div>
+          <div class="sidebar-common-btn"></div>
+        </div>
+      
+    </div>
+  </div>
+
+  
+</aside>
+
+          
+        </div>
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      2023-2025
+      <span class="footer-info-sep rotate"></span>
+      戴诺斯·拉姆
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        56.9k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        03:31
+      </div>
+    
+    
+      <div class="footer-beian">
+        <a target="_blank" rel="noopener external nofollow noreferrer" href="https://beian.miit.gov.cn" data-pjax-state="">豫ICP备2024052277号-1</a>
+      </div>
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#promql-%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> PromQL 基础概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E5%BA%8F%E5%88%97%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text"> 时间序列选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9E%AC%E6%97%B6%E5%90%91%E9%87%8F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 瞬时向量选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8C%BA%E9%97%B4%E5%90%91%E9%87%8F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 区间向量选择器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.3.</span> <span class="toc-text"> 过滤器运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">1.4.</span> <span class="toc-text"> 核心操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.1.</span> <span class="toc-text"> 算术运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.2.</span> <span class="toc-text"> 比较运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%9A%E5%90%88%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.3.</span> <span class="toc-text"> 聚合运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.4.4.</span> <span class="toc-text"> 逻辑运算符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-number">1.5.</span> <span class="toc-text"> 常用函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text"> 实际应用示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E6%8C%87%E6%A0%87%E5%90%8D%E7%A7%B0"><span class="toc-number">2.1.</span> <span class="toc-text"> 匹配指标名称</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E7%8E%87%E8%AE%A1%E7%AE%97"><span class="toc-number">2.2.</span> <span class="toc-text"> 错误率计算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%84%E6%B5%8B%E7%A3%81%E7%9B%98%E5%86%99%E6%BB%A1%E6%97%B6%E9%97%B4"><span class="toc-number">2.3.</span> <span class="toc-text"> 预测磁盘写满时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cpu-%E4%BD%BF%E7%94%A8%E7%8E%87"><span class="toc-number">2.4.</span> <span class="toc-text"> CPU 使用率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E8%AF%95%E6%8A%80%E5%B7%A7"><span class="toc-number">3.</span> <span class="toc-text"> 调试技巧</span></a></li></ol>
+      
+  </div>
+</div>
+</div>
+      <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.jpg" data-sizes="auto" alt="戴诺斯·拉姆" class="lazyload">
+  <div class="sidebar-author-name">戴诺斯·拉姆</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">30</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">6</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">8</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+    <div class="icon-email sidebar-social-icon">
+      <a href=mailto:sherry.4376@gmail.com itemprop="url" target="_blank" aria-label="email" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+    <div class="icon-github sidebar-social-icon">
+      <a href=https://github.com/sherry14love/ itemprop="url" target="_blank" aria-label="github" rel="noopener external nofollow noreferrer"></a>
+    </div>
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon rotate">
+          &#xe62b;
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+    
+  </div>
+  
+    <div class="sidebar-btn-wrapper">
+      <div class="sidebar-toc-btn current"></div>
+      <div class="sidebar-common-btn"></div>
+    </div>
+  
+</nav>
+
+    </div>
+    
+      <div class="site-search">
+        <div class="reimu-popup popup">
+          <div class="reimu-search">
+            <div class="reimu-search-input-icon"></div>
+            <div class="reimu-search-input" id="reimu-search-input"></div>
+            <div class="popup-btn-close"></div>
+          </div>
+          <div class="reimu-results">
+            <div id="reimu-stats"></div>
+            <div id="reimu-hits"></div>
+            <div id="reimu-pagination" class="reimu-pagination"></div>
+          </div>
+          <img class="reimu-bg" src="/images/reimu.png"/>
+        </div>
+      </div>
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+  
+<script src="/js/generator_search.js" defer></script>
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.0.6/dist/index.umd.js" integrity="sha384-vkGvf25gm1C1PbcoD5dNfc137HzNL&#x2F;hr1RKA5HniJOaawtvUmH5lTVFgFAruE9Ge" crossorigin="anonymous"></script>
+
+  <script>
+    window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["#ff5252","#ff7c7c","#ffafaf","#ffd0d0"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["#ff0000"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/twikoo@1.6.16/dist/twikoo.all.min.js" integrity="sha384-lDHsr5aZmkMS0eKnsUu6e9RWP+dRmn7sgjRAKGOAoXfMyzbUK6Qi86zZK7R+KvRV" crossorigin="anonymous" data-pjax></script>
+
+  <script data-pjax>
+    twikoo.init({
+      envId: 'https://blog.6677677.xyz/',
+      el: '.tcomment',
+      region: '',
+    })
+  </script>
+
+
+
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.1.1' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+  
+
+
+  </body>
+  </html>
+

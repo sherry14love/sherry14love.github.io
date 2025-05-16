@@ -1,4 +1,4 @@
-const VERSION = "1747381876964";const preCache = ["/images/taichi.png","https://www.qiuxs.cn/sharing-tools/img/read/3dc325d2c209bdfefac678799e19d8a1","/css/loader.css","/css/style.css","/js/script.js"];const cacheDomain = [
+const VERSION = "1747381962482";const preCache = ["/images/taichi.png","https://www.qiuxs.cn/sharing-tools/img/read/3dc325d2c209bdfefac678799e19d8a1","/css/loader.css","/css/style.css","/js/script.js"];const cacheDomain = [
   "fonts.googleapis.com",
   "npm.webcache.cn",
   "unpkg.com",
